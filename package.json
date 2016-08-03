@@ -5,6 +5,7 @@
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
+    "bcrypt": "^0.8.7",
     "include-all": "~0.1.6",
     "rc": "1.0.1",
     "sails": "~0.12.4",
