@@ -1,0 +1,25 @@
+{
+  "name": "wittBlog",
+  "private": true,
+  "version": "0.0.1",
+  "description": "a Sails application",
+  "keywords": [],
+  "dependencies": {
+    "include-all": "~0.1.6",
+    "rc": "1.0.1",
+    "sails": "~0.12.4",
+    "sails-disk": "~0.10.9",
+    "sails-mongo": "^0.12.1"
+  },
+  "scripts": {
+    "debug": "node debug app.js",
+    "start": "node app.js"
+  },
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/WittBulter/wittBlog.git"
+  },
+  "author": "WittBulter",
+  "license": ""
+}

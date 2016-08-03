@@ -1,2 +1,3 @@
 # wittBlog
-its wittBlog
+
+a [Sails](http://sailsjs.org) application
