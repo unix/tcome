@@ -47,7 +47,7 @@ app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 app.use('/public', express.static (__dirname + '/public'))
-app.use('/', express.static (__dirname + '/public'))
+app.use('/', express.static (__dirname + '/public/dist'))
 app.use('/node_modules', express.static (__dirname + '/node_modules'))
 
 api(app)
