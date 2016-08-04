@@ -7,7 +7,7 @@ const bodyParser = require ('body-parser')
 const http = require('http')
 const debug = require ('debug') ('itsmycar:server')
 const logger = require ('morgan')
-const routes = require ('./routes')
+const api = require ('./api')
 const app = express()
 
 const port = (process.env.PORT || 3000)
@@ -40,9 +40,14 @@ server.on ('listening', _ =>{
 	const bind = typeof addr === 'string'? 'pipe ' + addr: 'port ' + addr.port
 	debug('Listening on ' + bind)
 })
+
+
+
 app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 app.use('/public', express.static (__dirname + '/public'))
 app.use('/', express.static (__dirname + '/public'))
 app.use('/node_modules', express.static (__dirname + '/node_modules'))
+
+api(app)
