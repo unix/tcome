@@ -1,3 +1,3 @@
 # wittBlog
 
-a blog
+blog
