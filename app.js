@@ -10,6 +10,11 @@ const logger = require ('morgan')
 const routes = require ('./routes')
 const app = express()
 
+// 全局路径
+global.__APP_PATH = __dirname
+
+
+
 const port = (process.env.PORT || 3000)
 app.set ('port', port)
 const server = http.createServer (app)

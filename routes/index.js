@@ -7,7 +7,13 @@ const fs = require('fs')
 module.exports = app =>{
 	fs.readdirSync(__dirname).forEach(file =>{
 		if (file == "index.js") return;
-		require('./' + file.substr(0, file.indexOf('.')))(app)
+		let thisController;
+		try {
+			thisController = require(`${global.__APP_PATH}/api/controllers/${file}`)
+		} catch (e) {
+			console.log(`无法找到路由对应的控制器[${file}], 请尝试创建[${global.__APP_PATH}/api/controllers/${file}]`);
+		}
+		require(`${global.__APP_PATH}/routes/${file}`)(app, thisController)
 	})
 
 	app.use((req, res, next) =>{
