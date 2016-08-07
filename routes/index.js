@@ -18,7 +18,7 @@ module.exports = app =>{
 
 	app.use((req, res, next) =>{
 		res.status(404)
-		if (req.headers.accept && req.headers.accept.indexOf('application/json') >= 0) {
+		if (req.headers['content-type'].includes('application/json')) {
 			return res.json({status:0,message:'请求地址未找到!'})
 		}
 		res.end('页面未找到')
@@ -26,7 +26,7 @@ module.exports = app =>{
 
 	app.use((err, req, res, next) =>{
 		res.status(err.status || 500)
-		if (req.headers.accept && req.headers.accept.indexOf('application/json') >= 0) {
+		if (req.headers['content-type'].includes('application/json')) {
 			return res.json({status:0,message:'服务器错误(500)'})
 		}
 		res.end('服务器错误')
