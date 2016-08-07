@@ -3,11 +3,13 @@
  */
 
 module.exports = {
-	toLogin: (req, res) =>{
-		res.status(200)
-		return res.json({mesage: 'ok'})
+	// 注册 创建一个用户
+	register: (req, res) =>{
+
 	},
-	toLogout: (req, res) =>{
-		console.log('toLogout');
+
+	// 更新用户信息
+	updateUser: (req, res) =>{
+
 	}
 }
