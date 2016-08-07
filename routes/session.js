@@ -5,7 +5,7 @@
 
 module.exports = (app, AuthController) =>{
 	// 登录
-	app.post('/session', (req, res) => AuthController.toLogin(req, res))
+	app.post('/session', AuthController.toLogin)
 
 
 

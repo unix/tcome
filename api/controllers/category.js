@@ -3,5 +3,7 @@
  */
 
 module.exports = {
+	getArticles: (req, res) =>{
 
+	}
 }

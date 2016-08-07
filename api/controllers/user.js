@@ -5,7 +5,7 @@
 module.exports = {
 	// 注册 创建一个用户
 	register: (req, res) =>{
-
+		console.log(res);
 	},
 
 	// 更新用户信息

@@ -3,11 +3,11 @@
  */
 
 module.exports = (app, controller) =>{
-	
+
 
 	// 注册 创建用户
-	app.post('/user', (req, res) => controller.register(req, res))
+	app.post('/user', controller.register)
 
 	// 更新 修改用户信息
-	app.put('/user', (req, res) => controller.register(req, res))
+	app.put('/user', controller.register)
 }
