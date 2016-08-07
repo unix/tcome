@@ -10,8 +10,8 @@ module.exports = app =>{
 		let thisController;
 		try {
 			thisController = require(`${global.__APP_PATH}/api/controllers/${file}`)
-		} catch (e) {
-			console.log(`无法找到路由对应的控制器[${file}], 请尝试创建[${global.__APP_PATH}/api/controllers/${file}]`);
+		} catch (err) {
+			console.log(`无法找到路由对应的控制器[${file}], 错误信息: ${err}`);
 		}
 		require(`${global.__APP_PATH}/routes/${file}`)(app, thisController)
 	})

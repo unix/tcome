@@ -4,7 +4,6 @@
 
 module.exports = (app, controller) =>{
 
-
 	// 注册 创建用户
 	app.post('/user', controller.register)
 

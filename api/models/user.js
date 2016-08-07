@@ -3,7 +3,7 @@
  */
 
 const mongoose = require('mongoose')
-const conn = require("../mongo")
+const conn = require("./mongo")
 
 conn.model('Users', new mongoose.Schema({
 	username: String,           //用户名
