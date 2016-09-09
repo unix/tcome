@@ -1,10 +1,11 @@
 {
-  "name": "wittBlog",
+  "name": "sails-blog",
   "version": "0.0.1",
-  "description": "wittBlog",
+  "description": "sails-blog",
   "main": "app.js",
   "scripts": {
-    "start": "node app"
+    "debug": "node debug app.js",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -17,10 +18,9 @@
   },
   "homepage": "https://github.com/WittBulter/wittBlog#readme",
   "dependencies": {
-    "body-parser": "^1.15.2",
-    "debug": "^2.2.0",
-    "express": "^4.14.0",
-    "mongoose": "^4.5.8",
-    "morgan": "^1.7.0"
+    "include-all": "~0.1.6",
+    "rc": "1.0.1",
+    "sails": "~0.12.4",
+    "sails-disk": "~0.10.9"
   }
 }
