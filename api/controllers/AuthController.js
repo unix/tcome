@@ -10,5 +10,5 @@ module.exports = {
 		res.json({a: 1})
 		res.end()
 	}
-};
+}
 
