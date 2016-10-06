@@ -19,33 +19,42 @@
 
 module.exports.policies = {
 
-  /***************************************************************************
-  *                                                                          *
-  * Default policy for all controllers and actions (`true` allows public     *
-  * access)                                                                  *
-  *                                                                          *
-  ***************************************************************************/
+	/***************************************************************************
+	 *                                                                          *
+	 * Default policy for all controllers and actions (`true` allows public     *
+	 * access)                                                                  *
+	 *                                                                          *
+	 ***************************************************************************/
+	// 所有接口都需要登录状态
+	'*': 'isAuthenticated',
 
-  // '*': true,
+	// 登录无需验证token 用户退出需要先登录
+	AuthController: {
+		'*': true,
+		logout: 'isAuthenticated'
+	},
 
-  /***************************************************************************
-  *                                                                          *
-  * Here's an example of mapping some policies to run before a controller    *
-  * and its actions                                                          *
-  *                                                                          *
-  ***************************************************************************/
+
+
+
+	/***************************************************************************
+	 *                                                                          *
+	 * Here's an example of mapping some policies to run before a controller    *
+	 * and its actions                                                          *
+	 *                                                                          *
+	 ***************************************************************************/
 	// RabbitController: {
 
-		// Apply the `false` policy as the default for all of RabbitController's actions
-		// (`false` prevents all access, which ensures that nothing bad happens to our rabbits)
-		// '*': false,
+	// Apply the `false` policy as the default for all of RabbitController's actions
+	// (`false` prevents all access, which ensures that nothing bad happens to our rabbits)
+	// '*': false,
 
-		// For the action `nurture`, apply the 'isRabbitMother' policy
-		// (this overrides `false` above)
-		// nurture	: 'isRabbitMother',
+	// For the action `nurture`, apply the 'isRabbitMother' policy
+	// (this overrides `false` above)
+	// nurture	: 'isRabbitMother',
 
-		// Apply the `isNiceToAnimals` AND `hasRabbitFood` policies
-		// before letting any users feed our rabbits
-		// feed : ['isNiceToAnimals', 'hasRabbitFood']
+	// Apply the `isNiceToAnimals` AND `hasRabbitFood` policies
+	// before letting any users feed our rabbits
+	// feed : ['isNiceToAnimals', 'hasRabbitFood']
 	// }
 };

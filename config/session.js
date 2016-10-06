@@ -31,9 +31,9 @@ module.exports.session = {
   *                                                                          *
   ***************************************************************************/
 
-  // cookie: {
-  //   maxAge: 24 * 60 * 60 * 1000
-  // },
+  cookie: {
+    maxAge: 24 * 60 * 60 * 1000
+  },
 
   /***************************************************************************
   *                                                                          *
@@ -74,8 +74,8 @@ module.exports.session = {
   *                                                                          *
   ***************************************************************************/
 
-  // adapter: 'mongo',
-  // url: 'mongodb://user:password@localhost:27017/dbname', // user, password and port optional
+  adapter: 'connect-mongo',
+  url: 'mongodb://wittbulter:imangular@115.29.201.8:27017/itsmycar', // user, password and port optional
 
   /***************************************************************************
   *                                                                          *
@@ -89,12 +89,12 @@ module.exports.session = {
   *                                                                          *
   ***************************************************************************/
 
-  // collection: 'sessions',
-  // stringify: true,
-  // mongoOptions: {
-  //   server: {
-  //     ssl: true
-  //   }
-  // }
+  collection: 'sessions',
+  stringify: true,
+  mongoOptions: {
+    server: {
+      ssl: false
+    }
+  }
 
 };
