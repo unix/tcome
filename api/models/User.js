@@ -17,14 +17,14 @@ module.exports = {
 			required: true
 		},
 		/**
-		*   用户类型
-		*   开发者-developer  管理员-admin
-		*   渠道经理-channel_manager    网站编辑-editor
-		*   资源经理-resource_manager   销售经理-seller_manager     运营经理-marketing_manager
+		*  用户类型
+		*  管理员-admin
+		*  普通会员用户-member
+	    *  被禁止的-prisoner
 		* */
 		userType: {
 			type: 'string',
-			enum: ['admin'],
+			enum: ['admin', 'member', 'prisoner'],
 			required: true
 		},
 		userTitle: {

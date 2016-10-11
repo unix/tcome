@@ -84,7 +84,7 @@ module.exports = {
 
 
 	// 用户指定类型
-	__userType: [`admin|管理员`],
+	__userType: [`admin|管理员`, `member|会员`, `prisoner|禁言`],
 
 
 }
