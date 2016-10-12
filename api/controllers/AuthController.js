@@ -73,7 +73,7 @@ module.exports = {
 	 */
 	login: (req, res) =>{
 		const user = req.allParams()
-		SessionService.authUser(user, req, (err, returnUser, message) =>{
+		AuthService.createSession(user, req, (err, returnUser, message) =>{
 			return res.json({
 				message: message,
 				user: returnUser
@@ -97,7 +97,7 @@ module.exports = {
 	 */
 	logout: (req, res) =>{
 		const email = req.headers.email
-		SessionService.deleteSession(email, err =>{
+		AuthService.deleteSession(email, err =>{
 			if (err) return res.serverError()
 			return res.ok()
 		})

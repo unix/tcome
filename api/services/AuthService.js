@@ -33,7 +33,7 @@ module.exports = {
 	 * @return (err, user, message)
 	 * @description :: 在服务端创建一个session
 	 */
-	CreateSession: (loginMessage, req, done) =>{
+	createSession: (loginMessage, req, done) =>{
 		const {email, password} = loginMessage
 		User
 			.findOne({email: email}, (err, user) =>{
