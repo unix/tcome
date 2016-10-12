@@ -1,7 +1,7 @@
 /**
  * User.js
  *
- * @description :: 用户模型 不与后台发生通信,中间件验证类型
+ * @description :: 用户模型
  */
 
 const bcrypt = require('bcrypt')
