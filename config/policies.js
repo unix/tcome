@@ -25,14 +25,17 @@ module.exports.policies = {
 	 * access)                                                                  *
 	 *                                                                          *
 	 ***************************************************************************/
-	// 所有接口都需要登录状态
-	'*': 'isAuthenticated',
 
 	// 登录无需验证token 用户退出需要先登录
 	AuthController: {
 		'*': true,
 		logout: 'isAuthenticated'
 	},
+
+	ArticleController: {
+		*: true,
+		update: ['isAuthenticated', 'isAdmin']
+	}
 
 
 
