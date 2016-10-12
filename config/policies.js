@@ -32,6 +32,7 @@ module.exports.policies = {
 		logout: 'isAuthenticated'
 	},
 
+	// 修改删除文章需要管理员权限 展示无需权限
 	ArticleController: {
 		*: true,
 		update: ['isAuthenticated', 'isAdmin']
