@@ -5,6 +5,17 @@
  */
 
 const bcrypt = require('bcrypt')
+DEFAULT_TYPE = [{
+	type: 'admin',
+	title: '管理员',
+},{
+	type: 'member',
+	title: '会员',
+},{
+	type: 'prisoner',
+	title: '禁言',
+}]
+
 module.exports = {
 
 	attributes: {
@@ -38,6 +49,7 @@ module.exports = {
 		phone: {
 			type: 'string'
 		},
+
 	},
 	beforeCreate: (values, cb) =>{
 		bcrypt.genSalt(10, (err, salt) =>{
@@ -57,6 +69,10 @@ module.exports = {
 				cb()
 			})
 		})
+	},
+
+	getDefault: () =>{
+		return DEFAULT_TYPE
 	}
 
 }
