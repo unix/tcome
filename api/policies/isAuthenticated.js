@@ -14,7 +14,7 @@ module.exports = (req, res, next) =>{
 		return res.json({message: '未登录或token已过期'})
 	}
 
-	SessionService.findSession(clientToken, (err, sessionData) =>{
+	AuthService.findSession(clientToken, (err, sessionData) =>{
 		if (!sessionData){
 			res.status(401)
 			return res.json({message: '未登录或token已过期'})
