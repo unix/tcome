@@ -30,16 +30,15 @@ module.exports = {
 
 	},
 
-	// 更新标签统计
 	afterCreate: (article, done) =>{
-		this.updateTags();
-		done();
+		this.updateTags()
+		done()
 	},
-	//custom
+
 	updateTags: () =>{
 		Article.native((err, collection) =>{
-			if (err) return res.serverError(err);
-			collection.mapReduce(map, reduce, {out: "tags"});
-		});
+			if (err) return res.serverError(err)
+			collection.mapReduce(map, reduce, {out: 'tags'})
+		})
 	}
 }
