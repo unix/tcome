@@ -5,5 +5,18 @@
 
 
 module.exports = {
+	/**
+	 *
+	 * @api {GET} http://wittsay.cc/api/users/:id [show]
+	 * @apiGroup Users
+	 * @apiDescription 获取指定用户的信息
+	 * @apiParam (path) {string} id 用户id
+	 * @apiUse CODE_200
+	 * @apiUse CODE_500
+	 */
+	show: (req, res) =>{
+
+	}
+
 
 }

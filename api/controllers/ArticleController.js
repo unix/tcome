@@ -7,7 +7,7 @@ module.exports = {
 
 	/**
 	 *
-	 * @api {GET} http://wittsay.cc/api/article/:id [show]
+	 * @api {GET} http://wittsay.cc/api/articles/:id [show]
 	 * @apiGroup Article
 	 * @apiDescription 获取指定文章详细信息 任何权限
 	 * @apiParam (path) {string} id 文章id
@@ -33,7 +33,7 @@ module.exports = {
 
 	/**
 	 *
-	 * @api {POST} http://wittsay.cc/api/article/:id [update]
+	 * @api {POST} http://wittsay.cc/api/articles/:id [update]
 	 * @apiGroup Article
 	 * @apiDescription 修改指定文章 需要管理员权限或更高
 	 * @apiParam (path) {string} id 文章id

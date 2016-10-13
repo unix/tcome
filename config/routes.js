@@ -42,10 +42,13 @@ module.exports.routes = {
 	// 用户登出 注销session
 	'delete /sessions': 'AuthController.logout',
 
-	'get /article/:id': 'ArticleController.show',
+	'get /articles/:id': 'ArticleController.show',
 
-	'post /article/:id': 'ArticleController.update',
-	'delete /article/:id': 'ArticleController.destroy',
+	'post /articles/:id': 'ArticleController.update',
+	'delete /articles/:id': 'ArticleController.destroy',
+
+	'get /users/:id': 'UserController.show',
+	'post /users/:id': 'UserController.create',
 
 
 
