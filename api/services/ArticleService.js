@@ -23,5 +23,14 @@ module.exports = {
 				if (err) return done(err)
 				done(null, updated)
 			})
+	},
+
+	createArticle: (article, done) =>{
+		Article
+			.create(article)
+			.exec((err, created) =>{
+				if (err) return done(err)
+				done(null, created)
+			})
 	}
 }

@@ -33,7 +33,7 @@ module.exports = {
 
 	/**
 	 *
-	 * @api {POST} http://wittsay.cc/api/articles/:id [update]
+	 * @api {PUT} http://wittsay.cc/api/articles/:id [update]
 	 * @apiGroup Article
 	 * @apiDescription 修改指定文章 需要管理员权限或更高
 	 * @apiParam (path) {string} id 文章id
@@ -53,6 +53,34 @@ module.exports = {
 			if (err) return res.serverError()
 
 			res.ok(updated)
+		})
+
+	},
+
+
+	/**
+	 *
+	 * @api {POST} http://wittsay.cc/api/article [create]
+	 * @apiGroup Article
+	 * @apiDescription 创建一篇文章 需要管理员权限或更高
+	 * @apiParam (body) {string} [title] 文章标题
+	 * @apiParam (body) {string} [content] 文章内容
+	 * @apiParam (body) {array} [tags] 标签tags
+	 * @apiUse CODE_200
+	 * @apiUse CODE_500
+	 */
+	create: (req, res) =>{
+		const {title, content, tags} = req.allParams()
+		if (!title || !content) return res.badRequest({message: '缺少body参数'})
+
+		ArticleService.createArticle({
+			title: title,
+			content: content,
+			tags: tags? tags: []
+		}, (err, created) =>{
+			if (err) return res.serverError()
+
+			res.ok(created)
 		})
 
 	}

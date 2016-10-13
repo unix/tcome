@@ -30,6 +30,12 @@ module.exports = {
 
 	},
 
+	// beforeValidate: (article, done) =>{
+	// 	if (article.tags&& article.tags.length){
+	//
+	// 	}
+	// },
+
 	afterCreate: (article, done) =>{
 		this.updateTags()
 		done()
