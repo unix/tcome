@@ -34,7 +34,7 @@ module.exports = {
 	 * @apiUse CODE_200
 	 * @apiUse CODE_500
 	 */
-	show: (req, res) =>{
+	userType: (req, res) =>{
 		UserService.findUserType(undefined, (err, typeArray) =>{
 			if (err) return res.serverError()
 
