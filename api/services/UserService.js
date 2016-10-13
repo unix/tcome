@@ -54,6 +54,10 @@ module.exports = {
 			})
 	},
 
+	findUserType: (filter = undefined, done) =>{
+		done(null, User.getDefault())
+	},
+
 	/**
 	 *
 	 * @param user {obj} 用户对象

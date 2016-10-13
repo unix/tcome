@@ -48,6 +48,7 @@ module.exports.routes = {
 	'post /article': 'ArticleController.create',
 
 	'get /users/:id': 'UserController.show',
+	'get /user/type': 'UserController.userType',
 	'post /user': 'UserController.create',
 
 
