@@ -15,8 +15,18 @@ module.exports = {
 	 * @apiUse CODE_500
 	 */
 	show: (req, res) =>{
+		const id = req.params&& req.params.length? req.params[0]: ''
+		if (!id) return res.badRequest({message: '至少需要用户id'})
 
+		UserService.findUserForId(id, (err, userData) =>{
+			if (err) return res.serverError()
+
+			delete userData[0].password
+			res.ok(userData[0])
+		})
 	}
+
+
 
 
 }
