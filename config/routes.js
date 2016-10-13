@@ -38,9 +38,9 @@ module.exports.routes = {
 
 
 	// 用户登录
-	'post /sessions': 'AuthController.login',
+	'post /session': 'AuthController.login',
 	// 用户登出 注销session
-	'delete /sessions': 'AuthController.logout',
+	'delete /session': 'AuthController.logout',
 
 	'get /articles/:id': 'ArticleController.show',
 	'put /articles/:id': 'ArticleController.update',

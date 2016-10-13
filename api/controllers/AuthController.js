@@ -72,8 +72,13 @@ module.exports = {
 	 * @apiUse CODE_500
 	 */
 	login: (req, res) =>{
-		const user = req.allParams()
-		AuthService.createSession(user, req, (err, returnUser, message) =>{
+		const {email, password} = req.allParams()
+		if (!email || !password) return res.badRequest({message: '需要邮件地址与密码'})
+
+		AuthService.createSession({
+			email: email,
+			password: password
+		}, req, (err, returnUser, message) =>{
 			return res.json({
 				message: message,
 				user: returnUser

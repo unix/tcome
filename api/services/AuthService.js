@@ -38,10 +38,10 @@ module.exports = {
 		User
 			.findOne({email: email}, (err, user) =>{
 				if (err) return done(err)
-				if (!user) return done(null, false, {message: '未找到用户'})
+				if (!user) return done(null, false, '未找到用户')
 
 				bcrypt.compare(password, user.password, function (err, res){
-					if (!res) return done(null, false, {message: '密码有误'})
+					if (!res) return done(null, false, '密码有误')
 
 					const returnUser = {
 						email: user.email,
@@ -63,7 +63,7 @@ module.exports = {
 										userID: user.id
 									})
 									.exec((err, created) =>{
-										return done(null, returnUser, {message: '登录成功'})
+										return done(null, returnUser, '登录成功')
 									})
 							}
 							Session
@@ -73,7 +73,7 @@ module.exports = {
 									userID: user.id
 								})
 								.exec((err, updated) =>{
-									return done(null, returnUser, {message: '登录成功'})
+									return done(null, returnUser, '登录成功')
 								})
 						})
 				})
