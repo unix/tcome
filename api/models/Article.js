@@ -4,10 +4,14 @@
  */
 
 
-const map = () => this.tags.forEach(tag => emit(tag, 1))
-const reduce = (k, values) =>{
-	let total = 0
-	values.forEach(value => total += value)
+const map = function (){
+	this.tags.forEach(tag => emit(tag, 1))
+}
+const reduce = function (k, values){
+	var total = 0
+	for (var i = 0; i < values.length; i++) {
+		total += values[i];
+	}
 	return total
 }
 
@@ -37,14 +41,11 @@ module.exports = {
 	// },
 
 	afterCreate: (article, done) =>{
-		this.updateTags()
-		done()
-	},
-
-	updateTags: () =>{
 		Article.native((err, collection) =>{
 			if (err) return res.serverError(err)
 			collection.mapReduce(map, reduce, {out: 'tags'})
 		})
-	}
+		done()
+	},
+
 }
