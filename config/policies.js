@@ -36,7 +36,7 @@ module.exports.policies = {
 	ArticleController: {
 		'*': true,
 		update: ['isAuthenticated', 'isAdmin'],
-		create: ['isAuthenticated']
+		create: ['isAuthenticated', 'rateLimiting']
 	},
 
 	UserController: {
