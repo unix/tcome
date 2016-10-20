@@ -25,6 +25,8 @@ module.exports = (req, res, next) =>{
 		 */
 		req.headers.email = sessionData.email
 		req.headers.userID = sessionData.userID
+		req.headers.username = sessionData.username
+
 		return next()
 	})
 }

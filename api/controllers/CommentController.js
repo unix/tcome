@@ -16,9 +16,14 @@ module.exports = {
 	 * @apiUse CODE_500
 	 */
 	show: (req, res) =>{
+		const {id} = req.params
+		if (!id) return res.badRequest({message: '缺少文章id'})
 
+		CommentService.findCommentForArticle(id, (err, comments) =>{
+			if (err) return res.serverError()
 
-		res.ok()
+			res.ok(comments)
+		})
 	},
 
 
@@ -45,6 +50,7 @@ module.exports = {
 
 		CommentService.createComment({
 			authorId: req.headers.userID,
+			authorName: req.headers.username,
 			articleId: id,
 			targetId: targetId? targetId: null,
 			content: content

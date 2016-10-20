@@ -60,7 +60,8 @@ module.exports = {
 									.create({
 										email: user.email,
 										clientToken: returnUser.token,
-										userID: user.id
+										userID: user.id,
+										username: user.username,
 									})
 									.exec((err, created) =>{
 										return done(null, returnUser, '登录成功')
@@ -70,7 +71,8 @@ module.exports = {
 								.update({email: user.email}, {
 									email: user.email,
 									clientToken: returnUser.token,
-									userID: user.id
+									userID: user.id,
+									username: user.username
 								})
 								.exec((err, updated) =>{
 									return done(null, returnUser, '登录成功')

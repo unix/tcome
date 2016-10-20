@@ -10,6 +10,9 @@ module.exports = {
 			type: 'string',
 			required: true,
 		},
+		authorName: {
+			type: 'string',
+		},
 		articleId: {
 			type: 'string',
 			required: true,

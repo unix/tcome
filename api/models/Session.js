@@ -14,6 +14,9 @@ module.exports = {
 		},
 		userID: {
 			type: 'string'
+		},
+		userName: {
+			type: 'string'
 		}
 	}
 }

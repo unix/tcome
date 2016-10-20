@@ -5,6 +5,20 @@
 
 
 module.exports = {
+	findCommentForArticle: (id, done) =>{
+		Comment
+			.find({
+				articleId: id,
+				sort: 'createdAt'
+			},{
+				fields: ['id', 'authorId', 'targetId', 'content', 'createdAt', 'authorName']
+			})
+			.exec((err, comments) =>{
+				if (err) return done(err)
+				done(null, comments)
+			})
+	},
+
 	findCommentForUser: (id, done) =>{
 		Comment
 			.find({authorId: id, sort: 'createdAt DESC' })
