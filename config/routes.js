@@ -43,9 +43,13 @@ module.exports.routes = {
 	'delete /session': 'AuthController.logout',
 
 	'get /articles': 'ArticleController.show',
-	'get /article': 'ArticleController.show',
 	'get /articles/:id': 'ArticleController.show',
+	'post /article': 'ArticleController.create',
 	'put /articles/:id': 'ArticleController.update',
+	'delete /articles/:id': 'ArticleController.destroy',
+
+	'get /comments': 'ArticleController.show',
+	'post /comments': 'ArticleController.create',
 	'delete /articles/:id': 'ArticleController.destroy',
 
 	'post /article': 'ArticleController.create',
