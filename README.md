@@ -21,6 +21,13 @@ $ npm install
 $ sails lift
 ```
 
+**生成文档:**
+```sh
+* http://127.0.0.1:1337/doc
+$ npm install apidoc -g
+$ npm run api
+```
+
 **创建sails:**
 ```sh
 
