@@ -9,8 +9,8 @@ module.exports = {
 	 *
 	 * @api {GET} http://wittsay.cc/api/articles/:id/comment [show]
 	 * @apiGroup Comment
-	 * @apiDescription 获取指定文章详细信息 任何权限
-	 * @apiParam (path) {string} [id] 文章id
+	 * @apiDescription 获取文章评论 无需权限
+	 * @apiParam (path) {string} id 文章id
 	 * @apiUse PAGE
 	 * @apiUse CODE_200
 	 * @apiUse CODE_500
