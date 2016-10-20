@@ -10,7 +10,8 @@ module.exports = {
 	 * @api {GET} http://wittsay.cc/api/articles/:id [show]
 	 * @apiGroup Article
 	 * @apiDescription 获取指定文章详细信息 任何权限
-	 * @apiParam (path) {string} id 文章id
+	 * @apiParam (path) {string} [id] 文章id
+	 * @apiUse PAGE
 	 * @apiUse CODE_200
 	 * @apiUse CODE_500
 	 * @apiSuccessExample {json} Response 400 Example
@@ -22,7 +23,9 @@ module.exports = {
 	 */
 	show: (req, res) =>{
 		const id = req.params&& req.params.length? req.params[0]: ''
-		if (!id) return res.badRequest({message: '至少需要指定文章id'})
+		if (!id) {
+			const {}
+		}
 
 		ArticleService.findArticle(id, (err, articles) =>{
 			if (err) return res.serverError()

@@ -15,6 +15,16 @@ module.exports = {
 			})
 	},
 
+	findArticleAll: (pageSize, done) =>{
+		const {page, limit} = pageSize
+		Article
+			.find({limit: limit? limit: 10, page: page? page: 1, sort: {createdAt: -1}})
+			.exec((err, articles) =>{
+				if (err) return done(err)
+				done(null, articles)
+			})
+	},
+
 
 	updateArticle: (id, newArticle, done) =>{
 		Article

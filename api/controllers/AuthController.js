@@ -49,8 +49,8 @@ module.exports = {
 
 	/** js
 	 * @apiDefine PAGE
-	 * @apiParam (param) {string} [page] 页码数
-	 * @apiParam (param) {string} [per_page] 每页显示数量
+	 * @apiParam (param) {number} [page] 页码数(默认1)
+	 * @apiParam (param) {number} [per_page] 每页显示数量(默认14)
 	 */
 
 	/**
