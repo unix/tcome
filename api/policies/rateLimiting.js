@@ -9,6 +9,7 @@ module.exports = function (req, res, next){
 	const intervalTimeInMillisecond = 300000
 
 	CommentService.findCommentForUser(req.headers.userID, (err, archives) =>{
+		console.log(archives);
 		if (!archives || archives.length == 0) return next()
 		const time = new Date().getTime() - new Date(archives[0].createdAt).getTime()
 
