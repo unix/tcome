@@ -31,6 +31,10 @@ module.exports = {
 		tags: {
 			type: 'array'
 		},
+		readTotal: {
+			type: 'integer',
+			defaultsTo: 1
+		}
 
 	},
 

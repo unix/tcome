@@ -22,10 +22,11 @@ module.exports = {
 	 *   }
 	 */
 	show: (req, res) =>{
-		const id = req.params&& req.params.length? req.params[0]: ''
+		const {id} = req.params
+		console.log(id);
 		if (!id) {
 			const {page, per_page} = req.allParams()
-			ArticleService.findArticleAll({
+			return ArticleService.findArticleAll({
 				page: page? page: 1,
 				per_page: per_page? per_page: 14,
 			}, (err, articles) =>{
@@ -38,7 +39,17 @@ module.exports = {
 		ArticleService.findArticle(id, (err, articles) =>{
 			if (err) return res.serverError()
 
-			res.ok(articles[0])
+			// 每次取单篇文章时更新文章本身阅读数量
+			const {readTotal} = articles[0]? articles[0]: {}
+			console.log(readTotal);
+			ArticleService.updateArticle(id, {
+				readTotal: readTotal? readTotal + 1: 2
+			}, (err, updated) =>{
+				console.log(err);
+				if (err) return res.serverError()
+
+				res.ok(updated[0])
+			})
 		})
 	},
 
