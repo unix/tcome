@@ -7,7 +7,7 @@ module.exports = {
 
 	/**
 	 *
-	 * @api {GET} http://wittsay.cc/api/comment/:id [show]
+	 * @api {GET} http://wittsay.cc/api/articles/:id/comment [show]
 	 * @apiGroup Comment
 	 * @apiDescription 获取指定文章详细信息 任何权限
 	 * @apiParam (path) {string} [id] 文章id
@@ -16,7 +16,8 @@ module.exports = {
 	 * @apiUse CODE_500
 	 */
 	show: (req, res) =>{
-		console.log(123);
+
+
 		res.ok()
 	},
 
@@ -25,10 +26,10 @@ module.exports = {
 
 	/**
 	 *
-	 * @api {POST} http://wittsay.cc/api/comment [create]
+	 * @api {POST} http://wittsay.cc/api/articles/:id/comment [create]
 	 * @apiGroup Comment
 	 * @apiDescription 对文章创建一个评论 需要登录
-	 * @apiParam (body) {string} articleId 需要评论的文章id
+	 * @apiParam (path) {string} id 需要评论的文章id
 	 * @apiParam (body) {string} content 评论内容 5<content<500
 	 * @apiParam (body) {string} [targetId] 指定回复/@用户
 	 * @apiUse CODE_200
@@ -36,14 +37,15 @@ module.exports = {
 	 */
 
 	create: (req, res) =>{
-		const {content, targetId, articleId} = req.allParams()
-		if (!articleId) return res.badRequest({message: '缺少文章id'})
+		const {id} = req.params
+		const {content, targetId} = req.allParams()
+		if (!id) return res.badRequest({message: '缺少文章id'})
 		if (!content) return res.badRequest({message: '缺少评论内容'})
 		if (content.length < 5 || content.length > 500) return res.badRequest({message: '评论内容不符合规范'})
 
 		CommentService.createComment({
 			authorId: req.headers.userID,
-			articleId: articleId,
+			articleId: id,
 			targetId: targetId? targetId: null,
 			content: content
 		}, (err, created) =>{
