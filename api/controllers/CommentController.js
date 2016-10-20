@@ -26,13 +26,17 @@ module.exports = {
 	 *
 	 * @api {POST} http://wittsay.cc/api/articles/:id [show]
 	 * @apiGroup Article
-	 * @apiDescription 获取指定文章详细信息 任何权限
+	 * @apiDescription 对文章创建一个评论 需要登录
 	 * @apiParam (path) {string} id 需要评论的文章id
 	 * @apiUse CODE_200
 	 * @apiUse CODE_500
 	 */
 
 	create: (req, res) =>{
+		const {id} = req.params
+		if (!id) return res.badRequest({message: '缺少文章id'})
+
+
 
 	},
 
