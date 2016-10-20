@@ -21,7 +21,7 @@ module.exports = {
 			.find({
 				sort: {'createdAt': -1}
 			},{
-				fields: ['id', 'title', 'createdAt']
+				fields: ['id', 'title', 'createdAt', 'readTotal']
 			})
 			.paginate({limit: per_page? per_page: 14, page: page? page: 1, })
 			.exec((err, articles) =>{
