@@ -2,9 +2,9 @@
 Witt-Blog
 </h1>
 
-### [Website](http://wittsay.cc/)  &nbsp;  [Docs](http://wittsay.cc/doc)  &nbsp; [Submit Issue](https://github.com/WittBulter/sails-blog/issues)
+[文档(未上线)](http://wittsay.cc/doc)
 
-witt-blog是基于NodeJs,MongoDB的博客系统，它负责基础的API服务。
+这是基于NodeJs,MongoDB的博客系统，它负责基础的API服务。如需要与之契合的前端项目请前往[前端项目](https://github.com/WittBulter/sails-blog-frontend)
 
 
 ## 开发者
@@ -42,7 +42,7 @@ $ sails generate controller <foo> [action1, action2, ...]
 ## 文档
 - [Sails.js in Action](https://www.manning.com/books/sails-js-in-action) by Mike McNeil and Irl Nathan (Manning Publications).  Available October 2016 _([estimated](https://www.manning.com/meap-program#section-faq-10))_.
 
-## 支持
+## 社区支持
 - [StackOverflow](http://stackoverflow.com/questions/tagged/sails.js)
 - [What are the best video tutorials for Node.js or Sails.js?](https://www.quora.com/What-are-the-best-video-tutorials-for-Node-js-or-Sails-js) (Quora)
 - [Up and Running in Node.js](http://www.lynda.com/Node.js-tutorials/Up-Running-Node.js/370605-2.html) (Sails basics are covered towards the end of this video course on Lynda)
