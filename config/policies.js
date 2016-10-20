@@ -35,12 +35,20 @@ module.exports.policies = {
 	// 修改删除文章需要管理员权限 展示无需权限
 	ArticleController: {
 		'*': true,
-		update: ['isAuthenticated', 'isAdmin']
+		update: ['isAuthenticated', 'isAdmin'],
+		create: ['isAuthenticated']
 	},
 
 	UserController: {
 		'*': true,
 	},
+
+	// 增加评论需要登录 删除需要管理员权限 展示无需权限
+	CommentController: {
+		'*': true,
+		create: ['isAuthenticated'],
+		delete: ['isAdmin']
+	}
 
 
 
