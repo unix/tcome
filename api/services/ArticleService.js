@@ -16,9 +16,10 @@ module.exports = {
 	},
 
 	findArticleAll: (pageSize, done) =>{
-		const {page, limit} = pageSize
+		const {page, per_page} = pageSize
 		Article
-			.find({limit: limit? limit: 10, page: page? page: 1, sort: {createdAt: -1}})
+			.find({sort: {'createdAt': -1}})
+			.paginate({limit: per_page? per_page: 14, page: page? page: 1, })
 			.exec((err, articles) =>{
 				if (err) return done(err)
 				done(null, articles)

@@ -24,7 +24,15 @@ module.exports = {
 	show: (req, res) =>{
 		const id = req.params&& req.params.length? req.params[0]: ''
 		if (!id) {
-			const {}
+			const {page, per_page} = req.allParams()
+			ArticleService.findArticleAll({
+				page: page? page: 1,
+				per_page: per_page? per_page: 14,
+			}, (err, articles) =>{
+				if (err) return res.serverError()
+
+				res.ok(articles)
+			})
 		}
 
 		ArticleService.findArticle(id, (err, articles) =>{
