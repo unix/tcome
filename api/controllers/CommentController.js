@@ -16,7 +16,8 @@ module.exports = {
 	 * @apiUse CODE_500
 	 */
 	show: (req, res) =>{
-
+		console.log(123);
+		res.ok()
 	},
 
 

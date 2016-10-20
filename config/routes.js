@@ -48,7 +48,7 @@ module.exports.routes = {
 	'put /articles/:id': 'ArticleController.update',
 	'delete /articles/:id': 'ArticleController.destroy',
 
-	'get /comments': 'CommentController.show',
+	'get /articles/:id/comment': 'CommentController.show',
 	'post /comment': 'CommentController.create',
 	'delete /comments/:id': 'CommentController.destroy',
 
