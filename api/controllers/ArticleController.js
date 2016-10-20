@@ -23,7 +23,6 @@ module.exports = {
 	 */
 	show: (req, res) =>{
 		const {id} = req.params
-		console.log(id);
 		if (!id) {
 			const {page, per_page} = req.allParams()
 			return ArticleService.findArticleAll({
@@ -41,11 +40,9 @@ module.exports = {
 
 			// 每次取单篇文章时更新文章本身阅读数量
 			const {readTotal} = articles[0]? articles[0]: {}
-			console.log(readTotal);
 			ArticleService.updateArticle(id, {
 				readTotal: readTotal? readTotal + 1: 2
 			}, (err, updated) =>{
-				console.log(err);
 				if (err) return res.serverError()
 
 				res.ok(updated[0])
