@@ -56,8 +56,18 @@ module.exports = {
 			content: content
 		}, (err, created) =>{
 			if (err) return res.serverError()
+			// 每更新评论  为文章更新字段
+			CommentService.findCommentLength(id, (err, comments) =>{
+				if (err) return res.serverError()
 
-			res.ok()
+				ArticleService.updateArticle(id, {
+					commentTotal: comments.length
+				}, (err, updated) =>{
+					if (err) return res.serverError()
+
+					res.ok()
+				})
+			})
 		})
 	},
 

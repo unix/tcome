@@ -34,6 +34,10 @@ module.exports = {
 		readTotal: {
 			type: 'integer',
 			defaultsTo: 1
+		},
+		commentTotal: {
+			type: 'integer',
+			defaultsTo: 0
 		}
 
 	},

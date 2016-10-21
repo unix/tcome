@@ -29,6 +29,20 @@ module.exports = {
 			})
 	},
 
+	findCommentLength: (id, done) =>{
+		Comment
+			.find({
+				articleId: id,
+				sort: 'createdAt'
+			},{
+				fields: ['id']
+			})
+			.exec((err, comments) =>{
+				if (err) return done(err)
+				done(null, comments)
+			})
+	},
+
 	createComment: (comment, done) =>{
 		Comment
 			.create(comment)
