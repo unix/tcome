@@ -31,6 +31,13 @@ module.exports = {
 		tags: {
 			type: 'array'
 		},
+		authorName: {
+			type: 'string',
+		},
+		authorId: {
+			type: 'string',
+			required: true,
+		},
 		readTotal: {
 			type: 'integer',
 			defaultsTo: 1
