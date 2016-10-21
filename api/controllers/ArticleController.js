@@ -95,7 +95,9 @@ module.exports = {
 		ArticleService.createArticle({
 			title: title,
 			content: content,
-			tags: tags? tags: []
+			tags: tags? tags: [],
+			authorId: req.headers.userID,
+			authorName: req.headers.username,
 		}, (err, created) =>{
 			if (err) return res.serverError()
 
