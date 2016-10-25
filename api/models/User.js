@@ -32,10 +32,11 @@ module.exports = {
 		*  管理员-admin
 		*  普通会员用户-member
 	    *  被禁止的-prisoner
+	    *  未激活的-notActive
 		* */
 		userType: {
 			type: 'string',
-			enum: ['admin', 'member', 'prisoner'],
+			enum: ['admin', 'member', 'prisoner', 'notActive'],
 			required: true
 		},
 		userTitle: {
@@ -49,6 +50,10 @@ module.exports = {
 		phone: {
 			type: 'string'
 		},
+
+		activeToken: {
+			type: 'string'
+		}
 
 	},
 	beforeCreate: (values, cb) =>{

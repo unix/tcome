@@ -2,7 +2,7 @@
  * Created by WittBulter on 2016/10/12.
  * @description :: 管理用户及相关逻辑
  */
-
+const uuid = require('node-uuid')
 
 module.exports = {
 	/**
@@ -58,19 +58,32 @@ module.exports = {
 		if (!/^[0-9a-zA-Z]+@(([0-9a-zA-Z]+)[.])+[a-z]{2,4}$/.test(email)){
 			return res.badRequest({message: '邮件地址不符合规范'})
 		}
+		const token = uuid.v4()
 
 		UserService.createUser({
 			email: email,
 			password: password,
 			username: username? username: '新用户',
 			phone: phone? phone: '0',
-			userType: 'member',
-			userTitle: '会员'
+			userType: 'notActive',
+			userTitle: '未激活会员',
+			activeTarget: token
 		}, (err, created) =>{
 			if (err) return res.serverError()
 
-			delete created.password
-			res.ok(created)
+			UserService.sendMail({
+				email: email,
+				subject: '维特博客-帐号激活',
+				token: token,
+				username: username? username: '新用户',
+			}, (err, done) =>{
+				if (err) return res.serverError()
+				console.log(err);
+				console.log(done);
+				delete created.password
+				res.ok(created)
+			})
+
 		})
 
 	}
