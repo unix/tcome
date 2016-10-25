@@ -36,7 +36,7 @@ module.exports = {
 	},
 
 	paths: {
-		public: '../itsmycar-console/dist',
+		public: '../sails-blog-frontend/dist/index.html',
 	},
 
 }

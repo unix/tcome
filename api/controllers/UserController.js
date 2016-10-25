@@ -53,12 +53,29 @@ module.exports = {
 	 */
 	create: (req, res) =>{
 		const {username, password, email, phone} = req.allParams()
-		if (!email && !password) return res.badRequest({message: '只要需要指定帐号密码'})
-		if (password.length < 5 || password.length > 22) return res.badRequest({message: '密码不符合规范'})
+		// if (!email && !password) return res.badRequest({message: '只要需要指定帐号密码'})
+		// if (password.length < 5 || password.length > 22) return res.badRequest({message: '密码不符合规范'})
 		if (!/^[0-9a-zA-Z]+@(([0-9a-zA-Z]+)[.])+[a-z]{2,4}$/.test(email)){
 			return res.badRequest({message: '邮件地址不符合规范'})
 		}
 		const token = uuid.v4()
+		return UserService.sendMail({
+			email: email,
+			subject: '维特博客-帐号激活',
+			token: token,
+			username: username? username: '新用户',
+		}, (err, done) =>{
+			if (err) return res.serverError()
+			console.log(err);
+			console.log(done);
+			// delete created.password
+			res.ok(err,done)
+		})
+
+
+
+
+
 
 		UserService.createUser({
 			email: email,
