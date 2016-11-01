@@ -59,24 +59,6 @@ module.exports = {
 			return res.badRequest({message: '邮件地址不符合规范'})
 		}
 		const token = uuid.v4()
-		return UserService.sendMail({
-			email: email,
-			subject: '维特博客-帐号激活',
-			token: token,
-			username: username? username: '新用户',
-		}, (err, done) =>{
-			if (err) return res.serverError()
-			console.log(err);
-			console.log(done);
-			// delete created.password
-			res.ok(err,done)
-		})
-
-
-
-
-
-
 		UserService.createUser({
 			email: email,
 			password: password,
@@ -88,17 +70,12 @@ module.exports = {
 		}, (err, created) =>{
 			if (err) return res.serverError()
 
-			UserService.sendMail({
+			return UserService.sendMail({
 				email: email,
 				subject: '维特博客-帐号激活',
 				token: token,
-				username: username? username: '新用户',
-			}, (err, done) =>{
-				if (err) return res.serverError()
-				console.log(err);
-				console.log(done);
-				delete created.password
-				res.ok(created)
+			}, (err, info) =>{
+				res.ok({message: '注册邮件已发送'})
 			})
 
 		})

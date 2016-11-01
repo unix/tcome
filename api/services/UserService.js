@@ -6,7 +6,9 @@
 const bcrypt = require('bcrypt')
 const request = require('request')
 const email = require('../../config/email')
-const makeMailHtml= (user) =>{
+const nodemailer = require('nodemailer')
+
+const makeMailHtml = (user) =>{
 	return `
 			<div style="padding:0;width:798px;overflow:hidden;margin:0 auto;font-family:'Microsoft YaHei';font-size:14px;border:solid 1px #ddd">
 			<div class="m_3988312461716272715adM adM">	
@@ -19,9 +21,9 @@ const makeMailHtml= (user) =>{
 			<h3 style="margin:0;font-size:16px;color:#333333;line-height:24px">维特博客帐号激活</h3>        
 			<p style="margin:0;padding:20px 0 12px 0;color:#555555">您好！您于刚刚注册维特博客账号，请在24小时内点击以下链接，<wbr>完成操作：</p>
 			
-	        <a href="https://127.0.0.1:3001/reg-complete/?name=${user.name}&amp;token=${user.token}" 
+	        <a href="https://127.0.0.1:3001/reg-complete/?name=${user.email}&amp;token=${user.token}" 
 	        style="margin:0;line-height:18px;color:#78c1f6;font-size:12px" target="_blank" >
-	        https://127.0.0.1:3001/reg-complete/?name=${user.name}&amp;token=${user.token} </a>        
+	        https://127.0.0.1:3001/reg-complete/?name=${user.email}&amp;token=${user.token} </a>        
 	        <p style="color:#999999;margin:0;padding:10px 0 80px 0">(若无法点击链接请复制到地址栏访问；您若未注册维特博客请忽略<wbr>此邮件，敬请谅解)</p>
             <div style="margin:0;padding:0;width:682px;border-bottom:#999999 solid 1px"></div>        
             <h2 style="padding:0;font-size:16px;line-height:24px;font-weight:normal;color:#333333;font-style:italic;margin:22px 0 22px 0">感谢您的注册</h2>
@@ -32,7 +34,7 @@ const makeMailHtml= (user) =>{
             <span style="float:right;line-height:61px;color:#999999">© support · 维特博客  <span class="il">WittSay</span>.cc</span>
             <div class="yj6qo"></div><div class="adL"> </div></div><div class="adL"> </div></div><div class="adL"></div>
 		`
-	}
+}
 
 module.exports = {
 	/**
@@ -74,7 +76,7 @@ module.exports = {
 	 * @return cb {obj| array} (错误信息| 已创建用户)
 	 * @description :: 查询所有用户
 	 */
-	findUserAll: (filter= null, cb) =>{
+	findUserAll: (filter = null, cb) =>{
 		User
 			.find({})
 			.exec((err, dataArray) =>{
@@ -127,27 +129,26 @@ module.exports = {
 	},
 
 	sendMail: (user, done) =>{
-		const options = {
-			url: email.url,
-			port: 8080,
-			method: 'POST',
-			json: {
-				apiUser: email.apiUser,
-				apiKey: email.apiKey,
-				from: email.support,
-				to: user.email,
-				subject: user.subject,
-				html: makeMailHtml(user)
-			},
-			headers: {
-				'User-Agent': 'nodejs',
-				'Content-Type': 'application/json',
-			}
+		const mailOptions = {
+			from: '维特博客<support@wittsay.cc>', // sender address mailfrom must be same with the user
+			to: user.email, // list of receivers
+			subject: user.subject, // Subject line
+			html: makeMailHtml(user), // html body
 		}
-		request(options, (err, response, body) =>{
-			if (err) return done(err)
-			done(null, body)
+		const transporter = nodemailer.createTransport({
+			"host": email.host,
+			"port": 25,
+			"secureConnection": false, // use SSL
+			"auth": {
+				"user": email.user,
+				"pass": email.pass
+			}
 		})
+		transporter.sendMail(mailOptions, (err, info) =>{
+			if(err) return done(err, info)
+			done(info)
+		})
+
 	},
 
 }
