@@ -21,7 +21,7 @@ module.exports = {
 	//   connection: 'someMongodbServer'
 	// }
 	paths: {
-		public: '../frontend',
+		public: '../sails-blog-frontend/dist/index.html',
 	},
 
 }
