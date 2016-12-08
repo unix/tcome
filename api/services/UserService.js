@@ -136,7 +136,7 @@ module.exports = {
 			html: makeMailHtml(user), // html body
 		}
 		const transporter = nodemailer.createTransport({
-			"host": email.host,
+			"host": email.mailhost,
 			"port": 25,
 			"secureConnection": false, // use SSL
 			"auth": {
