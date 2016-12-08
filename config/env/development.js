@@ -21,7 +21,7 @@ module.exports = {
 	//   connection: 'someMongodbServer'
 	// }
 	paths: {
-		public: '../itsmycar-console/dist',
+		public: '../frontend',
 	},
 
 }
