@@ -65,7 +65,7 @@ module.exports = {
 				}, (err, updated) =>{
 					if (err) return res.serverError()
 
-					res.ok()
+					res.ok(created)
 				})
 			})
 		})

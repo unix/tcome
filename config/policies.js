@@ -46,7 +46,7 @@ module.exports.policies = {
 	// 增加评论需要登录 删除需要管理员权限 展示无需权限
 	CommentController: {
 		'*': true,
-		create: ['isAuthenticated', 'rateLimiting'],
+		create: ['isAuthenticated'],
 		delete: ['isAdmin']
 	}
 
