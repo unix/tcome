@@ -81,8 +81,18 @@ module.exports = {
 		})
 	},
 
+	/**
+	 *
+	 * @api {PUT} http://wittsay.cc/api/user [update]
+	 * @apiGroup User
+	 * @apiDescription 修改一个用户信息
+	 * @apiParam (body) {string} username 用户名
+	 * @apiParam (body) {string} phone 手机号码
+	 * @apiUse CODE_200
+	 * @apiUse CODE_500
+	 */
 	update: (req, res) =>{
-
+		res.ok({message: '接口开发中'})
 	}
 
 
