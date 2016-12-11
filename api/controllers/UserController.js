@@ -104,7 +104,23 @@ module.exports = {
 	 * @apiUse CODE_500
 	 */
 	validate: (req, res) =>{
+		const {id} = req.params
+		const {token} = req.allParams()
+		if (!id|| !token) return res.badRequest({message: '缺少参数'})
 
+		UserService.findUserForId(id, (err, user) =>{
+			if (err) return res.serverError()
+
+			if (user.activeTarget != token) return res.forbidden({message: '验证失败'})
+			UserService.updateUser({
+				userType: 'member',
+				userTitle: '会员',
+				activeTarget: ''
+			}, {id: id}, (err, updated) =>{
+				if (err) return res.serverError()
+				res.ok(updated)
+			})
+		})
 	}
 
 
