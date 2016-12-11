@@ -41,6 +41,7 @@ module.exports.policies = {
 
 	UserController: {
 		'*': true,
+		create: ['notCreated']
 	},
 
 	// 增加评论需要登录 删除需要管理员权限 展示无需权限

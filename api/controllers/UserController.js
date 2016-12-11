@@ -46,7 +46,7 @@ module.exports = {
 	 *
 	 * @api {POST} http://wittsay.cc/api/user [create]
 	 * @apiGroup User
-	 * @apiDescription 获取指定用户的信息
+	 * @apiDescription 创建一个用户
 	 * @apiParam (body) {string} id 用户id
 	 * @apiUse CODE_200
 	 * @apiUse CODE_500
@@ -79,6 +79,9 @@ module.exports = {
 			})
 
 		})
+	},
+
+	update: (req, res) =>{
 
 	}
 

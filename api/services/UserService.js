@@ -40,16 +40,16 @@ module.exports = {
 	/**
 	 *
 	 * @param userMail {string} 用户邮件地址
-	 * @param cb {function} 回调参数
-	 * @return cb {obj| array} (错误信息| 已创建用户)
+	 * @param done {function} 回调参数
+	 * @return done {obj| array} (错误信息| 已创建用户)
 	 * @description :: 按邮箱地址查询用户
 	 */
-	findUser: (userMail, cb) =>{
+	findUser: (userMail, done) =>{
 		User
 			.find({email: userMail})
 			.exec((err, dataArray) =>{
-				if (err) return cb(err)
-				cb(null, dataArray)
+				if (err) return done(err)
+				done(null, dataArray)
 			})
 	},
 
