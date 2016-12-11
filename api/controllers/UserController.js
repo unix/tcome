@@ -15,14 +15,13 @@ module.exports = {
 	 * @apiUse CODE_500
 	 */
 	show: (req, res) =>{
-		const id = req.params&& req.params.length? req.params[0]: ''
+		const {id} = req.params
 		if (!id) return res.badRequest({message: '至少需要用户id'})
 
 		UserService.findUserForId(id, (err, userData) =>{
 			if (err) return res.serverError()
-
-			delete userData[0].password
-			res.ok(userData[0])
+			delete userData.password
+			res.ok(userData)
 		})
 	},
 
@@ -93,7 +92,23 @@ module.exports = {
 	 */
 	update: (req, res) =>{
 		res.ok({message: '接口开发中'})
+	},
+
+	/**
+	 *
+	 * @api {POST} http://wittsay.cc/api/users/:id/validate [validate]
+	 * @apiGroup User
+	 * @apiDescription 修改一个用户信息
+	 * @apiParam (body) {string} username 用户名
+	 * @apiParam (body) {string} phone 手机号码
+	 * @apiUse CODE_200
+	 * @apiUse CODE_500
+	 */
+	validate: (req, res) =>{
+
 	}
+
+
 
 
 }
