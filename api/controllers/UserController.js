@@ -99,8 +99,7 @@ module.exports = {
 	 * @api {POST} http://wittsay.cc/api/users/:id/validate [validate]
 	 * @apiGroup User
 	 * @apiDescription 修改一个用户信息
-	 * @apiParam (body) {string} username 用户名
-	 * @apiParam (body) {string} phone 手机号码
+	 * @apiParam (body) {string} token 验证token
 	 * @apiUse CODE_200
 	 * @apiUse CODE_500
 	 */
