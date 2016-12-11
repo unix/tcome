@@ -38,10 +38,10 @@ module.exports = {
 		User
 			.findOne({email: email}, (err, user) =>{
 				if (err) return done(err)
-				if (!user) return done(null, false, '未找到用户')
+				if (!user) return done(403, false, '未找到用户')
 
 				bcrypt.compare(password, user.password, function (err, res){
-					if (!res) return done(null, false, '密码有误')
+					if (!res) return done(403, false, '密码有误')
 
 					const returnUser = {
 						email: user.email,

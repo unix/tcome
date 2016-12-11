@@ -78,7 +78,11 @@ module.exports = {
 		AuthService.createSession({
 			email: email,
 			password: password
-		}, req, (err, returnUser, message) =>{
+		}, req, (status, returnUser, message) =>{
+			if (status){
+				res.status(status)
+				return res.json({message: message})
+			}
 			return res.json({
 				message: message,
 				user: returnUser
