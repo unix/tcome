@@ -45,8 +45,11 @@ module.exports = {
 	 *
 	 * @api {POST} http://wittsay.cc/api/user [create]
 	 * @apiGroup User
-	 * @apiDescription 创建一个用户
-	 * @apiParam (body) {string} id 用户id
+	 * @apiDescription 创建一个用户 无需权限
+	 * @apiParam (body) {string} email 用户邮件 用作登录
+	 * @apiParam (body) {string} password 用户密码 6-20位之间
+	 * @apiParam (body) {string} username 用户名
+	 * @apiParam (body) {string} [phone] 手机号码
 	 * @apiUse CODE_200
 	 * @apiUse CODE_500
 	 */
@@ -56,6 +59,9 @@ module.exports = {
 		// if (password.length < 5 || password.length > 22) return res.badRequest({message: '密码不符合规范'})
 		if (!/^[0-9a-zA-Z]+@(([0-9a-zA-Z]+)[.])+[a-z]{2,4}$/.test(email)){
 			return res.badRequest({message: '邮件地址不符合规范'})
+		}
+		if (!password || password.length < 6 || password.length > 20){
+			return res.badRequest({message: '密码不符合规则'})
 		}
 		const token = uuid.v4()
 		UserService.createUser({
