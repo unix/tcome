@@ -53,6 +53,7 @@ module.exports.routes = {
 	'delete /comments/:id': 'CommentController.destroy',
 
 	'get /users/:id': 'UserController.show',
+	'get /users/:id/:resource': 'UserController.resource',
 	'post /users/:id/validate': 'UserController.validate',
 	'get /user/type': 'UserController.userType',
 	'post /user': 'UserController.create',

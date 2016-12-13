@@ -27,6 +27,31 @@ module.exports = {
 
 	/**
 	 *
+	 * @api {GET} http://wittsay.cc/api/users/:id/resource [getResource]
+	 * @apiGroup User
+	 * @apiDescription 获取指定用户的信息
+	 * @apiParam (path) {string} id 用户id
+	 * @apiParam (path) {string} resource 资源名 支持[article, comment]
+	 * @apiUse CODE_200
+	 * @apiUse CODE_500
+	 */
+	resource: (req, res) =>{
+		const {id, resource} = req.params
+		console.log(id, resource);
+		if (!id) return res.badRequest({message: '至少需要用户id'})
+		if (!resource|| (resource != 'article'&& resource != 'comment')){
+			return res.badRequest({message: '需要指定合法资源'})
+		}
+		const map = {article: 'findArticle', comment: 'findComment'}
+
+		UserService[map[resource]](id, (err, returnResources) =>{
+			if (err) return res.serverError()
+			res.ok(returnResources)
+		})
+	},
+
+	/**
+	 *
 	 * @api {GET} http://wittsay.cc/api/user/type [userType]
 	 * @apiGroup User
 	 * @apiDescription 获取默认的用户类型

@@ -149,5 +149,22 @@ module.exports = {
 		})
 
 	},
+	findArticle: (id, done) =>{
+		Article
+			.find({authorId: id})
+			.exec((err, articles) =>{
+				if (err) return done(err)
+				done(null, articles)
+			})
+	},
+	findComment: (id, done) =>{
+		Comment
+			.find({authorId: id, sort: 'createdAt DESC' })
+			.paginate({limit: 5})
+			.exec((err, comments) =>{
+				if (err) return done(err)
+				done(null, comments)
+			})
+	},
 
 }
