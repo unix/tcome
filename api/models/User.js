@@ -51,7 +51,7 @@ module.exports = {
 			type: 'string'
 		},
 
-		activeToken: {
+		activeTarget: {
 			type: 'string'
 		}
 

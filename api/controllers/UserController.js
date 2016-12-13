@@ -76,6 +76,7 @@ module.exports = {
 			if (err) return res.serverError()
 
 			return UserService.sendMail({
+				id: created.id,
 				email: email,
 				subject: '维特博客-帐号激活',
 				token: token,
@@ -116,7 +117,6 @@ module.exports = {
 
 		UserService.findUserForId(id, (err, user) =>{
 			if (err) return res.serverError()
-
 			if (user.activeTarget != token) return res.forbidden({message: '验证失败'})
 			UserService.updateUser({
 				userType: 'member',
@@ -124,7 +124,7 @@ module.exports = {
 				activeTarget: ''
 			}, {id: id}, (err, updated) =>{
 				if (err) return res.serverError()
-				res.ok(updated)
+				res.ok(updated[0])
 			})
 		})
 	}
