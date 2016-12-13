@@ -83,6 +83,7 @@ module.exports = {
 				res.status(status)
 				return res.json({message: message})
 			}
+
 			return res.json({
 				message: message,
 				user: returnUser
@@ -108,7 +109,8 @@ module.exports = {
 		const email = req.headers.email
 		AuthService.deleteSession(email, err =>{
 			if (err) return res.serverError()
-			return res.ok()
+			res.status(204)
+			return res.json({})
 		})
 	}
 };
