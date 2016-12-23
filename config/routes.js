@@ -35,28 +35,28 @@ module.exports.routes = {
 	// 'GET /doc': (req, res) =>{
 	// 	res.send(__dirname)
 	// },
-	'/*': {policy: 'selectApiVersion', skipAssets: true},
+	// '/*': {policy: 'selectApiVersion', skipAssets: true},
 
 	// 用户登录
-	'post /session': 'AuthController.login',
+	'post /v1/session': 'AuthController.login',
 	// 用户登出 注销session
-	'delete /session': 'AuthController.logout',
+	'delete /v1/session': 'AuthController.logout',
 
-	'get /articles': 'ArticleController.show',
-	'get /articles/:id': 'ArticleController.show',
-	'post /article': 'ArticleController.create',
-	'put /articles/:id': 'ArticleController.update',
-	'delete /articles/:id': 'ArticleController.destroy',
+	'get /v1/articles': 'ArticleController.show',
+	'get /v1/articles/:id': 'ArticleController.show',
+	'post /v1/article': 'ArticleController.create',
+	'put /v1/articles/:id': 'ArticleController.update',
+	'delete /v1/articles/:id': 'ArticleController.destroy',
 
-	'get /articles/:id/comment': 'CommentController.show',
-	'post /articles/:id/comment': 'CommentController.create',
-	'delete /comments/:id': 'CommentController.destroy',
+	'get /v1/articles/:id/comment': 'CommentController.show',
+	'post /v1/articles/:id/comment': 'CommentController.create',
+	'delete /v1/comments/:id': 'CommentController.destroy',
 
-	'get /users/:id': 'UserController.show',
-	'get /users/:id/:resource': 'UserController.resource',
-	'post /users/:id/validate': 'UserController.validate',
-	'get /user/type': 'UserController.userType',
-	'post /user': 'UserController.create',
+	'get /v1/users/:id': 'UserController.show',
+	'get /v1/users/:id/:resource': 'UserController.resource',
+	'post /v1/users/:id/validate': 'UserController.validate',
+	'get /v1/user/type': 'UserController.userType',
+	'post /v1/user': 'UserController.create',
 
 
 
