@@ -35,7 +35,7 @@ module.exports.routes = {
 	// 'GET /doc': (req, res) =>{
 	// 	res.send(__dirname)
 	// },
-
+	'/*': {policy: 'selectApiVersion', skipAssets: true},
 
 	// 用户登录
 	'post /session': 'AuthController.login',
