@@ -36,7 +36,7 @@ module.exports = {
 	},
 
 	paths: {
-		public: '../sails-blog-frontend/dist/index.html',
+		public: '../sails-blog-frontend/dist/',
 	},
 
 }
