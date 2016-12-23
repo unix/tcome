@@ -93,6 +93,7 @@ module.exports.http = {
 
 	customMiddleware: function(app){
 		//Intended for other middleware that doesn't follow 'app.use(middleware)' convention
-		app.use('/doc',express.static('doc'));
+		app.use('/doc',express.static('doc'))
+		app.use("/articles", express.static('../sails-blog-frontend/dist'))
 	}
 }
