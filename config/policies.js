@@ -26,10 +26,11 @@ module.exports.policies = {
 	 *                                                                          *
 	 ***************************************************************************/
 
-	// 登录无需验证token 用户退出需要先登录
+	// 登录无需验证token 需要激活状态 用户退出需要先登录
 	AuthController: {
 		'*': true,
-		logout: 'isAuthenticated'
+		logout: 'isAuthenticated',
+		login: 'isActive',
 	},
 
 	// 修改删除文章需要管理员权限 展示无需权限
