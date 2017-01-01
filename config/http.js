@@ -31,13 +31,13 @@ module.exports.http = {
 		 ***************************************************************************/
 
 		order: [
-			'startRequestTimer',
-			'cookieParser',
-			'myRequestLogger',
+			// 'startRequestTimer',
+			// 'cookieParser',
+			// 'myRequestLogger',
 			'bodyParser',
 			'handleBodyParserError',
-			'compress',
-			'methodOverride',
+			// 'compress',
+			// 'methodOverride',
 			'poweredBy',
 			'$custom',
 			'router',
@@ -46,6 +46,8 @@ module.exports.http = {
 			'404',
 			'500',
 		],
+
+		compress: require('compression')(),
 
 		/****************************************************************************
 		 *                                                                           *
@@ -89,7 +91,7 @@ module.exports.http = {
 	 *                                                                          *
 	 ***************************************************************************/
 
-	// cache: 31557600000
+	cache: 31557600000,
 
 	customMiddleware: function(app){
 		const path = '../sails-blog-frontend/dist'

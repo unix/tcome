@@ -39,14 +39,13 @@ module.exports = {
 			if (err) return res.serverError()
 
 			// 每次取单篇文章时更新文章本身阅读数量
+			// 单次写操作会影响接口等待时间，非重要逻辑异步处理事务，不等待写操作结束
 			const {readTotal} = articles[0]? articles[0]: {}
+
 			ArticleService.updateArticle(id, {
 				readTotal: readTotal? readTotal + 1: 2
-			}, (err, updated) =>{
-				if (err) return res.serverError()
-
-				res.ok(updated[0])
-			})
+			}, (err, updated) =>{})
+			res.ok(articles[0])
 		})
 	},
 
