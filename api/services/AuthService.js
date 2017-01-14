@@ -11,7 +11,7 @@ module.exports = {
 			.findOne({clientToken: clientToken})
 			.exec((err, session) =>{
 				if (err) return done(err)
-				if (session) return done(null, null)
+				if (!session) return done(null, null)
 
 				done(null, session)
 			})
@@ -22,7 +22,7 @@ module.exports = {
 			.findOne({email: email})
 			.exec((err, session) =>{
 				if (err) return done(err)
-				if (session) return done(null, null)
+				if (!session) return done(null, null)
 
 				done(null, session)
 			})
