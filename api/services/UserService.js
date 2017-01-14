@@ -44,12 +44,12 @@ module.exports = {
 	 * @return done {obj| array} (错误信息| 已创建用户)
 	 * @description :: 按邮箱地址查询用户
 	 */
-	findUser: (userMail, done) =>{
+	findUserForMail: (email, done) =>{
 		User
-			.find({email: userMail})
-			.exec((err, dataArray) =>{
+			.findOne({email: email})
+			.exec((err, user) =>{
 				if (err) return done(err)
-				done(null, dataArray)
+				done(null, user)
 			})
 	},
 

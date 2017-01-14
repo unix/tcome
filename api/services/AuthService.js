@@ -13,14 +13,14 @@ module.exports = {
 	 * @return (err, sessionObj)
 	 * @description :: 查找服务端可用session
 	 */
-	findSession: (clientToken, done) =>{
+	findSessionForToken: (clientToken, done) =>{
 		Session
-			.find({clientToken: clientToken})
-			.exec((err, sessionArray) =>{
+			.findOne({clientToken: clientToken})
+			.exec((err, session) =>{
 				if (err) return done(err)
-				if (!sessionArray.length) return done(null, null)
+				if (session) return done(null, null)
 
-				done(null, sessionArray[0])
+				done(null, session)
 			})
 	},
 
