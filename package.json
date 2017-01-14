@@ -33,7 +33,7 @@
     "nodemailer": "^2.6.4",
     "rc": "1.0.1",
     "request": "^2.74.0",
-    "sails": "^0.12.11",
+    "sails": "~0.12.11",
     "sails-disk": "~0.10.9",
     "sails-mongo": "^0.12.1"
   },

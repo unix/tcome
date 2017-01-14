@@ -54,7 +54,7 @@ module.exports = {
 			if (err) return done(err)
 			if (!user) return done(403, false, '未找到用户')
 
-			bcrypt.compare(password, user.password, function (err, res){
+			bcrypt.compare(password, user.password, (err, res) =>{
 				if (!res) return done(403, false, '密码有误')
 
 				const newSession = {
@@ -63,15 +63,15 @@ module.exports = {
 					userID: user.id,
 					clientToken: uuid.v4()
 				}
-				SessionService.findSessionForMail(user.email, (err, session) =>{
+				AuthService.findSessionForMail(user.email, (err, session) =>{
 					if (err) return done(err)
 					if (!session){
-						SessionService.createSession(newSession, (err, created) =>{
+						return AuthService.createSession(newSession, (err, created) =>{
 							if (err) return done(err)
 							return success(newSession, user)
 						})
 					}
-					SessionService.updateSessionForMail(user.email, newSession, (err, updated) =>{
+					AuthService.updateSessionForMail(user.email, newSession, (err, updated) =>{
 						if (err) return done(err)
 						return success(newSession, user)
 					})

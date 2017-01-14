@@ -78,7 +78,7 @@ module.exports = {
 		AuthService.authUser({email: email, password: password}, (err, user, msg) =>{
 			if (err) return res.forbidden({message: msg})
 
-			return res.ok({message: message, user: user})
+			return res.ok({message: msg, user: user})
 		})
 	},
 
