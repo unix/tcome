@@ -6,13 +6,6 @@ const bcrypt = require('bcrypt')
 const uuid = require('node-uuid')
 
 module.exports = {
-	/**
-	 *
-	 * @param clientToken {string} 客户端session
-	 * @param done {function}
-	 * @return (err, sessionObj)
-	 * @description :: 查找服务端可用session
-	 */
 	findSessionForToken: (clientToken, done) =>{
 		Session
 			.findOne({clientToken: clientToken})
@@ -24,62 +17,67 @@ module.exports = {
 			})
 	},
 
-
-	/**
-	 *
-	 * @param loginMessage {object} 用户邮件地址与密码明文
-	 * @param done {function}
-	 * @param req {object}
-	 * @return (err, user, message)
-	 * @description :: 在服务端创建一个session
-	 */
-	createSession: (loginMessage, req, done) =>{
-		const {email, password} = loginMessage
-		User
-			.findOne({email: email}, (err, user) =>{
+	findSessionForMail: (email, done) =>{
+		Session
+			.findOne({email: email})
+			.exec((err, session) =>{
 				if (err) return done(err)
-				if (!user) return done(403, false, '未找到用户')
+				if (session) return done(null, null)
 
-				bcrypt.compare(password, user.password, function (err, res){
-					if (!res) return done(403, false, '密码有误')
+				done(null, session)
+			})
+	},
 
-					const returnUser = {
-						email: user.email,
-						createdAt: user.createdAt,
-						userType: user.userType,
-						userTitle: user.userTitle,
-						username: user.username,
-						id: user.id,
-						token: uuid.v4()
-					}
-					Session
-						.find({email: user.email})
-						.exec((err, userSession) =>{
-							if (userSession.length == 0){
-								return Session
-									.create({
-										email: user.email,
-										clientToken: returnUser.token,
-										userID: user.id,
-										username: user.username,
-									})
-									.exec((err, created) =>{
-										return done(null, returnUser, '登录成功')
-									})
-							}
-							Session
-								.update({email: user.email}, {
-									email: user.email,
-									clientToken: returnUser.token,
-									userID: user.id,
-									username: user.username
-								})
-								.exec((err, updated) =>{
-									return done(null, returnUser, '登录成功')
-								})
+	updateSessionForMail: (email, session, done) =>{
+		Session
+			.update({email: email}, session)
+			.exec((err, updated) =>{
+				if (err) return done(err)
+				done(null, updated)
+			})
+	},
+
+	createSession: (session, done) =>{
+		Session
+			.create(session)
+			.exec((err, created) =>{
+				if (err) return done(err)
+				done(null, created)
+			})
+	},
+
+
+	authUser: (authObject, done) =>{
+		const {email, password} = authObject
+		const success = (s, u) => done(null, Object.assign(s, u), '登录成功')
+		UserService.findUserForMail(email, (err, user) =>{
+			if (err) return done(err)
+			if (!user) return done(403, false, '未找到用户')
+
+			bcrypt.compare(password, user.password, function (err, res){
+				if (!res) return done(403, false, '密码有误')
+
+				const newSession = {
+					email: user.email,
+					username: user.username,
+					userID: user.id,
+					clientToken: uuid.v4()
+				}
+				SessionService.findSessionForMail(user.email, (err, session) =>{
+					if (err) return done(err)
+					if (!session){
+						SessionService.createSession(newSession, (err, created) =>{
+							if (err) return done(err)
+							return success(newSession, user)
 						})
+					}
+					SessionService.updateSessionForMail(user.email, newSession, (err, updated) =>{
+						if (err) return done(err)
+						return success(newSession, user)
+					})
 				})
 			})
+		})
 	},
 
 	deleteSession: (email, done) =>{

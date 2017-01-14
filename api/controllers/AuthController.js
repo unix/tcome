@@ -75,19 +75,10 @@ module.exports = {
 		const {email, password} = req.allParams()
 		if (!email || !password) return res.badRequest({message: '需要邮件地址与密码'})
 
-		AuthService.createSession({
-			email: email,
-			password: password
-		}, req, (status, returnUser, message) =>{
-			if (status){
-				res.status(status)
-				return res.json({message: message})
-			}
+		AuthService.authUser({email: email, password: password}, (err, user, msg) =>{
+			if (err) return res.forbidden({message: msg})
 
-			return res.json({
-				message: message,
-				user: returnUser
-			})
+			return res.ok({message: message, user: user})
 		})
 	},
 
