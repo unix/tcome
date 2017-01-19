@@ -72,12 +72,13 @@ module.exports = {
 	 * @apiUse CODE_500
 	 */
 	login: (req, res) =>{
+
 		const {email, password} = req.allParams()
 		if (!email || !password) return res.badRequest({message: '需要邮件地址与密码'})
 
 		AuthService.authUser({email: email, password: password}, (err, user, msg) =>{
 			if (err) return res.forbidden({message: msg})
-
+			delete user.password
 			return res.ok({message: msg, user: user})
 		})
 	},
