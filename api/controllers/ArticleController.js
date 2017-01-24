@@ -37,15 +37,22 @@ module.exports = {
 
 		ArticleService.findArticle(id, (err, articles) =>{
 			if (err) return res.serverError()
+			if (!articles || articles.length == 0){
+				return res.notFound({message: '未找到文章'})
+			}
 
-			// 每次取单篇文章时更新文章本身阅读数量
-			// 单次写操作会影响接口等待时间，非重要逻辑异步处理事务，不等待写操作结束
-			const {readTotal} = articles[0]? articles[0]: {}
+			const {readTotal, authorId} = articles[0]? articles[0]: {}
 
-			ArticleService.updateArticle(id, {
-				readTotal: readTotal? readTotal + 1: 2
-			}, (err, updated) =>{})
-			res.ok(articles[0])
+			UserService.findUserForId(authorId, (err, user) =>{
+				if (err) return res.serverError()
+
+				// 每次取单篇文章时更新文章本身阅读数量
+				// 单次写操作会影响接口等待时间，非重要逻辑异步处理事务，不等待写操作结束
+				ArticleService.updateArticle(id, {
+					readTotal: readTotal? readTotal + 1: 2
+				}, (err, updated) =>{})
+				res.ok(Object.assign({avatar: user.avatar? user.avatar: ''}, articles[0]))
+			})
 		})
 	},
 

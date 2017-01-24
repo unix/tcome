@@ -53,6 +53,9 @@ module.exports = {
 
 		activeTarget: {
 			type: 'string'
+		},
+		avatar: {
+			type: 'string'
 		}
 
 	},
