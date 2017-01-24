@@ -118,9 +118,9 @@ module.exports = {
 		})
 	},
 
-	updateUser: (newUser, oldUser, done) =>{
+	updateUserForID: (id, newUser, done) =>{
 		User
-			.update({id: oldUser.id}, newUser)
+			.update({id: id}, newUser)
 			.exec((err, updated) =>{
 				if (err) return done(err)
 				done(null, updated)

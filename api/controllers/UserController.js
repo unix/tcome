@@ -117,13 +117,28 @@ module.exports = {
 	 * @api {PUT} http://wittsay.cc/api/user [update]
 	 * @apiGroup User
 	 * @apiDescription 修改一个用户信息
-	 * @apiParam (body) {string} username 用户名
-	 * @apiParam (body) {string} phone 手机号码
+	 * @apiParam (body) {string} [username] 用户名
+	 * @apiParam (body) {string} [phone] 手机号码
+	 * @apiParam (body) {string} [avatar] 头像图片地址
 	 * @apiUse CODE_200
 	 * @apiUse CODE_500
 	 */
 	update: (req, res) =>{
-		res.ok({message: '接口开发中'})
+		const {username, phone, avatar} = req.allParams()
+		if (!username && !phone && !avatar){
+			return res.badRequest({message: '至少需要修改一个参数'})
+		}
+		let user;
+		if (username) user.username = username;
+		if (phone) user.phone = phone;
+		if (avatar) user.avatar = avatar;
+
+		UserService.updateUserForID(req.headers.userID, user, (err, updated) =>{
+			if (err) return res.serverError()
+
+			delete updated[0].password
+			return res.ok(updated[0])
+		})
 	},
 
 	/**
@@ -143,11 +158,11 @@ module.exports = {
 		UserService.findUserForId(id, (err, user) =>{
 			if (err) return res.serverError()
 			if (user.activeTarget != token) return res.forbidden({message: '验证失败'})
-			UserService.updateUser({
+			UserService.updateUserForID(id, {
 				userType: 'member',
 				userTitle: '会员',
 				activeTarget: ''
-			}, {id: id}, (err, updated) =>{
+			}, (err, updated) =>{
 				if (err) return res.serverError()
 				res.ok(updated[0])
 			})
