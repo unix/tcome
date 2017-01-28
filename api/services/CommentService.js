@@ -10,8 +10,6 @@ module.exports = {
 			.find({
 				articleId: id,
 				sort: 'createdAt'
-			},{
-				fields: ['id', 'authorId', 'targetId', 'content', 'createdAt', 'authorName']
 			})
 			.exec((err, comments) =>{
 				if (err) return done(err)
