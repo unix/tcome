@@ -17,6 +17,10 @@ module.exports = {
 			type: 'string',
 			required: true,
 		},
+		articleName: {
+			type: 'string',
+			required: true,
+		},
 		targetId: {
 			type: 'string',
 		},

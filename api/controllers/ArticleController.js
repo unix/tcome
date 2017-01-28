@@ -35,14 +35,11 @@ module.exports = {
 			})
 		}
 
-		ArticleService.findArticle(id, (err, articles) =>{
+		ArticleService.findArticleForID(id, (err, article) =>{
 			if (err) return res.serverError()
-			if (!articles || articles.length == 0){
-				return res.notFound({message: '未找到文章'})
-			}
+			if (!article) return res.notFound({message: '未找到文章'})
 
-			const {readTotal, authorId} = articles[0]? articles[0]: {}
-
+			const {readTotal, authorId} = article
 			UserService.findUserForId(authorId, (err, user) =>{
 				if (err) return res.serverError()
 
@@ -51,7 +48,7 @@ module.exports = {
 				ArticleService.updateArticle(id, {
 					readTotal: readTotal? readTotal + 1: 2
 				}, (err, updated) =>{})
-				res.ok(Object.assign({avatar: user.avatar? user.avatar: ''}, articles[0]))
+				res.ok(Object.assign({avatar: user.avatar? user.avatar: ''}, article))
 			})
 		})
 	},

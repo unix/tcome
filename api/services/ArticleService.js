@@ -6,12 +6,12 @@
 
 
 module.exports = {
-	findArticle: (id, done) =>{
+	findArticleForID: (id, done) =>{
 		Article
-			.find({id: id})
-			.exec((err, articles) =>{
+			.findOne({id: id})
+			.exec((err, article) =>{
 				if (err) return done(err)
-				done(null, articles)
+				done(null, article)
 			})
 	},
 
