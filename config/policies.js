@@ -41,6 +41,12 @@ module.exports.policies = {
 		validate: ['notActive']
 	},
 
+	// 审核文章 总是需要管理员权限
+	ReviewController: {
+		show: ['isAuthenticated', 'isAdmin'],
+		update: ['isAuthenticated', 'isAdmin']
+	},
+
 	UserController: {
 		'*': true,
 		create: ['notCreated'],

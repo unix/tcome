@@ -117,4 +117,8 @@ module.exports = {
 
 	},
 
+	destroy: () =>{
+
+	}
+
 }
