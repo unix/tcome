@@ -61,20 +61,25 @@ module.exports = {
 	 * @apiParam (path) {string} id 文章id
 	 * @apiParam (body) {string} [title] 文章标题
 	 * @apiParam (body) {string} [content] 文章内容
+	 * @apiParam (body) {string} [thumbnail] 标题图
 	 * @apiUse CODE_200
 	 * @apiUse CODE_500
 	 */
 	update: (req, res) =>{
 		const id = req.params&& req.params.length? req.params[0]: ''
-		const {title, content} = req.allParams()
+		const {title, content, thumbnail} = req.allParams()
 		if (!id) return res.badRequest({message: '至少需要指定文章id'})
-		if (!title && !content) return res.badRequest({message: '缺少body参数'})
+		if (!title && !content&& !thumbnail) return res.badRequest({message: '至少需要修改一项'})
 		if (title.length < 5|| content.length < 5) return res.badRequest({message: '文章内容过少'})
+		let article = {}
+		if (title) article.title = title
+		if (content) article.content = content
+		if (thumbnail) article.thumbnail = thumbnail
 
-		ArticleService.updateArticle(id, {title: title, content: content}, (err, updated) =>{
+		ArticleService.updateArticle(id, article, (err, updated) =>{
 			if (err) return res.serverError()
 
-			res.ok(updated)
+			res.ok(updated[0])
 		})
 
 	},
@@ -84,20 +89,22 @@ module.exports = {
 	 *
 	 * @api {POST} http://wittsay.cc/api/article [create]
 	 * @apiGroup Article
-	 * @apiDescription 创建一篇文章 需要管理员权限或更高
-	 * @apiParam (body) {string} [title] 文章标题
-	 * @apiParam (body) {string} [content] 文章内容
+	 * @apiDescription 创建一篇文章 需要登录
+	 * @apiParam (body) {string} title 文章标题
+	 * @apiParam (body) {string} content 文章内容
+	 * @apiParam (body) {string} [thumbnail] 文章缩略图
 	 * @apiParam (body) {array} [tags] 标签tags
 	 * @apiUse CODE_200
 	 * @apiUse CODE_500
 	 */
 	create: (req, res) =>{
-		const {title, content, tags} = req.allParams()
+		const {title, content, tags, thumbnail} = req.allParams()
 		if (!title || !content) return res.badRequest({message: '缺少body参数'})
 
 		ArticleService.createArticle({
 			title: title,
 			content: content,
+			thumbnail: thumbnail? thumbnail: '',
 			tags: tags? tags: [],
 			authorId: req.headers.userID,
 			authorName: req.headers.username,

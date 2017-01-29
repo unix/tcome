@@ -28,6 +28,9 @@ module.exports = {
 			required: true,
 			minLength: 5
 		},
+		thumbnail: {
+			type: 'string',
+		},
 		tags: {
 			type: 'array'
 		},
