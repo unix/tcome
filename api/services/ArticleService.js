@@ -72,5 +72,23 @@ module.exports = {
 				if (err) return done(err)
 				done(null)
 			})
+	},
+
+	findArticleForKeyword: (keyword, pageSize, done) =>{
+		const {page, per_page} = pageSize
+		Article
+			.find({
+				where: {
+					title: {'contains' : keyword}
+				},
+				sort: {'createdAt': -1},
+			},{
+				fields: ['id', 'title', 'createdAt', 'readTotal', 'commentTotal', 'authorName', 'thumbnail']
+			})
+			.exec((err, articles) =>{
+				if (err) return done(err)
+				done(null, articles)
+			})
 	}
+
 }

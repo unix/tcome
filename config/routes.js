@@ -45,6 +45,7 @@ module.exports.routes = {
 	// 文章
 	'get /v1/articles': 'ArticleController.show',
 	'get /v1/articles/:id': 'ArticleController.show',
+	'get /v1/articles/:keyword/search': 'ArticleController.search',
 	'post /v1/article': 'ArticleController.create',
 	'put /v1/articles/:id': 'ArticleController.update',
 	'delete /v1/articles/:id': 'ArticleController.destroy',

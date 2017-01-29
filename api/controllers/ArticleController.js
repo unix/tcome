@@ -123,6 +123,7 @@ module.exports = {
 	 * @apiGroup Article
 	 * @apiParam (path) {string} id 文章id
 	 * @apiDescription 删除指定文章 需要管理员或更高权限
+	 * @apiUse PAGE
 	 * @apiUse CODE_200
 	 * @apiUse CODE_500
 	 */
@@ -135,6 +136,30 @@ module.exports = {
 
 			res.ok(updated[0])
 		})
-	}
+	},
+
+
+	/**
+	 *
+	 * @api {GET} http://wittsay.cc/api/articles/:keyword/search [search]
+	 * @apiGroup Article
+	 * @apiDescription 按关键字搜索文章 任何权限
+	 * @apiParam (path) {string} keyword 关键字
+	 * @apiUse PAGE
+	 * @apiUse CODE_200
+	 * @apiUse CODE_500
+	 */
+	search: (req, res) =>{
+		const {keyword} = req.params
+		const {page, per_page} = req.allParams()
+		Article.findArticleForKeyword(keyword, {
+			page: page? page: 1,
+			per_page: per_page? per_page: 14,
+		}, (err, articles) =>{
+			if (err) return res.serverError()
+
+			res.ok(articles)
+		})
+	},
 
 }
