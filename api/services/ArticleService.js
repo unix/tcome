@@ -19,7 +19,23 @@ module.exports = {
 		const {page, per_page} = pageSize
 		Article
 			.find({
-				sort: {'createdAt': -1}
+				where: {articleType: 'isActive'},
+				sort: {'createdAt': -1},
+			},{
+				fields: ['id', 'title', 'createdAt', 'readTotal', 'commentTotal', 'authorName', 'thumbnail']
+			})
+			.paginate({limit: per_page? per_page: 14, page: page? page: 1, })
+			.exec((err, articles) =>{
+				if (err) return done(err)
+				done(null, articles)
+			})
+	},
+	findReviewAll: (pageSize, done) =>{
+		const {page, per_page} = pageSize
+		Article
+			.find({
+				where: {articleType: 'isReview'},
+				sort: {'createdAt': -1},
 			},{
 				fields: ['id', 'title', 'createdAt', 'readTotal', 'commentTotal', 'authorName', 'thumbnail']
 			})

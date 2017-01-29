@@ -108,12 +108,13 @@ module.exports = {
 			tags: tags? tags: [],
 			authorId: req.headers.userID,
 			authorName: req.headers.username,
+			articleType: 'isReview'
 		}, (err, created) =>{
 			if (err) return res.serverError()
 
 			res.ok(created)
 		})
 
-	}
+	},
 
 }

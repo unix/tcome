@@ -48,6 +48,11 @@ module.exports = {
 		commentTotal: {
 			type: 'integer',
 			defaultsTo: 0
+		},
+		articleType: {
+			type: 'string',
+			enum: ['isReview', 'isActive', 'isDestroy'],
+			required: true
 		}
 
 	},

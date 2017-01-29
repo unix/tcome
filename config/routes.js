@@ -42,16 +42,24 @@ module.exports.routes = {
 	// 用户登出 注销session
 	'delete /v1/session': 'AuthController.logout',
 
+	// 文章
 	'get /v1/articles': 'ArticleController.show',
 	'get /v1/articles/:id': 'ArticleController.show',
 	'post /v1/article': 'ArticleController.create',
 	'put /v1/articles/:id': 'ArticleController.update',
 	'delete /v1/articles/:id': 'ArticleController.destroy',
 
+	// 文章评论
 	'get /v1/articles/:id/comment': 'CommentController.show',
 	'post /v1/articles/:id/comment': 'CommentController.create',
 	'delete /v1/comments/:id': 'CommentController.destroy',
 
+	// 审核文章
+	'get /v1/reviews': 'ReviewController.show',
+	'get /v1/reviews/:id': 'ReviewController.show',
+	'put /v1/reviews/:id/active': 'ReviewController.update',
+
+	// 用户
 	'get /v1/users/:id': 'UserController.show',
 	'get /v1/users/:id/:resource': 'UserController.resource',
 	'post /v1/users/:id/validate': 'UserController.validate',
