@@ -67,6 +67,10 @@ module.exports.routes = {
 	'get /v1/user/type': 'UserController.userType',
 	'post /v1/user': 'UserController.create',
 
+	// 博客基础信息
+	'get /v1/option': 'OptionController.show',
+	'put /v1/option': 'OptionController.update',
+
 
 
 
