@@ -56,7 +56,7 @@ module.exports = {
 	 * @apiUse CODE_500
 	 */
 	update: (req, res) =>{
-		const id = req.params&& req.params.length? req.params[0]: ''
+		const {id} = req.params
 		if (!id) return res.badRequest({message: '至少需要指定文章id'})
 
 		ArticleService.updateArticle(id, {articleType: 'isActive'}, (err, updated) =>{

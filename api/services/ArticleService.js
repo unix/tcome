@@ -63,5 +63,14 @@ module.exports = {
 				if (err) return done(err)
 				done(null, created)
 			})
+	},
+
+	destroyArticleForID: (id, done) =>{
+		Article
+			.destroy({id: id})
+			.exec(err =>{
+				if (err) return done(err)
+				done(null)
+			})
 	}
 }

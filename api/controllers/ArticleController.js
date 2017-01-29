@@ -66,7 +66,7 @@ module.exports = {
 	 * @apiUse CODE_500
 	 */
 	update: (req, res) =>{
-		const id = req.params&& req.params.length? req.params[0]: ''
+		const {id} = req.params
 		const {title, content, thumbnail} = req.allParams()
 		if (!id) return res.badRequest({message: '至少需要指定文章id'})
 		if (!title && !content&& !thumbnail) return res.badRequest({message: '至少需要修改一项'})
@@ -117,8 +117,24 @@ module.exports = {
 
 	},
 
+	/**
+	 *
+	 * @api {DELETE} http://wittsay.cc/api/articles/:id [destroy]
+	 * @apiGroup Article
+	 * @apiParam (path) {string} id 文章id
+	 * @apiDescription 删除指定文章 需要管理员或更高权限
+	 * @apiUse CODE_200
+	 * @apiUse CODE_500
+	 */
 	destroy: () =>{
+		const {id} = req.params
+		if (!id) return res.badRequest({message: '需要文章id'})
 
+		ArticleService.updateArticle(id, {articleType: 'isDestroy'}, (err, updated) =>{
+			if (err) return res.serverError()
+
+			res.ok(updated[0])
+		})
 	}
 
 }
