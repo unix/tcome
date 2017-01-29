@@ -59,6 +59,12 @@ module.exports.policies = {
 		'*': true,
 		create: ['isAuthenticated'],
 		delete: ['isAdmin']
+	},
+
+	// 博客基础信息
+	OptionController: {
+		'*': true,
+		update: ['isAuthenticated', 'isAdmin'],
 	}
 
 
