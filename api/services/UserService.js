@@ -21,9 +21,9 @@ const makeMailHtml = (user) =>{
 			<h3 style="margin:0;font-size:16px;color:#333333;line-height:24px">维特博客帐号激活</h3>        
 			<p style="margin:0;padding:20px 0 12px 0;color:#555555">您好！您于刚刚注册维特博客账号，请在24小时内点击以下链接，<wbr>完成操作：</p>
 			
-	        <a href="http://test.wittsay.cc/register/${user.id}/${user.token}" 
+	        <a href="http://test.wittsay.cc/user/register/${user.id}/${user.token}" 
 	        style="margin:0;line-height:18px;color:#78c1f6;font-size:12px" target="_blank" >
-	        http://test.wittsay.cc/register/${user.id}/${user.token} </a>        
+	        http://test.wittsay.cc/user/register/${user.id}/${user.token} </a>        
 	        <p style="color:#999999;margin:0;padding:10px 0 80px 0">(若无法点击链接请复制到地址栏访问；您若未注册维特博客请忽略<wbr>此邮件，敬请谅解)</p>
             <div style="margin:0;padding:0;width:682px;border-bottom:#999999 solid 1px"></div>        
             <h2 style="padding:0;font-size:16px;line-height:24px;font-weight:normal;color:#333333;font-style:italic;margin:22px 0 22px 0">感谢您的注册</h2>
