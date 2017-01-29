@@ -94,11 +94,7 @@ module.exports.http = {
 	cache: 31557600000,
 
 	customMiddleware: function(app){
-		const path = '../sails-blog-frontend/dist'
-		const redirectUrls = ['/articles', '/articles/*', '/login', '/welcome', '/register', '/member']
-		//Intended for other middleware that doesn't follow 'app.use(middleware)' convention
 		app.use('/doc',express.static('doc'))
-
-		redirectUrls.forEach(v => app.use(v, express.static(path)))
+		app.all('/*', (req, res, next) =>res.sendfile('index.html', {root: './portal/'}));
 	}
 }

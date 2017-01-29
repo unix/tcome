@@ -7,7 +7,7 @@
  */
 module.exports = function (req, res, next){
 	UserService.findUserForMail(req.allParams().email, (err, user) =>{
-		if (!user) return res.forbidden({message: '该邮箱已被注册'})
+		if (user) return res.forbidden({message: '该邮箱已被注册'})
 		return next()
 	})
 }
