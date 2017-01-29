@@ -152,7 +152,7 @@ module.exports = {
 	search: (req, res) =>{
 		const {keyword} = req.params
 		const {page, per_page} = req.allParams()
-		Article.findArticleForKeyword(keyword, {
+		ArticleService.findArticleForKeyword(keyword, {
 			page: page? page: 1,
 			per_page: per_page? per_page: 14,
 		}, (err, articles) =>{
