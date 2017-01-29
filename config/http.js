@@ -95,6 +95,9 @@ module.exports.http = {
 
 	customMiddleware: function(app){
 		app.use('/doc',express.static('doc'))
-		app.all('/*', (req, res, next) =>res.sendfile('index.html', {root: './portal/'}));
+		app.all('/*', (req, res, next) =>{
+			if (req.path.includes('/v1/')) return next()
+			res.sendfile('index.html', {root: './portal/'})
+		});
 	}
 }
