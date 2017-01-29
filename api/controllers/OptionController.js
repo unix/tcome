@@ -28,7 +28,7 @@ module.exports = {
 	 * @apiDescription 修改博客基础信息(如果没有则自动创建) 需要管理员权限或更高
 	 * @apiParam (path) {string} [blogName] 博客名称
 	 * @apiParam (body) {string} [blogSubhead] 博客副标题
-	 * @apiParam (body) {array} [recommended] 博客推荐文章 每一项为文章id
+	 * @apiParam (body) {array} [recommended] 博客推荐文章 每一项为文章对象
 	 * @apiUse CODE_200
 	 * @apiUse CODE_500
 	 */
