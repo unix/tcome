@@ -14,6 +14,9 @@ module.exports = {
 	 * @apiUse CODE_500
 	 */
 	upload: (req, res) =>{
+		// const {image} = req.allParams()
+		// console.log(image);
 
+		res.ok({message: 'ok'})
 	}
 }

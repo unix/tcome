@@ -9,6 +9,7 @@
  * http://sailsjs.org/#!/documentation/reference/sails.config/sails.config.http.html
  */
 const express = require('express')
+const skipper = require('skipper')
 
 module.exports.http = {
 
@@ -93,11 +94,13 @@ module.exports.http = {
 
 	cache: 31557600000,
 
-	customMiddleware: function(app){
+	customMiddleware: app =>{
 		app.use('/doc',express.static('doc'))
 		app.all('/*', (req, res, next) =>{
 			if (req.path.includes('/v1/')) return next()
 			res.sendfile('index.html', {root: './portal/'})
 		});
-	}
+	},
+
+	bodyParser: () => skipper({limit:'50mb'}),
 }
