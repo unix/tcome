@@ -65,6 +65,11 @@ module.exports.policies = {
 	OptionController: {
 		'*': true,
 		update: ['isAuthenticated', 'isAdmin'],
+	},
+
+	// 上传图片
+	ImageController: {
+		upload: ['isAuthenticated']
 	}
 
 

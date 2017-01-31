@@ -71,6 +71,9 @@ module.exports.routes = {
 	'get /v1/option': 'OptionController.show',
 	'put /v1/option': 'OptionController.update',
 
+	// 上传图片
+	'post /v1/image': 'ImageController.upload',
+
 
 
 
