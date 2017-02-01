@@ -58,7 +58,7 @@ module.exports.routes = {
 	// 审核文章
 	'get /v1/reviews': 'ReviewController.show',
 	'get /v1/reviews/:id': 'ReviewController.show',
-	'put /v1/reviews/:id/active': 'ReviewController.update',
+	'put /v1/reviews/:id/:status': 'ReviewController.update',
 
 	// 用户
 	'get /v1/users/:id': 'UserController.show',

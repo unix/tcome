@@ -48,18 +48,22 @@ module.exports = {
 
 	/**
 	 *
-	 * @api {PUT} http://wittsay.cc/api/reviews/:id/active [reviewArticle]
+	 * @api {PUT} http://wittsay.cc/api/reviews/:id/:status [reviewArticle]
 	 * @apiGroup Review
 	 * @apiDescription 审核指定文章 需要管理员权限或更高
 	 * @apiParam (path) {string} id 文章id
+	 * @apiParam (path) {string} status 文章状态 包括: isReview:审核中, isActive:正常, isDestroy:已删除
 	 * @apiUse CODE_200
 	 * @apiUse CODE_500
 	 */
 	update: (req, res) =>{
-		const {id} = req.params
-		if (!id) return res.badRequest({message: '至少需要指定文章id'})
+		const {id, status} = req.params
+		if (!id || !status) return res.badRequest({message: '参数错误'})
+		if (status != 'isReview' || status != 'isActive' || status != 'isDestroy'){
+			return res.badRequest({message: '状态错误'})
+		}
 
-		ArticleService.updateArticle(id, {articleType: 'isActive'}, (err, updated) =>{
+		ArticleService.updateArticle(id, {articleType: status}, (err, updated) =>{
 			if (err) return res.serverError()
 
 			res.ok(updated[0])
