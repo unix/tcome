@@ -9,7 +9,8 @@ module.exports = {
 	 * @api {GET} http://wittsay.cc/api/reviews/:id [showReviewArticles]
 	 * @apiGroup Review
 	 * @apiDescription 获取需要审核的文章 需要Admin或更高权限
-	 * @apiParam (path) {string} [id] 文章id
+	 * @apiParam (path) {string} [id] 文章id (查询id会自动抛弃query条件)
+	 * @apiParam (query) {string} [status] 文章状态 包括: isReview:审核中, isActive:正常, isDestroy:已删除, all: 所有(默认)
 	 * @apiUse PAGE
 	 * @apiUse CODE_200
 	 * @apiUse CODE_500
@@ -17,10 +18,14 @@ module.exports = {
 	show: (req, res) =>{
 		const {id} = req.params
 		if (!id) {
-			const {page, per_page} = req.allParams()
+			let {page, per_page, status} = req.allParams()
+			if (status != 'isReview' && status != 'isActive' && status != 'isDestroy'){
+				status = 'all'
+			}
 			return ArticleService.findReviewAll({
 				page: page? page: 1,
 				per_page: per_page? per_page: 14,
+				status: status
 			}, (err, articles) =>{
 				if (err) return res.serverError()
 
