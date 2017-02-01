@@ -22,7 +22,7 @@ module.exports = {
 				where: {articleType: 'isActive'},
 				sort: {'createdAt': -1},
 			},{
-				fields: ['id', 'title', 'createdAt', 'readTotal', 'commentTotal', 'authorName', 'thumbnail']
+				fields: ['id', 'title', 'createdAt', 'readTotal', 'commentTotal', 'authorName', 'thumbnail', 'abstract']
 			})
 			.paginate({limit: per_page? per_page: 14, page: page? page: 1, })
 			.exec((err, articles) =>{
@@ -32,13 +32,13 @@ module.exports = {
 	},
 	findReviewAll: (query, done) =>{
 		const {page, per_page, status} = query
-		const where = !status|| status== 'all'? {}: {articleType: status}
+		const where = !status|| status== 'all'? {articleType: {'!': ['isDestroy']}}: {articleType: status}
 		Article
 			.find({
 				where: where,
 				sort: {'createdAt': -1},
 			},{
-				fields: ['id', 'title', 'createdAt', 'readTotal', 'commentTotal', 'authorName', 'thumbnail', 'articleType']
+				fields: ['id', 'title', 'createdAt', 'readTotal', 'commentTotal', 'authorName', 'thumbnail', 'articleType', 'abstract']
 			})
 			.paginate({limit: per_page? per_page: 14, page: page? page: 1, })
 			.exec((err, articles) =>{

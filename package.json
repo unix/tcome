@@ -36,7 +36,8 @@
     "request": "^2.74.0",
     "sails": "~0.12.11",
     "sails-disk": "~0.10.9",
-    "sails-mongo": "^0.12.1"
+    "sails-mongo": "^0.12.1",
+    "trim-html": "^0.1.7"
   },
   "devDependencies": {}
 }

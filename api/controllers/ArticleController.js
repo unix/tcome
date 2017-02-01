@@ -2,6 +2,7 @@
  * Created by WittBulter on 2016/10/12.
  * @description :: 文章相关逻辑
  */
+const trimHtml = require('trim-html')
 
 module.exports = {
 
@@ -100,6 +101,10 @@ module.exports = {
 	create: (req, res) =>{
 		const {title, content, tags, thumbnail} = req.allParams()
 		if (!title || !content) return res.badRequest({message: '缺少body参数'})
+		if (content.length < 100){
+			return res.badRequest({message: '文章过短'})
+		}
+		const abstract = trimHtml(content, {limit: 50}).html
 
 		ArticleService.createArticle({
 			title: title,
@@ -108,6 +113,7 @@ module.exports = {
 			tags: tags? tags: [],
 			authorId: req.headers.userID,
 			authorName: req.headers.username,
+			abstract: abstract,
 			articleType: 'isReview'
 		}, (err, created) =>{
 			if (err) return res.serverError()

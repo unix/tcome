@@ -28,6 +28,10 @@ module.exports = {
 			required: true,
 			minLength: 5
 		},
+		abstract: {
+			type: 'string',
+			required: true
+		},
 		thumbnail: {
 			type: 'string',
 		},
