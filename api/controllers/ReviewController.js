@@ -59,7 +59,7 @@ module.exports = {
 	update: (req, res) =>{
 		const {id, status} = req.params
 		if (!id || !status) return res.badRequest({message: '参数错误'})
-		if (status != 'isReview' || status != 'isActive' || status != 'isDestroy'){
+		if (status != 'isReview'&& status != 'isActive'&& status != 'isDestroy'){
 			return res.badRequest({message: '状态错误'})
 		}
 
