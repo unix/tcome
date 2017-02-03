@@ -80,7 +80,8 @@ module.exports = {
 		Article
 			.find({
 				where: {
-					title: {'contains' : keyword}
+					title: {'contains' : keyword},
+					articleType: 'isActive'
 				},
 				sort: {'createdAt': -1},
 			},{
