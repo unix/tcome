@@ -150,7 +150,7 @@ module.exports = {
 	 * @api {GET} http://wittsay.cc/api/articles/:keyword/search [search]
 	 * @apiGroup Article
 	 * @apiDescription 按关键字搜索文章 任何权限
-	 * @apiParam (path) {string} keyword 关键字
+	 * @apiParam (path) {string} keyword 关键字 (=allArticles返回全部)
 	 * @apiUse PAGE
 	 * @apiUse CODE_200
 	 * @apiUse CODE_500
@@ -158,10 +158,18 @@ module.exports = {
 	search: (req, res) =>{
 		const {keyword} = req.params
 		const {page, per_page} = req.allParams()
-		ArticleService.findArticleForKeyword(keyword, {
+		const pageSize = {
 			page: page? page: 1,
 			per_page: per_page? per_page: 14,
-		}, (err, articles) =>{
+		}
+		if (keyword === 'allArticles'){
+			return ArticleService.findArticleAll(pageSize, (err, articles) =>{
+				if (err) return res.serverError()
+
+				res.ok(articles)
+			})
+		}
+		ArticleService.findArticleForKeyword(keyword, pageSize, (err, articles) =>{
 			if (err) return res.serverError()
 
 			res.ok(articles)
