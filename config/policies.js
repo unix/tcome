@@ -48,10 +48,13 @@ module.exports.policies = {
 		update: ['isAuthenticated', 'isAdmin']
 	},
 
+	// 用户
 	UserController: {
 		'*': true,
 		create: ['notCreated'],
-		update: ['isAuthenticated']
+		update: ['isAuthenticated'],
+		self: ['isAuthenticated'],
+		show: ['isAuthenticated', 'isAdmin']
 	},
 
 	// 增加评论需要登录 删除需要管理员权限 展示无需权限

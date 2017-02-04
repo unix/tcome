@@ -65,6 +65,8 @@ module.exports.routes = {
 	'get /v1/users/:id/:resource': 'UserController.resource',
 	'post /v1/users/:id/validate': 'UserController.validate',
 	'get /v1/user/type': 'UserController.userType',
+	'get /v1/user': 'UserController.self',
+	'put /v1/user': 'UserController.update',
 	'post /v1/user': 'UserController.create',
 
 	// 博客基础信息

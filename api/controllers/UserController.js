@@ -27,6 +27,23 @@ module.exports = {
 
 	/**
 	 *
+	 * @api {GET} http://wittsay.cc/api/user [show]
+	 * @apiGroup User
+	 * @apiDescription 获取当前登录用户的信息
+	 * @apiUse CODE_200
+	 * @apiUse CODE_500
+	 */
+	self: (req, res) =>{
+		UserService.findUserForId(req.headers.userID, (err, user) =>{
+			if (err) return res.serverError()
+
+			delete user.password
+			res.ok(user)
+		})
+	},
+
+	/**
+	 *
 	 * @api {GET} http://wittsay.cc/api/users/:id/resource [getResource]
 	 * @apiGroup User
 	 * @apiDescription 获取指定用户的信息
@@ -128,7 +145,7 @@ module.exports = {
 		if (!username && !phone && !avatar){
 			return res.badRequest({message: '至少需要修改一个参数'})
 		}
-		let user;
+		let user = {};
 		if (username) user.username = username;
 		if (phone) user.phone = phone;
 		if (avatar) user.avatar = avatar;
