@@ -36,7 +36,7 @@ module.exports.policies = {
 	// 修改删除文章需要管理员权限 展示无需权限
 	ArticleController: {
 		'*': true,
-		update: ['isAuthenticated', 'isAdmin'],
+		update: ['isAuthenticated'],
 		destroy: ['isAuthenticated', 'isAdmin'],
 		create: ['isAuthenticated'],
 		validate: ['notActive']
