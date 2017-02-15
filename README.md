@@ -2,7 +2,7 @@
 Witt-Blog
 </h1>
 
-[文档](http://test.wittsay.cc/doc) &nbsp;  [测试地址](http://test.wittsay.cc/)
+[博客地址](http://wittsay.cc/) &nbsp;  [文档地址](http://wittsay.cc/doc)
 
 这是基于NodeJs,MongoDB的博客系统，它负责基础的API服务。如需要与之契合的前端项目请前往[前端项目](https://github.com/WittBulter/sails-blog-frontend)
 
