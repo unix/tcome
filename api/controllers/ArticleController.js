@@ -58,7 +58,7 @@ module.exports = {
 	 *
 	 * @api {PUT} http://wittsay.cc/api/articles/:id [update]
 	 * @apiGroup Article
-	 * @apiDescription 修改指定文章 需要管理员权限或更高
+	 * @apiDescription 修改指定文章 需要登录 已删除或不存在文章无法修改
 	 * @apiParam (path) {string} id 文章id
 	 * @apiParam (body) {string} [title] 文章标题
 	 * @apiParam (body) {string} [content] 文章内容
