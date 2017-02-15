@@ -151,7 +151,7 @@ module.exports = {
 	},
 	findArticle: (id, done) =>{
 		Article
-			.find({authorId: id})
+			.find({authorId: id, articleType: {'!': ['isDestroy']}})
 			.exec((err, articles) =>{
 				if (err) return done(err)
 				done(null, articles)
