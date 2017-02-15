@@ -1,10 +1,10 @@
 {
-  "name": "ItsmycarAdmin",
-  "version": "0.1.1",
-  "description": "ItsmycarAdmin",
+  "name": "sails-blog",
+  "version": "0.1.2",
+  "description": "sails-blog",
   "main": "app.js",
   "apidoc": {
-    "title": "ItsmycarAdmin Doc"
+    "title": "sails-blog doc"
   },
   "scripts": {
     "debug": "node debug app.js",
