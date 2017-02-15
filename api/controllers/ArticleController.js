@@ -26,13 +26,17 @@ module.exports = {
 		const {id} = req.params
 		if (!id) {
 			const {page, per_page} = req.allParams()
-			return ArticleService.findArticleAll({
-				page: page? page: 1,
-				per_page: per_page? per_page: 14,
-			}, (err, articles) =>{
+			return ArticleService.findArticleCount((err, count) =>{
 				if (err) return res.serverError()
+				ArticleService.findArticleAll({
+					page: page? page: 1,
+					per_page: per_page? per_page: 14,
+				}, (err, articles) =>{
+					if (err) return res.serverError()
 
-				res.ok(articles)
+					res.setHeader('total', count)
+					res.ok(articles)
+				})
 			})
 		}
 

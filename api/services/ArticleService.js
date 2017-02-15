@@ -14,17 +14,24 @@ module.exports = {
 				done(null, article)
 			})
 	},
-
+	findArticleCount: done =>{
+		Article
+			.count({})
+			.exec((err, count) =>{
+				if (err) return done(err)
+				done(null, count)
+			})
+	},
 	findArticleAll: (pageSize, done) =>{
 		const {page, per_page} = pageSize
 		Article
 			.find({
 				where: {articleType: 'isActive'},
 				sort: {'createdAt': -1},
-			},{
+			}, {
 				fields: ['id', 'title', 'createdAt', 'readTotal', 'commentTotal', 'authorName', 'thumbnail', 'abstract']
 			})
-			.paginate({limit: per_page? per_page: 14, page: page? page: 1, })
+			.paginate({limit: per_page? per_page: 14, page: page? page: 1,})
 			.exec((err, articles) =>{
 				if (err) return done(err)
 				done(null, articles)
@@ -32,15 +39,15 @@ module.exports = {
 	},
 	findReviewAll: (query, done) =>{
 		const {page, per_page, status} = query
-		const where = !status|| status== 'all'? {articleType: {'!': ['isDestroy']}}: {articleType: status}
+		const where = !status || status == 'all'? {articleType: {'!': ['isDestroy']}}: {articleType: status}
 		Article
 			.find({
 				where: where,
 				sort: {'createdAt': -1},
-			},{
+			}, {
 				fields: ['id', 'title', 'createdAt', 'readTotal', 'commentTotal', 'authorName', 'thumbnail', 'articleType', 'abstract']
 			})
-			.paginate({limit: per_page? per_page: 14, page: page? page: 1, })
+			.paginate({limit: per_page? per_page: 14, page: page? page: 1,})
 			.exec((err, articles) =>{
 				if (err) return done(err)
 				done(null, articles)
@@ -80,14 +87,14 @@ module.exports = {
 		Article
 			.find({
 				where: {
-					title: {'contains' : keyword},
+					title: {'contains': keyword},
 					articleType: 'isActive'
 				},
 				sort: {'createdAt': -1},
-			},{
+			}, {
 				fields: ['id', 'title', 'createdAt', 'readTotal', 'commentTotal', 'authorName', 'thumbnail']
 			})
-			.paginate({limit: per_page? per_page: 14, page: page? page: 1, })
+			.paginate({limit: per_page? per_page: 14, page: page? page: 1,})
 			.exec((err, articles) =>{
 				if (err) return done(err)
 				done(null, articles)
