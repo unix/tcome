@@ -55,7 +55,7 @@ module.exports = {
 
 	/**
 	 *
-	 * @api {ANY} http://wittsay.cc/api/session [Authorization]
+	 * @api {ANY} http://wittsay.cc/v1/session [Authorization]
 	 * @apiGroup Authorization
 	 * @apiDescription 接口权限验证
 	 * @apiParam (header) {string} Authorization 用户验证token
@@ -63,7 +63,7 @@ module.exports = {
 
 	/**
 	 *
-	 * @api {POST} http://wittsay.cc/api/session [login]
+	 * @api {POST} http://wittsay.cc/v1/session [login]
 	 * @apiGroup Session
 	 * @apiDescription 用户登录,获取用户session
 	 * @apiParam (body) {string} email 用户名
@@ -85,7 +85,7 @@ module.exports = {
 
 	/**
 	 *
-	 * @api {DELETE} http://wittsay.cc/api/session [logout]
+	 * @api {DELETE} http://wittsay.cc/v1/session [logout]
 	 * @apiGroup Session
 	 * @apiDescription 用户登出,注销用户session
 	 * @apiUse CODE_200

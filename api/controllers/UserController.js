@@ -7,7 +7,7 @@ const uuid = require('node-uuid')
 module.exports = {
 	/**
 	 *
-	 * @api {GET} http://wittsay.cc/api/users/:id [show]
+	 * @api {GET} http://wittsay.cc/v1/users/:id [show]
 	 * @apiGroup User
 	 * @apiDescription 获取指定用户的信息
 	 * @apiParam (path) {string} id 用户id
@@ -27,7 +27,7 @@ module.exports = {
 
 	/**
 	 *
-	 * @api {GET} http://wittsay.cc/api/user [show]
+	 * @api {GET} http://wittsay.cc/v1/user [show]
 	 * @apiGroup User
 	 * @apiDescription 获取当前登录用户的信息
 	 * @apiUse CODE_200
@@ -44,7 +44,7 @@ module.exports = {
 
 	/**
 	 *
-	 * @api {GET} http://wittsay.cc/api/users/:id/resource [getResource]
+	 * @api {GET} http://wittsay.cc/v1/users/:id/resource [getResource]
 	 * @apiGroup User
 	 * @apiDescription 获取指定用户的信息
 	 * @apiParam (path) {string} id 用户id
@@ -69,7 +69,7 @@ module.exports = {
 
 	/**
 	 *
-	 * @api {GET} http://wittsay.cc/api/user/type [userType]
+	 * @api {GET} http://wittsay.cc/v1/user/type [userType]
 	 * @apiGroup User
 	 * @apiDescription 获取默认的用户类型
 	 * @apiUse CODE_200
@@ -85,7 +85,7 @@ module.exports = {
 
 	/**
 	 *
-	 * @api {POST} http://wittsay.cc/api/user [create]
+	 * @api {POST} http://wittsay.cc/v1/user [create]
 	 * @apiGroup User
 	 * @apiDescription 创建一个用户 无需权限
 	 * @apiParam (body) {string} email 用户邮件 用作登录
@@ -131,7 +131,7 @@ module.exports = {
 
 	/**
 	 *
-	 * @api {PUT} http://wittsay.cc/api/user [update]
+	 * @api {PUT} http://wittsay.cc/v1/user [update]
 	 * @apiGroup User
 	 * @apiDescription 修改一个用户信息
 	 * @apiParam (body) {string} [username] 用户名
@@ -160,7 +160,7 @@ module.exports = {
 
 	/**
 	 *
-	 * @api {POST} http://wittsay.cc/api/users/:id/validate [validate]
+	 * @api {POST} http://wittsay.cc/v1/users/:id/validate [validate]
 	 * @apiGroup User
 	 * @apiDescription 修改一个用户信息
 	 * @apiParam (body) {string} token 验证token

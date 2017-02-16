@@ -6,7 +6,7 @@ module.exports = {
 
 	/**
 	 *
-	 * @api {GET} http://wittsay.cc/api/option [show]
+	 * @api {GET} http://wittsay.cc/v1/option [show]
 	 * @apiGroup Option
 	 * @apiDescription 查看博客基础信息
 	 * @apiUse CODE_200
@@ -23,7 +23,7 @@ module.exports = {
 
 	/**
 	 *
-	 * @api {PUT} http://wittsay.cc/api/option [update]
+	 * @api {PUT} http://wittsay.cc/v1/option [update]
 	 * @apiGroup Option
 	 * @apiDescription 修改博客基础信息(如果没有则自动创建) 需要管理员权限或更高
 	 * @apiParam (path) {string} [blogName] 博客名称

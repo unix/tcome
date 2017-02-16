@@ -61,12 +61,6 @@ module.exports = {
 
 	},
 
-	// beforeValidate: (article, done) =>{
-	// 	if (article.tags&& article.tags.length){
-	//
-	// 	}
-	// },
-
 	afterCreate: (article, done) =>{
 		Article.native((err, collection) =>{
 			if (err) return res.serverError(err)

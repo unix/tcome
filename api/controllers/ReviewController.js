@@ -6,7 +6,7 @@ module.exports = {
 
 	/**
 	 *
-	 * @api {GET} http://wittsay.cc/api/reviews/:id [showReviewArticles]
+	 * @api {GET} http://wittsay.cc/v1/reviews/:id [showReviewArticles]
 	 * @apiGroup Review
 	 * @apiDescription 获取需要审核的文章 需要Admin或更高权限
 	 * @apiParam (path) {string} [id] 文章id (查询id会自动抛弃query条件)
@@ -53,7 +53,7 @@ module.exports = {
 
 	/**
 	 *
-	 * @api {PUT} http://wittsay.cc/api/reviews/:id/:status [reviewArticle]
+	 * @api {PUT} http://wittsay.cc/v1/reviews/:id/:status [reviewArticle]
 	 * @apiGroup Review
 	 * @apiDescription 审核指定文章 需要管理员权限或更高
 	 * @apiParam (path) {string} id 文章id

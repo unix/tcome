@@ -13,7 +13,7 @@ module.exports = {
 
 	/**
 	 *
-	 * @api {POST} http://wittsay.cc/api/image [create]
+	 * @api {POST} http://wittsay.cc/v1/image [create]
 	 * @apiGroup Image
 	 * @apiDescription 上传一张图片 需要登录
 	 * @apiParam (body) {string} image base64编码图片 转码后长度需小于2400000

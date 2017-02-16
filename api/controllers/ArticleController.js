@@ -8,7 +8,7 @@ module.exports = {
 
 	/**
 	 *
-	 * @api {GET} http://wittsay.cc/api/articles/:id [show]
+	 * @api {GET} http://wittsay.cc/v1/articles/:id [show]
 	 * @apiGroup Article
 	 * @apiDescription 获取指定文章详细信息 任何权限
 	 * @apiParam (path) {string} [id] 文章id
@@ -60,7 +60,7 @@ module.exports = {
 
 	/**
 	 *
-	 * @api {PUT} http://wittsay.cc/api/articles/:id [update]
+	 * @api {PUT} http://wittsay.cc/v1/articles/:id [update]
 	 * @apiGroup Article
 	 * @apiDescription 修改指定文章 需要登录 已删除或不存在文章无法修改
 	 * @apiParam (path) {string} id 文章id
@@ -99,7 +99,7 @@ module.exports = {
 
 	/**
 	 *
-	 * @api {POST} http://wittsay.cc/api/article [create]
+	 * @api {POST} http://wittsay.cc/v1/article [create]
 	 * @apiGroup Article
 	 * @apiDescription 创建一篇文章 需要登录
 	 * @apiParam (body) {string} title 文章标题
@@ -136,7 +136,7 @@ module.exports = {
 
 	/**
 	 *
-	 * @api {DELETE} http://wittsay.cc/api/articles/:id [destroy]
+	 * @api {DELETE} http://wittsay.cc/v1/articles/:id [destroy]
 	 * @apiGroup Article
 	 * @apiParam (path) {string} id 文章id
 	 * @apiDescription 删除指定文章 需要管理员或更高权限
@@ -158,7 +158,7 @@ module.exports = {
 
 	/**
 	 *
-	 * @api {GET} http://wittsay.cc/api/articles/:keyword/search [search]
+	 * @api {GET} http://wittsay.cc/v1/articles/:keyword/search [search]
 	 * @apiGroup Article
 	 * @apiDescription 按关键字搜索文章 任何权限
 	 * @apiParam (path) {string} keyword 关键字 (=allArticles返回全部)

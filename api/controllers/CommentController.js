@@ -7,7 +7,7 @@ module.exports = {
 
 	/**
 	 *
-	 * @api {GET} http://wittsay.cc/api/articles/:id/comment [show]
+	 * @api {GET} http://wittsay.cc/v1/articles/:id/comment [show]
 	 * @apiGroup Comment
 	 * @apiDescription 获取文章评论 无需权限
 	 * @apiParam (path) {string} id 文章id
@@ -31,7 +31,7 @@ module.exports = {
 
 	/**
 	 *
-	 * @api {POST} http://wittsay.cc/api/articles/:id/comment [create]
+	 * @api {POST} http://wittsay.cc/v1/articles/:id/comment [create]
 	 * @apiGroup Comment
 	 * @apiDescription 对文章创建一个评论 需要登录
 	 * @apiParam (path) {string} id 需要评论的文章id
