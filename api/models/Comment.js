@@ -30,8 +30,17 @@ module.exports = {
 			required: true,
 			minLength: 5
 		},
-
-
-
+		avatar: {
+			type: 'string'
+		}
 	},
+
+	beforeValidate: (values, cb) =>{
+		if (!values.authorId) return cb()
+		UserService.findUserForId(values.authorId, (err, user) =>{
+			if (err) return cb(err)
+			values.avatar = user.avatar
+			cb()
+		})
+	}
 }
