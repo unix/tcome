@@ -1,6 +1,7 @@
-<h1>
-Witt-Blog
-</h1>
+### T-COME, 
+#### new blog, present for you .  
+
+I'm not perfect, i'm sorry.
 
 [博客地址](http://wittsay.cc/) &nbsp;  [文档地址](http://wittsay.cc/doc)
 
@@ -51,7 +52,7 @@ $ sails generate controller <foo> [action1, action2, ...]
 
 
 ## 团队
-blog由WittBulter开发，如果你需要加入开发团队，请联系我:
+TCOME由WittBulter开发，如果你需要加入开发团队，请联系我:
 
 [![Witt Bulter](http://obqqxnnm4.bkt.clouddn.com/11304944.gif?imageView2/1/w/100)](https://github.com/WittBulter) |  
 :---:|
