@@ -1,40 +1,41 @@
-### T-COME, 
+### T-COME, [中文](https://github.com/WittBulter/tcome/blob/master/README_CN.md)
 #### new blog, present for you .  
 
 I'm not perfect, i'm sorry.
 
-[博客地址](http://wittsay.cc/) &nbsp;  [文档地址](http://wittsay.cc/doc)
+[PREVIEW](http://wittsay.cc/) &nbsp;
 
-这是基于NodeJs,MongoDB的博客系统，它负责基础的API服务。如需要与之契合的前端项目请前往[前端项目](https://github.com/WittBulter/sails-blog-frontend)
+This is a blog based on NodeJS.  
+If you need a front-end, goto [tcome-frontend](https://github.com/WittBulter/tcome-frontend)
 
 
-## 开发者
-需要编译环境，具体配置请参阅[node-gyp](https://github.com/nodejs/node-gyp)
+## DEVELOP
+tips: require node-gyp，see [node-gyp](https://github.com/nodejs/node-gyp)
 ```sh
-* 安装依赖
+* install package
 $ npm install
 
-* 安装全局sails
+* install sails.js
 $ sudo npm install sails -g
 
-* 安装全局grunt (sails)
+* install grunt (if you need)
 $ sudo npm install grunt -g
 ```
 
 
-**运行:**
+**run:**
 ```sh
-* 挂起服务 默认监听1337端口
+* start
 $ sails lift
 ```
 
-**生成文档:**
+**make api doc:**
 ```sh
 $ npm install apidoc -g
 $ npm run api
 ```
 
-**创建sails:**
+**create file:**
 ```sh
 
 $ sails generate api <foo>
@@ -45,14 +46,10 @@ $ sails generate controller <foo> [action1, action2, ...]
 ```
 
 
-## 社区支持
-- [StackOverflow](http://stackoverflow.com/questions/tagged/sails.js)
-- [What are the best video tutorials for Node.js or Sails.js?](https://www.quora.com/What-are-the-best-video-tutorials-for-Node-js-or-Sails-js) (Quora)
-- [Up and Running in Node.js](http://www.lynda.com/Node.js-tutorials/Up-Running-Node.js/370605-2.html) (Sails basics are covered towards the end of this video course on Lynda)
 
 
-## 团队
-TCOME由WittBulter开发，如果你需要加入开发团队，请联系我:
+## TEAM
+TCOME developed by WittBulter，any question，please contact me:
 
 [![Witt Bulter](http://obqqxnnm4.bkt.clouddn.com/11304944.gif?imageView2/1/w/100)](https://github.com/WittBulter) |  
 :---:|
