@@ -1,5 +1,5 @@
 ### T-COME, [中文](https://github.com/WittBulter/tcome/blob/master/README_CN.md)
-#### new blog, present for you .  
+#### new blog, present for you.  
 
 I'm not perfect, i'm sorry.
 
@@ -8,6 +8,13 @@ I'm not perfect, i'm sorry.
 This is a blog based on NodeJS.  
 If you need a front-end, goto [tcome-frontend](https://github.com/WittBulter/tcome-frontend)
 
+## FEATURES
+* Support login/register/manage
+* Users can publish articles and article review
+* Article support comments
+* Canonical interface(RESTfulAPI)，highly scalable
+* Search and more configuration
+* More features are under development... 
 
 ## DEVELOP
 tips: require node-gyp，see [node-gyp](https://github.com/nodejs/node-gyp)
