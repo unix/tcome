@@ -3,7 +3,7 @@
 
 I'm not perfect, i'm sorry.
 
-[PREVIEW](http://wittsay.cc/) &nbsp;
+[PREVIEW](http://wittsay.cc/) &nbsp; [API](http://wittsay.cc/doc)  &nbsp; 
 
 This is a blog based on NodeJS.  
 If you need a front-end, goto [tcome-frontend](https://github.com/WittBulter/tcome-frontend)

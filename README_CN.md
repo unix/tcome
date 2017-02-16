@@ -1,7 +1,7 @@
 ### T-COME, [English](https://github.com/WittBulter/tcome/blob/master/README.md)
 #### 你最好的博客
 
-[预览](http://wittsay.cc/) &nbsp;
+[预览](http://wittsay.cc/) &nbsp; [接口文档](http://wittsay.cc/doc)  &nbsp; 
 
 这是基于NodeJs,MongoDB的博客系统服务端，负责基础API服务。  
 
