@@ -1,10 +1,10 @@
 {
-  "name": "sails-blog",
-  "version": "0.1.2",
-  "description": "sails-blog",
+  "name": "tcome-blog",
+  "version": "1.0.0",
+  "description": "tcome-blog",
   "main": "app.js",
   "apidoc": {
-    "title": "sails-blog doc"
+    "title": "TCOME Doc "
   },
   "scripts": {
     "debug": "node debug app.js",
