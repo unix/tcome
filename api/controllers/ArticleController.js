@@ -67,12 +67,13 @@ module.exports = {
 	 * @apiParam (body) {string} [title] 文章标题
 	 * @apiParam (body) {string} [content] 文章内容
 	 * @apiParam (body) {string} [thumbnail] 标题图
+	 * @apiParam (body) {array} [tags] 标签tags
 	 * @apiUse CODE_200
 	 * @apiUse CODE_500
 	 */
 	update: (req, res) =>{
 		const {id} = req.params
-		const {title, content, thumbnail} = req.allParams()
+		const {title, content, thumbnail, tags} = req.allParams()
 		if (!id) return res.badRequest({message: '至少需要指定文章id'})
 		if (!title && !content&& !thumbnail) return res.badRequest({message: '至少需要修改一项'})
 		if (title.length < 5|| content.length < 5) return res.badRequest({message: '文章内容过少'})
@@ -80,6 +81,9 @@ module.exports = {
 		if (title) article.title = title
 		if (content) article.content = content
 		if (thumbnail) article.thumbnail = thumbnail
+		if (tags && Object.prototype.toString.call(tags) === '[object Array]'&& tags.length > 0){
+			article.tags = tag
+		}
 		ArticleService.findArticleForID(id, (err, art) =>{
 			if (err) return res.serverError()
 			if (!art || art.articleType === 'isDestroy'){
