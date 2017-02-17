@@ -82,7 +82,7 @@ module.exports = {
 		if (content) article.content = content
 		if (thumbnail) article.thumbnail = thumbnail
 		if (tags && Object.prototype.toString.call(tags) === '[object Array]'&& tags.length > 0){
-			article.tags = tag
+			article.tags = tags
 		}
 		ArticleService.findArticleForID(id, (err, art) =>{
 			if (err) return res.serverError()
