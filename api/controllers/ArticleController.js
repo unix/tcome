@@ -74,6 +74,8 @@ module.exports = {
 	update: (req, res) =>{
 		const {id} = req.params
 		const {title, content, thumbnail, tags} = req.allParams()
+		const includesTags = tags && Object.prototype.toString.call(tags) === '[object Array]'&& tags.length > 0
+
 		if (!id) return res.badRequest({message: '至少需要指定文章id'})
 		if (!title && !content&& !thumbnail) return res.badRequest({message: '至少需要修改一项'})
 		if (title.length < 5|| content.length < 5) return res.badRequest({message: '文章内容过少'})
@@ -81,23 +83,21 @@ module.exports = {
 		if (title) article.title = title
 		if (content) article.content = content
 		if (thumbnail) article.thumbnail = thumbnail
-		if (tags && Object.prototype.toString.call(tags) === '[object Array]'&& tags.length > 0){
+		if (includesTags){
 			article.tags = tags
 		}
 		ArticleService.findArticleForID(id, (err, art) =>{
 			if (err) return res.serverError()
-			if (!art || art.articleType === 'isDestroy'){
-				return res.badRequest({message: '文章已被删除'})
-			}
-			if (art.authorId !== req.headers.userID){
-				return res.forbidden({message: '仅只能修改自己发表的文章'})
-			}
+			if (!art || art.articleType === 'isDestroy') return res.badRequest({message: '文章已被删除'})
+			if (art.authorId !== req.headers.userID) return res.forbidden({message: '仅只能修改自己发表的文章'})
 			ArticleService.updateArticle(id, article, (err, updated) =>{
 				if (err) return res.serverError()
+				if (includesTags) TagService.saveTags(tags)
 
 				res.ok(updated[0])
 			})
 		})
+
 	},
 
 
@@ -132,6 +132,7 @@ module.exports = {
 			articleType: 'isReview'
 		}, (err, created) =>{
 			if (err) return res.serverError()
+			if (tags) TagService.saveTags(tags)
 
 			res.ok(created)
 		})

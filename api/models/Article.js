@@ -13,6 +13,7 @@ const reduce = function (k, values){
 		total += values[i];
 	}
 	return total
+
 }
 
 module.exports = {
@@ -60,13 +61,13 @@ module.exports = {
 		}
 
 	},
-
-	afterCreate: (article, done) =>{
-		Article.native((err, collection) =>{
-			if (err) return res.serverError(err)
-			collection.mapReduce(map, reduce, {out: 'tags'})
-		})
-		done()
-	},
+	//
+	// afterCreate: (article, done) =>{
+	// 	Article.native((err, collection) =>{
+	// 		if (err) return res.serverError(err)
+	// 		collection.mapReduce(map, reduce, {out: 'tags'})
+	// 	})
+	// 	done()
+	// }
 
 }

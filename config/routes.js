@@ -55,6 +55,10 @@ module.exports.routes = {
 	'post /v1/articles/:id/comment': 'CommentController.create',
 	'delete /v1/comments/:id': 'CommentController.destroy',
 
+	// 文章标签
+	'get /v1/articles/:tag/tag': 'TagController.showArticles',
+	'get /v1/tags': 'TagController.showTags',
+
 	// 审核文章
 	'get /v1/reviews': 'ReviewController.show',
 	'get /v1/reviews/:id': 'ReviewController.show',

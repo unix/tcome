@@ -5,14 +5,15 @@
 
 module.exports = {
 	attributes: {
-		id: {
+		name: {
 			type: 'string',
 			required: true,
 			unique: true
 		},
 		value: {
 			type: 'integer',
-			required: true
+			required: true,
+			defaultsTo: 1,
 		}
 	}
 }
