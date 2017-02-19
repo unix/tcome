@@ -44,13 +44,8 @@ module.exports = {
 		return Article.update({id: id}, newArticle)
 	},
 
-	createArticle: (article, done) =>{
-		Article
-			.create(article)
-			.exec((err, created) =>{
-				if (err) return done(err)
-				done(null, created)
-			})
+	createArticle: article =>{
+		return Article.create(article)
 	},
 
 	destroyArticleForID: (id, done) =>{
@@ -62,9 +57,8 @@ module.exports = {
 			})
 	},
 
-	findArticleForKeyword: (keyword, pageSize, done) =>{
-		const {page, per_page} = pageSize
-		Article
+	findArticleForKeyword: (keyword, page, per_page) =>{
+		return Article
 			.find({
 				where: {
 					title: {'contains': keyword},
@@ -75,10 +69,6 @@ module.exports = {
 				fields: ['id', 'title', 'createdAt', 'readTotal', 'commentTotal', 'authorName', 'thumbnail']
 			})
 			.paginate({limit: per_page? per_page: 14, page: page? page: 1,})
-			.exec((err, articles) =>{
-				if (err) return done(err)
-				done(null, articles)
-			})
 	}
 
 }

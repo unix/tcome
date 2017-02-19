@@ -31,10 +31,10 @@ module.exports = {
 					ArticleService.findArticleCount(),
 					ArticleService.findArticleAll(page, per_page)
 				])
-				console.log(count);
 				res.setHeader('total', count)
 				return res.ok(articles)
 			}
+
 			const article = await ArticleService.findArticleForID(id)
 			if (!article) return res.notFound({message: '未找到文章'})
 			const [user, updated] = await Promise.all([
@@ -60,7 +60,7 @@ module.exports = {
 	 * @apiUse CODE_200
 	 * @apiUse CODE_500
 	 */
-	update: (req, res) =>{
+	update: async (req, res) =>{
 		const {id} = req.params
 		const {title, content, thumbnail, tags} = req.allParams()
 		const includesTags = tags && Object.prototype.toString.call(tags) === '[object Array]'&& tags.length > 0
@@ -68,29 +68,25 @@ module.exports = {
 		if (!id) return res.badRequest({message: '至少需要指定文章id'})
 		if (!title && !content&& !thumbnail) return res.badRequest({message: '至少需要修改一项'})
 		if (title.length < 5|| content.length < 5) return res.badRequest({message: '文章内容过少'})
+
+	// 减少更新数量有助于提高更新速度
 		let article = {articleType: 'isReview'}
 		if (title) article.title = title
 		if (content) article.content = content
 		if (thumbnail) article.thumbnail = thumbnail
-		if (includesTags){
-			article.tags = tags
+		if (includesTags){article.tags = tags}
+
+		try {
+			const art = await ArticleService.findArticleForID(id)
+			if (!art || art.articleType === 'isDestroy') return res.badRequest({message: '文章已被删除'})
+			if (art.authorId !== req.headers.userID) return res.forbidden({message: '仅只能修改自己发表的文章'})
+			const updated = await ArticleService.updateArticle(id, article)
+			if (includesTags) TagService.saveTags(tags)
+
+			res.ok(updated[0])
+		} catch (err){
+			return res.serverError(err)
 		}
-
-
-		ArticleService.findArticleForID(id)
-			.then(article =>{
-				if (!art || art.articleType === 'isDestroy') return res.badRequest({message: '文章已被删除'})
-				if (art.authorId !== req.headers.userID) return res.forbidden({message: '仅只能修改自己发表的文章'})
-				ArticleService.updateArticle(id, article, (err, updated) =>{
-					if (err) return res.serverError()
-					if (includesTags) TagService.saveTags(tags)
-
-					res.ok(updated[0])
-				})
-			})
-			.catch(err =>{
-				return res.serverError()
-			})
 	},
 
 
@@ -106,30 +102,30 @@ module.exports = {
 	 * @apiUse CODE_200
 	 * @apiUse CODE_500
 	 */
-	create: (req, res) =>{
+	create: async (req, res) =>{
 		const {title, content, tags, thumbnail} = req.allParams()
-		if (!title || !content) return res.badRequest({message: '缺少body参数'})
+		if (!title || !content) return res.badRequest({message: '缺少必要的文章参数'})
 		if (content.length < 100){
 			return res.badRequest({message: '文章过短'})
 		}
 		const abstract = trimHtml(content, {limit: 50}).html
-
-		ArticleService.createArticle({
-			title: title,
-			content: content,
-			thumbnail: thumbnail? thumbnail: '',
-			tags: tags? tags: [],
-			authorId: req.headers.userID,
-			authorName: req.headers.username,
-			abstract: abstract,
-			articleType: 'isReview'
-		}, (err, created) =>{
-			if (err) return res.serverError()
+		try {
+			const created = await ArticleService.createArticle({
+				title: title,
+				content: content,
+				thumbnail: thumbnail? thumbnail: '',
+				tags: tags? tags: [],
+				authorId: req.headers.userID,
+				authorName: req.headers.username,
+				abstract: abstract,
+				articleType: 'isReview'
+			})
 			if (tags) TagService.saveTags(tags)
 
 			res.ok(created)
-		})
-
+		} catch (err){
+			return res.serverError(err)
+		}
 	},
 
 	/**
@@ -142,15 +138,15 @@ module.exports = {
 	 * @apiUse CODE_200
 	 * @apiUse CODE_500
 	 */
-	destroy: () =>{
+	destroy: async () =>{
 		const {id} = req.params
 		if (!id) return res.badRequest({message: '需要文章id'})
-
-		ArticleService.updateArticle(id, {articleType: 'isDestroy'}, (err, updated) =>{
-			if (err) return res.serverError()
-
+		try {
+			const updated = await ArticleService.updateArticle(id, {articleType: 'isDestroy'})
 			res.ok(updated[0])
-		})
+		} catch (err){
+			return res.serverError()
+		}
 	},
 
 
@@ -164,25 +160,19 @@ module.exports = {
 	 * @apiUse CODE_200
 	 * @apiUse CODE_500
 	 */
-	search: (req, res) =>{
+	search: async (req, res) =>{
 		const {keyword} = req.params
 		const {page, per_page} = req.allParams()
-		const pageSize = {
-			page: page? page: 1,
-			per_page: per_page? per_page: 14,
+		try {
+			if (keyword === 'allArticles'){
+				const allArticles = await ArticleService.findArticleAll(page, per_page)
+				return res.ok(allArticles)
+			}
+			const searchArticles = await ArticleService.findArticleForKeyword(keyword, page, per_page)
+			res.ok(searchArticles)
+		} catch (err){
+			res.serverError()
 		}
-		if (keyword === 'allArticles'){
-			return ArticleService.findArticleAll(pageSize, (err, articles) =>{
-				if (err) return res.serverError()
-
-				res.ok(articles)
-			})
-		}
-		ArticleService.findArticleForKeyword(keyword, pageSize, (err, articles) =>{
-			if (err) return res.serverError()
-
-			res.ok(articles)
-		})
 	},
 
 }
