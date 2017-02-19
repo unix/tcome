@@ -119,7 +119,7 @@ module.exports = {
 	findComment: id =>{
 		return Comment
 			.find({authorId: id, sort: 'createdAt DESC' })
-			.paginate({limit: 5})
+			.paginate({limit: 14})
 	},
 
 }

@@ -59,14 +59,14 @@ module.exports = {
 	resource: async (req, res) =>{
 		const {id, resource} = req.params
 		if (!id) return res.badRequest({message: '至少需要用户id'})
-		if (!resource|| (resource != 'article'&& resource != 'comment')){
-			return res.badRequest({message: '需要指定合法资源'})
-		}
-		const map = {article: 'findArticle', comment: 'findComment'}
-
 		try {
-			const res = await UserService[map[resource]](id)
-			res.ok(res)
+			if (resource == 'article'){
+				return res.ok(await UserService.findArticle(id))
+			}
+			if (resource == 'comment'){
+				return res.ok(await UserService.findComment(id))
+			}
+			return res.badRequest({message: '需要指定合法资源'})
 		} catch (err){
 			return res.serverError()
 		}
