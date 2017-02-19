@@ -20,15 +20,15 @@ module.exports = {
 	 *     "message": "xxx"
 	 *   }
 	 */
-	showArticles: (req, res) =>{
+	showArticles: async (req, res) =>{
 		const {tag} = req.params
 		if (!tag|| tag.length > 30) return res.badRequest({message: '需要正确的tag名'})
-
-		TagService.findArticlesForTag(tag, (err, articles) =>{
-			if (err) return res.serverError(err)
-
+		try {
+			const articles = await TagService.findArticlesForTag(tag)
 			res.ok(articles)
-		})
+		} catch (err){
+			return res.serverError(err)
+		}
 	},
 
 	/**
@@ -47,16 +47,13 @@ module.exports = {
 	 *     "message": "xxx"
 	 *   }
 	 */
-	showTags: (req, res) =>{
+	showTags: async (req, res) =>{
 		const {page, per_page} = req.allParams()
-
-		TagService.findTagsAll({
-			page: page? page: 1,
-			per_page: per_page? per_page: 14,
-		}, (err, tags) =>{
-			if (err) return res.serverError(err)
-
+		try {
+			const tags = await TagService.findTagsAll(page, per_page)
 			res.ok(tags)
-		})
+		} catch (err){
+			return res.serverError(err)
+		}
 	}
 }

@@ -3,8 +3,8 @@
  */
 
 module.exports = {
-	findArticlesForTag: (tagString, done) =>{
-		Article
+	findArticlesForTag: tagString =>{
+		return Article
 			.find({
 				where: {tags: {contains: tagString}},
 				sort: {'createdAt': -1},
@@ -12,23 +12,15 @@ module.exports = {
 				fields: ['id', 'title', 'createdAt', 'readTotal', 'commentTotal', 'authorName', 'thumbnail', 'articleType', 'abstract']
 			})
 			.paginate({limit: per_page? per_page: 14, page: page? page: 1,})
-			.exec((err, articles) =>{
-				if (err) return done(err)
-				done(null, articles)
-			})
 	},
 
-	findTagsAll: (pageSize, done) =>{
-		Tags
+	findTagsAll: (page, per_page) =>{
+		return Tags
 			.find({
 				where: {},
 				sort: {'createdAt': -1},
 			})
 			.paginate({limit: per_page? per_page: 14, page: page? page: 1,})
-			.exec((err, tags) =>{
-				if (err) return done(err)
-				done(null, tags)
-			})
 	},
 	findTagsForString: (tagName, done) =>{
 		Tags
