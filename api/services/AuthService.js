@@ -17,67 +17,43 @@ module.exports = {
 			})
 	},
 
-	findSessionForMail: (email, done) =>{
-		Session
-			.findOne({email: email})
-			.exec((err, session) =>{
-				if (err) return done(err)
-				if (!session) return done(null, null)
-
-				done(null, session)
-			})
+	findSessionForMail: email =>{
+		return Session.findOne({email: email})
 	},
 
-	updateSessionForMail: (email, session, done) =>{
-		Session
-			.update({email: email}, session)
-			.exec((err, updated) =>{
-				if (err) return done(err)
-				done(null, updated)
-			})
+	updateSessionForMail: (email, session) =>{
+		return Session.update({email: email}, session)
 	},
 
-	createSession: (session, done) =>{
-		Session
-			.create(session)
-			.exec((err, created) =>{
-				if (err) return done(err)
-				done(null, created)
-			})
+	createSession: session =>{
+		return Session.create(session)
 	},
 
 
-	authUser: (authObject, done) =>{
-		const {email, password} = authObject
-		const success = (s, u) => done(null, Object.assign(s, u), '登录成功')
-		UserService.findUserForMail(email, (err, user) =>{
-			if (err) return done(err)
-			if (!user) return done(403, false, '未找到用户')
+	authUser: async (email, password) =>{
+		try {
+			const user = await UserService.findUserForMail(email)
+			if (!user) return {status: false, user: null, msg: '未找到用户'}
 
-			bcrypt.compare(password, user.password, (err, res) =>{
-				if (!res) return done(403, false, '密码有误')
+			const isApproved = await bcrypt.compareSync(password, user.password)
+			if (!isApproved) return {status: false, user: null, msg: '密码有误'}
 
-				const newSession = {
-					email: user.email,
-					username: user.username,
-					userID: user.id,
-					clientToken: uuid.v4()
-				}
-				AuthService.findSessionForMail(user.email, (err, session) =>{
-					if (err) return done(err)
-					if (!session){
-						return AuthService.createSession(newSession, (err, created) =>{
-							if (err) return done(err)
-							return success(newSession, user)
-						})
-					}
-					AuthService.updateSessionForMail(user.email, newSession, (err, updated) =>{
-						if (err) return done(err)
-						return success(newSession, user)
-					})
-				})
-			})
-		})
+			const newSession = {
+				email: user.email,
+				username: user.username,
+				userID: user.id,
+				clientToken: uuid.v4()
+			}
+			const session = await AuthService.findSessionForMail(user.email)
+			if (!session){
+				await AuthService.createSession(newSession)
+				return {status: true, user: Object.assign(newSession, user), msg: '创建登录状态成功'}
+			}
+			await AuthService.updateSessionForMail(user.email, newSession)
+			return {status: true, user: Object.assign(newSession, user), msg: '更新登录状态成功'}
+		} catch (err){
+			return Promise.reject(err)
+		}
 	},
 
 	deleteSession: (email, done) =>{
