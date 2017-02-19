@@ -56,12 +56,7 @@ module.exports = {
 		}
 	},
 
-	deleteSession: (email, done) =>{
-		Session
-			.destroy({email: email})
-			.exec(err =>{
-				if (err) return done(err)
-				done(null)
-			})
+	deleteSession: email =>{
+		return Session.destroy({email: email})
 	}
 }

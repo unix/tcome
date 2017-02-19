@@ -71,7 +71,7 @@ module.exports = {
 	 * @apiUse CODE_200
 	 * @apiUse CODE_500
 	 */
-	login: (req, res) =>{
+	login: async (req, res) =>{
 		const {email, password} = req.allParams()
 		if (!email || !password) return res.badRequest({message: '需要邮件地址与密码'})
 		AuthService.authUser(email, password)
@@ -101,14 +101,15 @@ module.exports = {
 	 *     "message": "xxx"
 	 *   }
 	 */
-	logout: (req, res) =>{
-		console.log(213);
+	logout: async (req, res) =>{
 		const email = req.headers.email
-		AuthService.deleteSession(email, err =>{
-			if (err) return res.serverError()
+		try {
+			await AuthService.deleteSession(email)
 			res.status(204)
 			return res.json({})
-		})
+		} catch (err){
+			return res.serverError()
+		}
 	}
 };
 
