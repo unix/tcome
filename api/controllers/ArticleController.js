@@ -41,7 +41,7 @@ module.exports = {
 				UserService.findUserForId(article.authorId),
 				ArticleService.updateArticle(id, {readTotal: article.readTotal? article.readTotal + 1: 2})
 			])
-			res.ok(Object.assign({avatar: user.avatar? user.avatar: ''}, article))
+			res.ok(Object.assign({avatar: user.avatar? user.avatar: ''}, updated[0]))
 		} catch (err) {
 			return res.serverError(err)
 		}

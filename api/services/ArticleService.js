@@ -22,10 +22,9 @@ module.exports = {
 			})
 			.paginate({limit: per_page? per_page: 14, page: page? page: 1,})
 	},
-	findReviewAll: (query, done) =>{
-		const {page, per_page, status} = query
-		const where = !status || status == 'all'? {articleType: {'!': ['isDestroy']}}: {articleType: status}
-		Article
+	findReviewForType: (type, page, per_page) =>{
+		const where = !type || status == 'all'? {articleType: {'!': ['isDestroy']}}: {articleType: type}
+		return Article
 			.find({
 				where: where,
 				sort: {'createdAt': -1},
@@ -33,10 +32,6 @@ module.exports = {
 				fields: ['id', 'title', 'createdAt', 'readTotal', 'commentTotal', 'authorName', 'thumbnail', 'articleType', 'abstract']
 			})
 			.paginate({limit: per_page? per_page: 14, page: page? page: 1,})
-			.exec((err, articles) =>{
-				if (err) return done(err)
-				done(null, articles)
-			})
 	},
 
 

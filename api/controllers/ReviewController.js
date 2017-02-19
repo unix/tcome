@@ -15,43 +15,29 @@ module.exports = {
 	 * @apiUse CODE_200
 	 * @apiUse CODE_500
 	 */
-	show: (req, res) =>{
+	show: async (req, res) =>{
 		const {id} = req.params
-		if (!id){
-			let {page, per_page, status} = req.allParams()
-			if (status != 'isReview' && status != 'isActive' && status != 'isDestroy'){
-				status = 'all'
+
+		try {
+			if (!id){
+				let {page, per_page, status} = req.allParams()
+				if (status != 'isReview'&& status != 'isActive'&& status != 'isDestroy'){
+					status = 'all'
+				}
+				const articles = await ArticleService.findReviewForType(status, page, per_page)
+				return res.ok(articles)
 			}
-			return ArticleService.findReviewAll({
-				page: page? page: 1,
-				per_page: per_page? per_page: 14,
-				status: status
-			}, (err, articles) =>{
-				if (err) return res.serverError()
+			const article = await ArticleService.findArticleForID(id)
+			if (!article) return res.notFound({message: '未找到文章'})
+			const [user, updated] = await Promise.all([
+				UserService.findUserForId(article.authorId),
+				ArticleService.updateArticle(id, {readTotal: article.readTotal? article.readTotal + 1: 2})
+			])
 
-				res.ok(articles)
-			})
+			res.ok(Object.assign({avatar: user.avatar? user.avatar: ''}, updated[0]))
+		} catch (err){
+			return res.serverError()
 		}
-		ArticleService.findArticleForID(id)
-			.then(article =>{
-				if (!article) return res.notFound({message: '未找到文章'})
-
-				const {readTotal, authorId} = article
-				UserService.findUserForId(authorId, (err, user) =>{
-					if (err) return res.serverError()
-
-					// 每次取单篇文章时更新文章本身阅读数量
-					// 单次写操作会影响接口等待时间，非重要逻辑异步处理事务，不等待写操作结束
-					ArticleService.updateArticle(id, {
-						readTotal: readTotal? readTotal + 1: 2
-					}, (err, updated) =>{})
-					res.ok(Object.assign({avatar: user.avatar? user.avatar: ''}, article))
-				})
-			})
-			.catch(err =>{
-				return res.serverError()
-			})
-
 	},
 
 	/**
@@ -64,18 +50,17 @@ module.exports = {
 	 * @apiUse CODE_200
 	 * @apiUse CODE_500
 	 */
-	update: (req, res) =>{
+	update: async (req, res) =>{
 		const {id, status} = req.params
 		if (!id || !status) return res.badRequest({message: '参数错误'})
 		if (status != 'isReview' && status != 'isActive' && status != 'isDestroy'){
 			return res.badRequest({message: '状态错误'})
 		}
-
-		ArticleService.updateArticle(id, {articleType: status}, (err, updated) =>{
-			if (err) return res.serverError()
-
+		try {
+			const updated = await ArticleService.updateArticle(id)
 			res.ok(updated[0])
-		})
-
+		} catch (err){
+			return res.serverError()
+		}
 	},
 }
