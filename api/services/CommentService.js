@@ -5,21 +5,17 @@
 
 
 module.exports = {
-	findCommentForArticle: (id, done) =>{
-		Comment
+	findCommentForArticle: id =>{
+		return Comment
 			.find({
 				articleId: id,
 				sort: 'createdAt'
-			})
-			.exec((err, comments) =>{
-				if (err) return done(err)
-				done(null, comments)
 			})
 	},
 
 	findCommentForUser: id =>{
 		return Comment
-			.find({authorId: id, sort: 'createdAt DESC' })
+			.find({authorId: id, sort: 'createdAt DESC'})
 			.paginate({limit: 5})
 	},
 
@@ -28,7 +24,7 @@ module.exports = {
 			.find({
 				articleId: id,
 				sort: 'createdAt'
-			},{
+			}, {
 				fields: ['id']
 			})
 			.exec((err, comments) =>{
@@ -37,12 +33,7 @@ module.exports = {
 			})
 	},
 
-	createComment: (comment, done) =>{
-		Comment
-			.create(comment)
-			.exec((err, created) =>{
-				if (err) return done(err)
-				done(null, created)
-			})
+	createComment: comment =>{
+		return Comment.create(comment)
 	}
 }
