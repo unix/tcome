@@ -89,20 +89,6 @@ module.exports = {
 		return User.create(user)
 	},
 
-	/**
-	 *
-	 * @param oldPassword {string} 用户原密码
-	 * @param newPassword {string} 用户新密码
-	 * @param done {func} 回调函数
-	 */
-	compareUser: (newPassword, oldPassword, done) =>{
-		bcrypt.compare(newPassword, oldPassword, (err, res) =>{
-			if (err) return done(err)
-			if (!res) return done(null, false)
-			done(null, true)
-		})
-	},
-
 	updateUserForID: (id, newUser) =>{
 		return User.update({id: id}, newUser)
 	},

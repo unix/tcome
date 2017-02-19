@@ -43,13 +43,8 @@ module.exports = {
 		return Article.create(article)
 	},
 
-	destroyArticleForID: (id, done) =>{
-		Article
-			.destroy({id: id})
-			.exec(err =>{
-				if (err) return done(err)
-				done(null)
-			})
+	destroyArticleForID: id =>{
+		return Article.destroy({id: id})
 	},
 
 	findArticleForKeyword: (keyword, page, per_page) =>{

@@ -19,18 +19,8 @@ module.exports = {
 			.paginate({limit: 5})
 	},
 
-	findCommentLength: (id, done) =>{
-		Comment
-			.find({
-				articleId: id,
-				sort: 'createdAt'
-			}, {
-				fields: ['id']
-			})
-			.exec((err, comments) =>{
-				if (err) return done(err)
-				done(null, comments)
-			})
+	findCommentLength: id =>{
+		return Comment.count({articleId: id})
 	},
 
 	createComment: comment =>{
