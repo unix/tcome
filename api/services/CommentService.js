@@ -17,14 +17,10 @@ module.exports = {
 			})
 	},
 
-	findCommentForUser: (id, done) =>{
-		Comment
+	findCommentForUser: id =>{
+		return Comment
 			.find({authorId: id, sort: 'createdAt DESC' })
 			.paginate({limit: 5})
-			.exec((err, comments) =>{
-				if (err) return done(err)
-				done(null, comments)
-			})
 	},
 
 	findCommentLength: (id, done) =>{

@@ -6,15 +6,8 @@ const bcrypt = require('bcrypt')
 const uuid = require('node-uuid')
 
 module.exports = {
-	findSessionForToken: (clientToken, done) =>{
-		Session
-			.findOne({clientToken: clientToken})
-			.exec((err, session) =>{
-				if (err) return done(err)
-				if (!session) return done(null, null)
-
-				done(null, session)
-			})
+	findSessionForToken: clientToken =>{
+		return Session.findOne({clientToken: clientToken})
 	},
 
 	findSessionForMail: email =>{
