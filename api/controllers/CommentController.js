@@ -48,24 +48,26 @@ module.exports = {
 		if (!content) return res.badRequest({message: '缺少评论内容'})
 		if (content.length < 5 || content.length > 500) return res.badRequest({message: '评论内容不符合规范'})
 
-		ArticleService.findArticleForID(id, (err, article) =>{
-			if (err) return res.serverError()
-
-			if (!article) return res.badRequest({message: '无效的文章id'})
-			CommentService.createComment({
-				authorId: req.headers.userID,
-				authorName: req.headers.username,
-				articleId: article.id,
-				articleName: article.title,
-				targetId: targetId? targetId: null,
-				content: content
-			}, (err, created) =>{
-				if (err) return res.serverError()
-				// 每更新评论  为文章更新字段
-				ArticleService.updateArticle(id, {commentTotal: article.commentTotal + 1}, (err, updated) =>{})
-				res.ok(created)
+		ArticleService.findArticleForID(id)
+			.then(article =>{
+				if (!article) return res.badRequest({message: '无效的文章id'})
+				CommentService.createComment({
+					authorId: req.headers.userID,
+					authorName: req.headers.username,
+					articleId: article.id,
+					articleName: article.title,
+					targetId: targetId? targetId: null,
+					content: content
+				}, (err, created) =>{
+					if (err) return res.serverError()
+					// 每更新评论  为文章更新字段
+					ArticleService.updateArticle(id, {commentTotal: article.commentTotal + 1}, (err, updated) =>{})
+					res.ok(created)
+				})
 			})
-		})
+			.catch(err =>{
+				return res.serverError()
+			})
 	},
 
 

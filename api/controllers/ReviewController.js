@@ -17,7 +17,7 @@ module.exports = {
 	 */
 	show: (req, res) =>{
 		const {id} = req.params
-		if (!id) {
+		if (!id){
 			let {page, per_page, status} = req.allParams()
 			if (status != 'isReview' && status != 'isActive' && status != 'isDestroy'){
 				status = 'all'
@@ -32,23 +32,26 @@ module.exports = {
 				res.ok(articles)
 			})
 		}
+		ArticleService.findArticleForID(id)
+			.then(article =>{
+				if (!article) return res.notFound({message: '未找到文章'})
 
-		ArticleService.findArticleForID(id, (err, article) =>{
-			if (err) return res.serverError()
-			if (!article) return res.notFound({message: '未找到文章'})
+				const {readTotal, authorId} = article
+				UserService.findUserForId(authorId, (err, user) =>{
+					if (err) return res.serverError()
 
-			const {readTotal, authorId} = article
-			UserService.findUserForId(authorId, (err, user) =>{
-				if (err) return res.serverError()
-
-				// 每次取单篇文章时更新文章本身阅读数量
-				// 单次写操作会影响接口等待时间，非重要逻辑异步处理事务，不等待写操作结束
-				ArticleService.updateArticle(id, {
-					readTotal: readTotal? readTotal + 1: 2
-				}, (err, updated) =>{})
-				res.ok(Object.assign({avatar: user.avatar? user.avatar: ''}, article))
+					// 每次取单篇文章时更新文章本身阅读数量
+					// 单次写操作会影响接口等待时间，非重要逻辑异步处理事务，不等待写操作结束
+					ArticleService.updateArticle(id, {
+						readTotal: readTotal? readTotal + 1: 2
+					}, (err, updated) =>{})
+					res.ok(Object.assign({avatar: user.avatar? user.avatar: ''}, article))
+				})
 			})
-		})
+			.catch(err =>{
+				return res.serverError()
+			})
+
 	},
 
 	/**
@@ -64,7 +67,7 @@ module.exports = {
 	update: (req, res) =>{
 		const {id, status} = req.params
 		if (!id || !status) return res.badRequest({message: '参数错误'})
-		if (status != 'isReview'&& status != 'isActive'&& status != 'isDestroy'){
+		if (status != 'isReview' && status != 'isActive' && status != 'isDestroy'){
 			return res.badRequest({message: '状态错误'})
 		}
 

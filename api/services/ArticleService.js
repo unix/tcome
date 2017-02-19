@@ -6,25 +6,14 @@
 
 
 module.exports = {
-	findArticleForID: (id, done) =>{
-		Article
-			.findOne({id: id})
-			.exec((err, article) =>{
-				if (err) return done(err)
-				done(null, article)
-			})
+	findArticleForID: id =>{
+		return Article.findOne({id: id})
 	},
-	findArticleCount: done =>{
-		Article
-			.count({})
-			.exec((err, count) =>{
-				if (err) return done(err)
-				done(null, count)
-			})
+	findArticleCount: _ =>{
+		return Article.count({})
 	},
-	findArticleAll: (pageSize, done) =>{
-		const {page, per_page} = pageSize
-		Article
+	findArticleAll: (page, per_page) =>{
+		return Article
 			.find({
 				where: {articleType: 'isActive'},
 				sort: {'createdAt': -1},
@@ -32,10 +21,6 @@ module.exports = {
 				fields: ['id', 'title', 'createdAt', 'readTotal', 'commentTotal', 'authorName', 'thumbnail', 'abstract']
 			})
 			.paginate({limit: per_page? per_page: 14, page: page? page: 1,})
-			.exec((err, articles) =>{
-				if (err) return done(err)
-				done(null, articles)
-			})
 	},
 	findReviewAll: (query, done) =>{
 		const {page, per_page, status} = query
@@ -55,13 +40,8 @@ module.exports = {
 	},
 
 
-	updateArticle: (id, newArticle, done) =>{
-		Article
-			.update({id: id}, newArticle)
-			.exec((err, updated) =>{
-				if (err) return done(err)
-				done(null, updated)
-			})
+	updateArticle: (id, newArticle) =>{
+		return Article.update({id: id}, newArticle)
 	},
 
 	createArticle: (article, done) =>{

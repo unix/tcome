@@ -22,40 +22,29 @@ module.exports = {
 	 *     "message": "xxx"
 	 *   }
 	 */
-	show: (req, res) =>{
+	show: async (req, res) =>{
 		const {id} = req.params
-		if (!id) {
-			const {page, per_page} = req.allParams()
-			return ArticleService.findArticleCount((err, count) =>{
-				if (err) return res.serverError()
-				ArticleService.findArticleAll({
-					page: page? page: 1,
-					per_page: per_page? per_page: 14,
-				}, (err, articles) =>{
-					if (err) return res.serverError()
-
-					res.setHeader('total', count)
-					res.ok(articles)
-				})
-			})
-		}
-
-		ArticleService.findArticleForID(id, (err, article) =>{
-			if (err) return res.serverError()
+		try {
+			if (!id){
+				const {page, per_page} = req.allParams()
+				const [count, articles] = await Promise.all([
+					ArticleService.findArticleCount(),
+					ArticleService.findArticleAll(page, per_page)
+				])
+				console.log(count);
+				res.setHeader('total', count)
+				return res.ok(articles)
+			}
+			const article = await ArticleService.findArticleForID(id)
 			if (!article) return res.notFound({message: '未找到文章'})
-
-			const {readTotal, authorId} = article
-			UserService.findUserForId(authorId, (err, user) =>{
-				if (err) return res.serverError()
-
-				// 每次取单篇文章时更新文章本身阅读数量
-				// 单次写操作会影响接口等待时间，非重要逻辑异步处理事务，不等待写操作结束
-				ArticleService.updateArticle(id, {
-					readTotal: readTotal? readTotal + 1: 2
-				}, (err, updated) =>{})
-				res.ok(Object.assign({avatar: user.avatar? user.avatar: ''}, article))
-			})
-		})
+			const [user, updated] = await Promise.all([
+				UserService.findUserForId(article.authorId),
+				ArticleService.updateArticle(id, {readTotal: article.readTotal? article.readTotal + 1: 2})
+			])
+			res.ok(Object.assign({avatar: user.avatar? user.avatar: ''}, article))
+		} catch (err) {
+			return res.serverError(err)
+		}
 	},
 
 	/**
@@ -86,18 +75,22 @@ module.exports = {
 		if (includesTags){
 			article.tags = tags
 		}
-		ArticleService.findArticleForID(id, (err, art) =>{
-			if (err) return res.serverError()
-			if (!art || art.articleType === 'isDestroy') return res.badRequest({message: '文章已被删除'})
-			if (art.authorId !== req.headers.userID) return res.forbidden({message: '仅只能修改自己发表的文章'})
-			ArticleService.updateArticle(id, article, (err, updated) =>{
-				if (err) return res.serverError()
-				if (includesTags) TagService.saveTags(tags)
 
-				res.ok(updated[0])
+
+		ArticleService.findArticleForID(id)
+			.then(article =>{
+				if (!art || art.articleType === 'isDestroy') return res.badRequest({message: '文章已被删除'})
+				if (art.authorId !== req.headers.userID) return res.forbidden({message: '仅只能修改自己发表的文章'})
+				ArticleService.updateArticle(id, article, (err, updated) =>{
+					if (err) return res.serverError()
+					if (includesTags) TagService.saveTags(tags)
+
+					res.ok(updated[0])
+				})
 			})
-		})
-
+			.catch(err =>{
+				return res.serverError()
+			})
 	},
 
 

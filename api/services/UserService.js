@@ -59,13 +59,8 @@ module.exports = {
 	 * @param done {function} 回调参数
 	 * @description :: 按邮箱地址查询用户
 	 */
-	findUserForId: (id, done) =>{
-		User
-			.findOne({id: id})
-			.exec((err, userData) =>{
-				if (err) return done(err)
-				done(null, userData)
-			})
+	findUserForId: id =>{
+		return User.findOne({id: id})
 	},
 
 	/**
