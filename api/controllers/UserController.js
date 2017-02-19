@@ -14,15 +14,17 @@ module.exports = {
 	 * @apiUse CODE_200
 	 * @apiUse CODE_500
 	 */
-	show: (req, res) =>{
+	show: async (req, res) =>{
 		const {id} = req.params
 		if (!id) return res.badRequest({message: '至少需要用户id'})
-
-		UserService.findUserForId(id, (err, userData) =>{
-			if (err) return res.serverError()
-			delete userData.password
-			res.ok(userData)
-		})
+		try {
+			let user = await UserService.findUserForId(id)
+			if (!user|| !user.id) return res.notFound({message: '未找到此用户'})
+			delete user.password
+			res.ok(user)
+		} catch (err){
+			return res.serverError()
+		}
 	},
 
 	/**
@@ -33,13 +35,15 @@ module.exports = {
 	 * @apiUse CODE_200
 	 * @apiUse CODE_500
 	 */
-	self: (req, res) =>{
-		UserService.findUserForId(req.headers.userID, (err, user) =>{
-			if (err) return res.serverError()
-
+	self: async (req, res) =>{
+		const userID = req.headers.userID
+		try {
+			let user = await UserService.findUserForId(userID)
 			delete user.password
 			res.ok(user)
-		})
+		} catch (err){
+			return res.serverError()
+		}
 	},
 
 	/**
@@ -52,19 +56,20 @@ module.exports = {
 	 * @apiUse CODE_200
 	 * @apiUse CODE_500
 	 */
-	resource: (req, res) =>{
+	resource: async (req, res) =>{
 		const {id, resource} = req.params
-		console.log(id, resource);
 		if (!id) return res.badRequest({message: '至少需要用户id'})
 		if (!resource|| (resource != 'article'&& resource != 'comment')){
 			return res.badRequest({message: '需要指定合法资源'})
 		}
 		const map = {article: 'findArticle', comment: 'findComment'}
 
-		UserService[map[resource]](id, (err, returnResources) =>{
-			if (err) return res.serverError()
-			res.ok(returnResources)
-		})
+		try {
+			const res = await UserService[map[resource]](id)
+			res.ok(res)
+		} catch (err){
+			return res.serverError()
+		}
 	},
 
 	/**
@@ -75,12 +80,13 @@ module.exports = {
 	 * @apiUse CODE_200
 	 * @apiUse CODE_500
 	 */
-	userType: (req, res) =>{
-		UserService.findUserType(undefined, (err, typeArray) =>{
-			if (err) return res.serverError()
-
-			res.ok(typeArray)
-		})
+	userType: async (req, res) =>{
+		try {
+			const types = await UserService.findUserType()
+			res.ok(types)
+		} catch (err){
+			return res.serverError()
+		}
 	},
 
 	/**
@@ -95,10 +101,8 @@ module.exports = {
 	 * @apiUse CODE_200
 	 * @apiUse CODE_500
 	 */
-	create: (req, res) =>{
+	create: async (req, res) =>{
 		const {username, password, email, phone} = req.allParams()
-		// if (!email && !password) return res.badRequest({message: '只要需要指定帐号密码'})
-		// if (password.length < 5 || password.length > 22) return res.badRequest({message: '密码不符合规范'})
 		if (!/^[0-9a-zA-Z]+@(([0-9a-zA-Z]+)[.])+[a-z]{2,4}$/.test(email)){
 			return res.badRequest({message: '邮件地址不符合规范'})
 		}
@@ -106,27 +110,27 @@ module.exports = {
 			return res.badRequest({message: '密码不符合规则'})
 		}
 		const token = uuid.v4()
-		UserService.createUser({
-			email: email,
-			password: password,
-			username: username? username: '新用户',
-			phone: phone? phone: '0',
-			userType: 'notActive',
-			userTitle: '未激活会员',
-			activeTarget: token
-		}, (err, created) =>{
-			if (err) return res.serverError()
 
-			return UserService.sendMail({
+		try {
+			const created = await UserService.createUser({
+				email: email,
+				password: password,
+				username: username? username: '新用户',
+				phone: phone? phone: '0',
+				userType: 'notActive',
+				userTitle: '未激活会员',
+				activeTarget: token
+			})
+			const info = await UserService.sendMail({
 				id: created.id,
 				email: email,
 				subject: '维特博客-帐号激活',
 				token: token,
-			}, (err, info) =>{
-				res.ok({message: '注册邮件已发送'})
 			})
-
-		})
+			res.ok({message: '注册邮件已发送'})
+		} catch (err){
+			return res.serverError()
+		}
 	},
 
 	/**
@@ -140,8 +144,9 @@ module.exports = {
 	 * @apiUse CODE_200
 	 * @apiUse CODE_500
 	 */
-	update: (req, res) =>{
+	update: async (req, res) =>{
 		const {username, phone, avatar} = req.allParams()
+		const userID = req.headers.userID
 		if (!username && !phone && !avatar){
 			return res.badRequest({message: '至少需要修改一个参数'})
 		}
@@ -149,13 +154,13 @@ module.exports = {
 		if (username) user.username = username;
 		if (phone) user.phone = phone;
 		if (avatar) user.avatar = avatar;
-
-		UserService.updateUserForID(req.headers.userID, user, (err, updated) =>{
-			if (err) return res.serverError()
-
+		try {
+			let updated = await UserService.updateUserForID(userID)
 			delete updated[0].password
 			return res.ok(updated[0])
-		})
+		} catch (err){
+			return res.serverError()
+		}
 	},
 
 	/**
@@ -167,23 +172,23 @@ module.exports = {
 	 * @apiUse CODE_200
 	 * @apiUse CODE_500
 	 */
-	validate: (req, res) =>{
+	validate: async (req, res) =>{
 		const {id} = req.params
 		const {token} = req.allParams()
 		if (!id|| !token) return res.badRequest({message: '缺少参数'})
-
-		UserService.findUserForId(id, (err, user) =>{
-			if (err) return res.serverError()
+		try {
+			const user = await UserService.findUserForId(id)
+			if (!user || !user.id) return res.notFound({message: '未找到此用户'})
 			if (user.activeTarget != token) return res.forbidden({message: '验证失败'})
-			UserService.updateUserForID(id, {
+			const updated = await UserService.updateUserForID(id,  {
 				userType: 'member',
 				userTitle: '会员',
 				activeTarget: ''
-			}, (err, updated) =>{
-				if (err) return res.serverError()
-				res.ok(updated[0])
 			})
-		})
+			res.ok(updated[0])
+		} catch (err){
+			return res.serverError()
+		}
 	}
 
 

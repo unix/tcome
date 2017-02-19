@@ -74,8 +74,8 @@ module.exports = {
 			})
 	},
 
-	findUserType: (filter = undefined, done) =>{
-		done(null, User.getDefault())
+	findUserType: _ =>{
+		return User.getDefault()
 	},
 
 	/**
@@ -85,13 +85,8 @@ module.exports = {
 	 * @return cb {obj| obj} (错误信息| 已创建用户)
 	 * @description :: 按对象创建用户
 	 */
-	createUser: (user, cb) =>{
-		User
-			.create(user)
-			.exec((err, created) =>{
-				if (err) return cb(err)
-				cb(null, created)
-			})
+	createUser: user =>{
+		return User.create(user)
 	},
 
 	/**
@@ -108,16 +103,11 @@ module.exports = {
 		})
 	},
 
-	updateUserForID: (id, newUser, done) =>{
-		User
-			.update({id: id}, newUser)
-			.exec((err, updated) =>{
-				if (err) return done(err)
-				done(null, updated)
-			})
+	updateUserForID: (id, newUser) =>{
+		return User.update({id: id}, newUser)
 	},
 
-	sendMail: (user, done) =>{
+	sendMail: user =>{
 		const mailOptions = {
 			from: '维特博客<support@wittsay.cc>', // sender address mailfrom must be same with the user
 			to: user.email, // list of receivers
@@ -133,28 +123,17 @@ module.exports = {
 				"pass": email.pass
 			}
 		})
-		transporter.sendMail(mailOptions, (err, info) =>{
-			if(err) return done(err, info)
-			done(info)
-		})
+		return transporter.sendMail(mailOptions)
 
 	},
-	findArticle: (id, done) =>{
-		Article
+	findArticle: id =>{
+		return Article
 			.find({authorId: id, articleType: {'!': ['isDestroy']}})
-			.exec((err, articles) =>{
-				if (err) return done(err)
-				done(null, articles)
-			})
 	},
-	findComment: (id, done) =>{
-		Comment
+	findComment: id =>{
+		return Comment
 			.find({authorId: id, sort: 'createdAt DESC' })
 			.paginate({limit: 5})
-			.exec((err, comments) =>{
-				if (err) return done(err)
-				done(null, comments)
-			})
 	},
 
 }
