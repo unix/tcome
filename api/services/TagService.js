@@ -22,50 +22,31 @@ module.exports = {
 			})
 			.paginate({limit: per_page? per_page: 14, page: page? page: 1,})
 	},
-	findTagsForString: (tagName, done) =>{
-		Tags
-			.findOne({name: tagName})
-			.exec((err, tag) =>{
-				if (err) return done(err)
-				done(null, tag)
-			})
+	findTagsForString: tagName =>{
+		return Tags.findOne({name: tagName})
 	},
-	createTag: (tag, done) =>{
-		Tags
-			.create(tag)
-			.exec((err, created) =>{
-				if (err) return done(err)
-				done(null, created)
-			})
+	createTag: tag =>{
+		return Tags.create(tag)
 	},
-	updateTagForID: (id, newTag, done) =>{
-		Tags
-			.update({id: id}, newTag)
-			.exec((err, updated) =>{
-				if (err) return done(err)
-				done(null, updated)
-			})
+	updateTagForID: (id, newTag) =>{
+		return Tags.update({id: id}, newTag)
 	},
-	destroyTagForID: (id, done) =>{
-		Tags
-			.destroy({id: id})
-			.exec(err =>{
-				if (err) return done(err)
-				done(null)
-			})
+	destroyTagForID: id =>{
+		return Tags.destroy({id: id})
 	},
 
 	// 非重要数据，不再回调与排除错误，仅作展示
-	saveTags: (tags, done = () =>{}) =>{
-		tags.forEach(v =>{
-			TagService.findTagsForString(v, (err, tag) =>{
-				if (tag&& tag.id){
-					return TagService.updateTagForID(tag.id, Object.assign(tag, {value: tag.value + 1}),
-						(err, updated) =>{}
-					)
+	saveTagsAsync: async (tags) =>{
+		try {
+			for (let tag of tags){
+				const tagObject = await TagService.findTagsForString(tag)
+				if (!tagObject|| !tagObject.id){
+					return await TagService.createTag({name: tag, value: 1})
 				}
-				TagService.createTag({name: v, value: 1}, (err, tag) =>{})
-			})
-		})
+				await TagService.updateTagForID(tagObject.id, Object.assign(tagObject, {value: tagObject.value + 1}))
+			}
+		} catch (err){
+			return Promise.reject(err)
+		}
 	}
 }

@@ -81,7 +81,7 @@ module.exports = {
 			if (!art || art.articleType === 'isDestroy') return res.badRequest({message: '文章已被删除'})
 			if (art.authorId !== req.headers.userID) return res.forbidden({message: '仅只能修改自己发表的文章'})
 			const updated = await ArticleService.updateArticle(id, article)
-			if (includesTags) TagService.saveTags(tags)
+			if (includesTags) TagService.saveTagsAsync(tags).then(res =>{})
 
 			res.ok(updated[0])
 		} catch (err){
@@ -120,7 +120,7 @@ module.exports = {
 				abstract: abstract,
 				articleType: 'isReview'
 			})
-			if (tags) TagService.saveTags(tags)
+			if (tags) TagService.saveTagsAsync(tags).then(res =>{})
 
 			res.ok(created)
 		} catch (err){
