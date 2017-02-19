@@ -12,13 +12,14 @@ module.exports = {
 	 * @apiUse CODE_200
 	 * @apiUse CODE_500
 	 */
-	show: (req, res) =>{
-		OptionService.findOptionAll('', (err, options) =>{
-			if (err) return res.serverError()
-
+	show: async (req, res) =>{
+		try {
+			const options = await OptionService.findOptionAll()
 			if (options && options[0]) return res.ok(options[0])
 			return res.ok({})
-		})
+		} catch (err){
+			return res.serverError()
+		}
 	},
 
 	/**
@@ -32,7 +33,7 @@ module.exports = {
 	 * @apiUse CODE_200
 	 * @apiUse CODE_500
 	 */
-	update: (req, res) =>{
+	update: async (req, res) =>{
 		const {blogName, blogSubhead, recommended} = req.allParams()
 		if (!blogName && !blogSubhead && !recommended){
 			return res.badRequest({message: '至少需要修改一项'})
@@ -42,21 +43,16 @@ module.exports = {
 		if (blogSubhead) option.blogSubhead = blogSubhead
 		if (recommended&& recommended[0]) option.recommended = recommended
 
-		const create = (option, res) =>{
-			OptionService.createOption(option, (err, created)=>{
-				if (err) return res.serverError()
+		try {
+			const allOptions = await OptionService.findOptionAll()
+			if (!allOptions|| allOptions.length == 0) {
+				const created = await OptionService.createOption(option)
 				return res.ok(created)
-			})
+			}
+			const updated = await OptionService.updateOptionForID(allOptions[0].id, option)
+			res.ok(updated[0])
+		} catch (err){
+			return res.serverError()
 		}
-		OptionService.findOptionAll('', (err, options) =>{
-			if (err) return res.serverError()
-
-			if (options.length == 0) return create(option, res)
-			OptionService.updateOptionForID(options[0].id, option, (err, updated) =>{
-				if (err) return res.serverError()
-
-				res.ok(updated[0])
-			})
-		})
 	}
 }
