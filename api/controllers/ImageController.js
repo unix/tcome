@@ -24,9 +24,7 @@ module.exports = {
 	upload: (req, res) =>{
 		let {image, size} = req.allParams()
 		if (!image|| !size) return res.badRequest({message: '参数错误'})
-		if (image.length > 2400000){
-			return res.badRequest({message: '图片过大，请压缩后再尝试'})
-		}
+		if (image.length > 2400000) return res.badRequest({message: '图片过大，请压缩后再尝试'})
 		const token = new QiNiuCloud.rs.PutPolicy('static').token()
 		if (image.includes('base64,')) image = image.split('base64,')[1]
 
