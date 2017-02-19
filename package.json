@@ -8,7 +8,7 @@
   },
   "scripts": {
     "debug": "node debug app.js",
-    "start": "node app.js",
+    "start": "node --harmony-async-await app",
     "api": "apidoc -i api/ -o doc/",
     "deploy": "pm2 deploy ecosystem.config.js production setup",
     "pro": "pm2 deploy ecosystem.config.js production"
