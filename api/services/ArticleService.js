@@ -23,7 +23,7 @@ module.exports = {
 			.paginate({limit: per_page? per_page: 14, page: page? page: 1,})
 	},
 	findReviewForType: (type, page, per_page) =>{
-		const where = !type || status == 'all'? {articleType: {'!': ['isDestroy']}}: {articleType: type}
+		const where = !type || type == 'all'? {articleType: {'!': ['isDestroy']}}: {articleType: type}
 		return Article
 			.find({
 				where: where,
