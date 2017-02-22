@@ -55,7 +55,9 @@ $ sails generate model <foo> [attribute1:type1, attribute2:type2 ... ]
 $ sails generate controller <foo> [action1, action2, ...]
 ```
 
-
+## DEMO
+![demo1](http://static.wittsay.cc/tcome-demo-1.png)
+![demo2](http://static.wittsay.cc/tcome-demo-2.png)
 
 
 ## TEAM

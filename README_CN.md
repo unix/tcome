@@ -54,6 +54,9 @@ $ sails generate model <foo> [attribute1:type1, attribute2:type2 ... ]
 $ sails generate controller <foo> [action1, action2, ...]
 ```
 
+## 展示
+![demo1](http://static.wittsay.cc/tcome-demo-1.png)
+![demo2](http://static.wittsay.cc/tcome-demo-2.png)
 
 ## 团队
 TCOME由WittBulter开发，如果你需要加入开发团队，请联系我:
