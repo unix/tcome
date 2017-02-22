@@ -10,10 +10,11 @@ If you need a frontend, goto [tcome-frontend](https://github.com/WittBulter/tcom
 
 ## FEATURES
 * Support login/register/manage
-* Users can publish articles and article review
-* Article support comments
+* Any users can publish articles
+* Support comments
 * Canonical interface(RESTfulAPI)，highly scalable
 * Search and more configuration
+* Elegant code
 * More features are under development... 
 
 ## DEVELOP
@@ -25,7 +26,7 @@ $ npm install
 * install sails.js
 $ sudo npm install sails -g
 
-* install grunt (if you need)
+* install grunt (optional, if you need)
 $ sudo npm install grunt -g
 ```
 

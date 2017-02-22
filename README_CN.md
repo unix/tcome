@@ -13,6 +13,7 @@
 * 文章支持评论
 * 规范的RESTfulAPI，高度可扩展性
 * 搜索与各类配置
+* 优雅，可维护性高的代码
 * 更多特性正在开发中...
 
 ## 开发
@@ -24,7 +25,7 @@ $ npm install
 * 安装全局sails
 $ sudo npm install sails -g
 
-* 安装全局grunt (sails)
+* 安装全局grunt (可选，如果你真的需要)
 $ sudo npm install grunt -g
 ```
 
