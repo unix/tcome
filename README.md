@@ -1,12 +1,12 @@
 ### T-COME, [中文](https://github.com/WittBulter/tcome/blob/master/README_CN.md)
-#### new blog, present for you.  
+#### next blog, present for you.  
 
 I'm not perfect, i'm sorry.
 
 [PREVIEW](http://wittsay.cc/) &nbsp; [API](http://wittsay.cc/doc)  &nbsp; 
 
-This is a blog based on NodeJS.  
-If you need a front-end, goto [tcome-frontend](https://github.com/WittBulter/tcome-frontend)
+This is a blog, based on nodejs and mongodb.  
+If you need a frontend, goto [tcome-frontend](https://github.com/WittBulter/tcome-frontend)
 
 ## FEATURES
 * Support login/register/manage
