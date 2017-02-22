@@ -31,7 +31,9 @@ $ sudo npm install grunt -g
 
 **运行:**
 ```sh
-* 挂起服务 默认监听1337端口
+* node版本 < 7.6.0 (npm start = node --harmony-async-await app.js)
+$ npm start
+* node版本 >= 7.6.0
 $ sails lift
 ```
 

@@ -32,7 +32,9 @@ $ sudo npm install grunt -g
 
 **run:**
 ```sh
-* start
+* if node version < 7.6.0 (npm start = node --harmony-async-await app.js)
+$ npm start
+* if node version >= 7.6.0
 $ sails lift
 ```
 
