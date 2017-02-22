@@ -55,6 +55,7 @@ $ sails generate controller <foo> [action1, action2, ...]
 ```
 
 ## 展示
+[预览](http://wittsay.cc/)
 ![demo1](http://static.wittsay.cc/tcome-demo-1.png)
 ![demo2](http://static.wittsay.cc/tcome-demo-2.png)
 
