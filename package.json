@@ -1,6 +1,6 @@
 {
   "name": "tcome-blog",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "tcome-blog",
   "main": "app.js",
   "apidoc": {
