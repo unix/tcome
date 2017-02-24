@@ -16,6 +16,14 @@
 * 优雅，可维护性高的代码
 * 更多特性正在开发中...
 
+
+## 安装
+使用 [tcome-cli](https://github.com/WittBulter/tcome-cli) 安装博客(目前只包含服务端，前端在开发中)
+```sh
+$ npm i tcome-cli -g
+$ tcome init [blog-name]
+```  
+
 ## 开发
 需要编译环境，具体配置请参阅[node-gyp](https://github.com/nodejs/node-gyp)
 ```sh
