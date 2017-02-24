@@ -17,6 +17,13 @@ If you need a frontend, goto [tcome-frontend](https://github.com/WittBulter/tcom
 * Elegant code
 * More features are under development... 
 
+## INSTALL
+Use [tcome-cli](https://github.com/WittBulter/tcome-cli) to install blogs,  contains only server code
+```sh
+$ npm i tcome-cli -g
+$ tcome init [blog-name]
+```
+
 ## DEVELOP
 tips: require node-gyp，see [node-gyp](https://github.com/nodejs/node-gyp)
 ```sh
