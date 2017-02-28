@@ -53,11 +53,11 @@ module.exports = {
 	update: async (req, res) =>{
 		const {id, status} = req.params
 		if (!id || !status) return res.badRequest({message: '参数错误'})
-		if (status != 'isReview' && status != 'isActive' && status != 'isDestroy'){
+		if (status != 'isReview'|| status != 'isActive'|| status != 'isDestroy'){
 			return res.badRequest({message: '状态错误'})
 		}
 		try {
-			const updated = await ArticleService.updateArticle(id)
+			const updated = await ArticleService.updateArticle(id, {articleType: status})
 			res.ok(updated[0])
 		} catch (err){
 			return res.serverError()
