@@ -13,10 +13,13 @@ module.exports = {
 	 * @apiUse CODE_500
 	 */
 	show: async (req, res) =>{
-		try {
+		try{
 			const options = await OptionService.findOptionAll()
-			if (options && options[0]) return res.ok(options[0])
-			return res.ok({})
+			if (!options || !options[0]) return res.ok({})
+			const promises = options[0].recommended.map(id => ArticleService.findArticleForID(id))
+			const recommended = await Promise.all(promises)
+			console.log(Object.assign(options[0], {recommended: recommended}));
+			return res.ok(Object.assign(options[0], {recommended: recommended}))
 		} catch (err){
 			return res.serverError()
 		}
@@ -29,7 +32,7 @@ module.exports = {
 	 * @apiDescription 修改博客基础信息(如果没有则自动创建) 需要管理员权限或更高
 	 * @apiParam (path) {string} [blogName] 博客名称
 	 * @apiParam (body) {string} [blogSubhead] 博客副标题
-	 * @apiParam (body) {array} [recommended] 博客推荐文章 每一项为文章对象
+	 * @apiParam (body) {array} [recommended] 博客推荐文章 每一项为文章id
 	 * @apiUse CODE_200
 	 * @apiUse CODE_500
 	 */
@@ -41,16 +44,20 @@ module.exports = {
 		let option = {}
 		if (blogName) option.blogName = blogName
 		if (blogSubhead) option.blogSubhead = blogSubhead
-		if (recommended&& recommended[0]) option.recommended = recommended
+		if (recommended && recommended[0]) option.recommended = recommended.filter(v => typeof v === 'string')
 
-		try {
+		try{
 			const allOptions = await OptionService.findOptionAll()
-			if (!allOptions|| allOptions.length == 0) {
+			if (!allOptions || allOptions.length == 0){
 				const created = await OptionService.createOption(option)
 				return res.ok(created)
 			}
-			const updated = await OptionService.updateOptionForID(allOptions[0].id, option)
-			res.ok(updated[0])
+			const [updated] = await OptionService.updateOptionForID(allOptions[0].id, option)
+			const promises = updated.recommended.map(id => ArticleService.findArticleForID(id))
+			const recommended = await Promise.all(promises)
+			console.log(recommended, 2);
+
+			res.ok(Object.assign(updated, {recommended: recommended}))
 		} catch (err){
 			return res.serverError()
 		}
