@@ -18,7 +18,7 @@ module.exports = {
 			if (!options || !options[0]) return res.ok({})
 			const promises = options[0].recommended.map(id => ArticleService.findArticleForID(id))
 			const recommended = await Promise.all(promises)
-			console.log(Object.assign(options[0], {recommended: recommended}));
+
 			return res.ok(Object.assign(options[0], {recommended: recommended}))
 		} catch (err){
 			return res.serverError()
@@ -32,7 +32,7 @@ module.exports = {
 	 * @apiDescription 修改博客基础信息(如果没有则自动创建) 需要管理员权限或更高
 	 * @apiParam (path) {string} [blogName] 博客名称
 	 * @apiParam (body) {string} [blogSubhead] 博客副标题
-	 * @apiParam (body) {array} [recommended] 博客推荐文章 每一项为文章id
+	 * @apiParam (body) {string[]} [recommended] 博客推荐文章 每一项为文章id
 	 * @apiUse CODE_200
 	 * @apiUse CODE_500
 	 */
@@ -55,7 +55,6 @@ module.exports = {
 			const [updated] = await OptionService.updateOptionForID(allOptions[0].id, option)
 			const promises = updated.recommended.map(id => ArticleService.findArticleForID(id))
 			const recommended = await Promise.all(promises)
-			console.log(recommended, 2);
 
 			res.ok(Object.assign(updated, {recommended: recommended}))
 		} catch (err){
