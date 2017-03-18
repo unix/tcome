@@ -98,7 +98,7 @@ module.exports = {
 	 * @apiParam (body) {string} title 文章标题
 	 * @apiParam (body) {string} content 文章内容
 	 * @apiParam (body) {string} [thumbnail] 文章缩略图
-	 * @apiParam (body) {array} [tags] 标签tags
+	 * @apiParam (body) {string[]} [tags] 标签tags
 	 * @apiUse CODE_200
 	 * @apiUse CODE_500
 	 */
