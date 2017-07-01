@@ -2,12 +2,11 @@
  * Created by WittBulter on 2017/1/31.
  */
 const request = require('request')
-const config = require('../../ecosystem.config')
 const QiNiuCloud = require('qiniu')
 
 // 个人qiniu密钥配置
-QiNiuCloud.conf.ACCESS_KEY = config.qiniu.ACCESS_KEY
-QiNiuCloud.conf.SECRET_KEY = config.qiniu.SECRET_KEY
+QiNiuCloud.conf.ACCESS_KEY = process.env.QINIU_ACCESS_KEY
+QiNiuCloud.conf.SECRET_KEY = process.env.QINIU_SECRET_KEY
 
 module.exports = {
 

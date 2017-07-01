@@ -1,0 +1,11 @@
+
+node_modules
+.idea
+.temp
+temp
+*.log
+docker-compose.yml
+docker-compose-dev.yml
+.dockerignore
+Dockerfile
+ecosystem.config.js

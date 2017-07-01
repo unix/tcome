@@ -10,8 +10,7 @@
     "debug": "node debug app.js",
     "start": "node --harmony-async-await app",
     "api": "apidoc -i api/ -o doc/",
-    "deploy": "pm2 deploy ecosystem.config.js production setup",
-    "pro": "pm2 deploy ecosystem.config.js production"
+    "docker-start": "npm i && node --harmony-async-await app.js --env production"
   },
   "repository": {
     "type": "git",
@@ -28,6 +27,7 @@
     "compression": "^1.6.2",
     "connect-mongo": "^1.3.2",
     "cron": "^1.1.0",
+    "express": "^4.15.3",
     "include-all": "~0.1.6",
     "node-uuid": "^1.4.7",
     "nodemailer": "^2.6.4",
