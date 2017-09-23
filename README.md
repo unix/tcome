@@ -69,7 +69,7 @@ $ sails generate controller <foo> [action1, action2, ...]
 
 
 ## TEAM
-TCOME developed by WittBulter，any question，please contact me:
+
 
 [![Witt Bulter](http://obqqxnnm4.bkt.clouddn.com/11304944.gif?imageView2/1/w/100)](https://github.com/WittBulter) |  
 :---:|
