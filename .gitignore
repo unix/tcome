@@ -1,0 +1,10 @@
+variables.env
+*.log
+.cache
+.DS_Store
+.idea
+dist
+node_modules
+dov
+variables
+

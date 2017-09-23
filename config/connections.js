@@ -10,16 +10,17 @@ const pro = {
   port: 27017,
   user: process.env.MONGODB_USER,
   password: process.env.MONGODB_PASS,
-  database: 'blog'
+  database: 'blog',
 }
 const dev = {
-    adapter: 'sails-mongo',
-    host: '127.0.0.1',
-    port: 27017,
-    user: 'user',
-    password: 'abcd123456',
-    database: 'blog'
+  adapter: 'sails-mongo',
+  host: '127.0.0.1',
+  port: 27017,
+  user: 'user',
+  password: 'abcd123456',
+  database: 'blog',
 }
+
 module.exports.connections = {
   
   /***************************************************************************
@@ -57,7 +58,7 @@ module.exports.connections = {
    * Run: npm install sails-mongo                                             *
    *                                                                          *
    ***************************************************************************/
-  mongo: process.env.NODE_ENV === 'development' ? dev : pro,
+  mongo: process.env.NODE_ENV === 'production' ? pro : dev,
   
   /***************************************************************************
    *                                                                          *

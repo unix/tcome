@@ -1,0 +1,16 @@
+version: "2"
+services:
+  dev.mongo:
+      image: tutum/mongodb:3.0
+      ports:
+        - "27017:27017"
+        - "28017:28017"
+      restart: always
+      volumes:
+        - blogdb_dev:/data/db
+      environment:
+        - MONGODB_DATABASE=blog
+        - MONGODB_USER=user
+        - MONGODB_PASS=abcd123456
+volumes:
+  blogdb_dev:
