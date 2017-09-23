@@ -4,9 +4,9 @@
  */
 
 module.exports = {
-
-	mailhost: process.env.MAIL_HOST,
-	user: process.env.MAIL_USER,
-	pass: process.env.MAIL_PASS,
-	support: process.env.MAIL_SUPPORT
+  
+  mailhost: process.env.MAIL_HOST,
+  user: process.env.MAIL_USER,
+  pass: process.env.MAIL_PASS,
+  support: process.env.MAIL_SUPPORT,
 }

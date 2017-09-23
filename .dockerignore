@@ -9,3 +9,5 @@ docker-compose-dev.yml
 .dockerignore
 Dockerfile
 ecosystem.config.js
+variables.env
+

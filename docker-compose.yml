@@ -1,0 +1,24 @@
+version: "2"
+services:
+  server:
+    image: tcome:v1.0.5
+    build: .
+    ports:
+      - "1337:1337"
+    restart: always
+    links:
+      - pro.mongo
+    env_file:
+       - ./variables.env
+  pro.mongo:
+    image: tutum/mongodb:3.0
+    ports:
+      - "27017:27017"
+      - "28017:28017"
+    restart: always
+    volumes:
+      - blogdb_pro:/data/db
+    env_file:
+      - ./variables.env
+volumes:
+  blogdb_pro:

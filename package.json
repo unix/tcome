@@ -8,9 +8,10 @@
   },
   "scripts": {
     "debug": "node debug app.js",
-    "start": "node --harmony-async-await app",
+    "start": "export NODE_ENV=development && node app.js",
     "api": "apidoc -i api/ -o doc/",
-    "docker-start": "npm i && node --harmony-async-await app.js --env production"
+    "docker-start": "export NODE_ENV=production && npm install --production && node --harmony app.js --env production",
+    "mongo": "docker-compose -f docker-compose-dev.yml up -d"
   },
   "repository": {
     "type": "git",
@@ -36,8 +37,12 @@
     "request": "^2.74.0",
     "sails": "~0.12.11",
     "sails-disk": "~0.10.9",
-    "sails-mongo": "^0.12.1",
+    "sails-mongo": "^0.12.2",
     "trim-html": "^0.1.7"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@types/node": "^8.0.13",
+    "nodemon": "^1.11.0",
+    "typedi": "^0.5.2"
+  }
 }

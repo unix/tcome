@@ -4,19 +4,19 @@
  */
 
 module.exports = {
-	attributes: {
-		email: {
-			type: 'email',
-			required: true
-		},
-		clientToken: {
-			type: 'string',
-		},
-		userID: {
-			type: 'string'
-		},
-		userName: {
-			type: 'string'
-		}
-	}
+  attributes: {
+    email: {
+      type: 'email',
+      required: true,
+    },
+    clientToken: {
+      type: 'string',
+    },
+    userID: {
+      type: 'string',
+    },
+    userName: {
+      type: 'string',
+    },
+  },
 }

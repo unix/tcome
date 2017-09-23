@@ -4,16 +4,16 @@
  */
 
 module.exports = {
-	attributes: {
-		name: {
-			type: 'string',
-			required: true,
-			unique: true
-		},
-		value: {
-			type: 'integer',
-			required: true,
-			defaultsTo: 1,
-		}
-	}
+  attributes: {
+    name: {
+      type: 'string',
+      required: true,
+      unique: true,
+    },
+    value: {
+      type: 'integer',
+      required: true,
+      defaultsTo: 1,
+    },
+  },
 }

@@ -21,76 +21,74 @@
  */
 
 module.exports.routes = {
-
-	/***************************************************************************
-	 *                                                                          *
-	 * Make the view located at `views/homepage.ejs` (or `views/homepage.jade`, *
-	 * etc. depending on your default view engine) your home page.              *
-	 *                                                                          *
-	 * (Alternatively, remove this and add an `index.html` file in your         *
-	 * `assets` directory)                                                      *
-	 *                                                                          *
-	 ***************************************************************************/
-
-	// 'GET /doc': (req, res) =>{
-	// 	res.send(__dirname)
-	// },
-	// '/*': {policy: 'selectApiVersion', skipAssets: true},
-
-	// 用户登录
-	'post /v1/session': 'AuthController.login',
-	// 用户登出 注销session
-	'delete /v1/session': 'AuthController.logout',
-
-	// 文章
-	'get /v1/articles': 'ArticleController.show',
-	'get /v1/articles/:id': 'ArticleController.show',
-	'get /v1/articles/:keyword/search': 'ArticleController.search',
-	'post /v1/article': 'ArticleController.create',
-	'put /v1/articles/:id': 'ArticleController.update',
-	'delete /v1/articles/:id': 'ArticleController.destroy',
-
-	// 文章评论
-	'get /v1/articles/:id/comment': 'CommentController.show',
-	'post /v1/articles/:id/comment': 'CommentController.create',
-	'delete /v1/comments/:id': 'CommentController.destroy',
-
-	// 文章标签
-	'get /v1/articles/:tag/tag': 'TagController.showArticles',
-	'get /v1/tags': 'TagController.showTags',
-
-	// 审核文章
-	'get /v1/reviews': 'ReviewController.show',
-	'get /v1/reviews/:id': 'ReviewController.show',
-	'put /v1/reviews/:id/:status': 'ReviewController.update',
-
-	// 用户
-	'get /v1/users/:id': 'UserController.show',
-	'get /v1/users/:id/:resource': 'UserController.resource',
-	'post /v1/users/:id/validate': 'UserController.validate',
-	'get /v1/user/type': 'UserController.userType',
-	'get /v1/user': 'UserController.self',
-	'put /v1/user': 'UserController.update',
-	'post /v1/user': 'UserController.create',
-
-	// 博客基础信息
-	'get /v1/option': 'OptionController.show',
-	'put /v1/option': 'OptionController.update',
-
-	// 上传图片
-	'post /v1/image': 'ImageController.upload',
-
-
-
-
-	/***************************************************************************
-	 *                                                                          *
-	 * Custom routes here...                                                    *
-	 *                                                                          *
-	 * If a request to a URL doesn't match any of the custom routes above, it   *
-	 * is matched against Sails route blueprints. See `config/blueprints.js`    *
-	 * for configuration options and examples.                                  *
-	 *                                                                          *
-	 ***************************************************************************/
-
-};
+  
+  /***************************************************************************
+   *                                                                          *
+   * Make the view located at `views/homepage.ejs` (or `views/homepage.jade`, *
+   * etc. depending on your default view engine) your home page.              *
+   *                                                                          *
+   * (Alternatively, remove this and add an `index.html` file in your         *
+   * `assets` directory)                                                      *
+   *                                                                          *
+   ***************************************************************************/
+  
+  // 'GET /doc': (req, res) =>{
+  // 	res.send(__dirname)
+  // },
+  // '/*': {policy: 'selectApiVersion', skipAssets: true},
+  
+  // 用户登录
+  'post /v1/session': 'AuthController.login',
+  // 用户登出 注销session
+  'delete /v1/session': 'AuthController.logout',
+  
+  // 文章
+  'get /v1/articles': 'ArticleController.show',
+  'get /v1/articles/:id': 'ArticleController.show',
+  'get /v1/articles/:keyword/search': 'ArticleController.search',
+  'post /v1/article': 'ArticleController.create',
+  'put /v1/articles/:id': 'ArticleController.update',
+  'delete /v1/articles/:id': 'ArticleController.destroy',
+  
+  // 文章评论
+  'get /v1/articles/:id/comment': 'CommentController.show',
+  'post /v1/articles/:id/comment': 'CommentController.create',
+  'delete /v1/comments/:id': 'CommentController.destroy',
+  
+  // 文章标签
+  'get /v1/articles/:tag/tag': 'TagController.showArticles',
+  'get /v1/tags': 'TagController.showTags',
+  
+  // 审核文章
+  'get /v1/reviews': 'ReviewController.show',
+  'get /v1/reviews/:id': 'ReviewController.show',
+  'put /v1/reviews/:id/:status': 'ReviewController.update',
+  
+  // 用户
+  'get /v1/users/:id': 'UserController.show',
+  'get /v1/users/:id/:resource': 'UserController.resource',
+  'post /v1/users/:id/validate': 'UserController.validate',
+  'get /v1/user/type': 'UserController.userType',
+  'get /v1/user': 'UserController.self',
+  'put /v1/user': 'UserController.update',
+  'post /v1/user': 'UserController.create',
+  
+  // 博客基础信息
+  'get /v1/option': 'OptionController.show',
+  'put /v1/option': 'OptionController.update',
+  
+  // 上传图片
+  'post /v1/image': 'ImageController.upload',
+  
+  
+  /***************************************************************************
+   *                                                                          *
+   * Custom routes here...                                                    *
+   *                                                                          *
+   * If a request to a URL doesn't match any of the custom routes above, it   *
+   * is matched against Sails route blueprints. See `config/blueprints.js`    *
+   * for configuration options and examples.                                  *
+   *                                                                          *
+   ***************************************************************************/
+  
+}

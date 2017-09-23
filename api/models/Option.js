@@ -4,17 +4,17 @@
  */
 
 module.exports = {
-	attributes: {
-		blogName: {
-			type: 'string',
-			required: true,
-			defaultsTo: '维特博客'
-		},
-		blogSubhead: {
-			type: 'string'
-		},
-		recommended: {
-			type: 'array'
-		}
-	}
+  attributes: {
+    blogName: {
+      type: 'string',
+      required: true,
+      defaultsTo: '维特博客',
+    },
+    blogSubhead: {
+      type: 'string',
+    },
+    recommended: {
+      type: 'array',
+    },
+  },
 }
